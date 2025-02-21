@@ -5,8 +5,102 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ACMS"
         mc:Ignorable="d"
-        Title="СКУД" Height="300" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
-    <Grid>
-        
+        Title="СКУД" Height="600" Width="850" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="ButtonLog" TargetType="Button">
+
+            <Setter Property="BorderBrush" Value="#716040"/>
+            <Setter Property="BorderThickness" Value="1 1 0 1"/>
+            <Setter Property="Background" Value="#8c7851"/>
+            <Setter Property="VerticalContentAlignment" Value="Top"/>
+            <Setter Property="Padding" Value="0 4 0 0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style TargetType="Border" x:Key="BorderMain">
+            <Setter Property="CornerRadius" Value="35"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabelLog">
+            <Setter Property="FontSize" Value="18"/>
+        </Style>
+
+        <Style x:Key="BoxText" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="#716040"/>
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="Margin" Value="0 5 0 0 "/>
+            <Setter Property="FontSize" Value="16"/>
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="7"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style x:Key="BoxPass" TargetType="PasswordBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="Margin" Value="0 5 0 0 "/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border CornerRadius="7" BorderThickness="1" BorderBrush="#716040"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
+    <Grid x:Name="LoginGrid" Background="#f9f4ef">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="300"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="1"  Margin="0 30 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="23"/>
+            </Grid.RowDefinitions>
+            <WrapPanel Grid.Row="1" Margin="40 0 0 0">
+                <Button Content="Вход" Width="100" Height="40" Style="{StaticResource ButtonLog}"/>
+
+                <Button Content="Регистрация" Width="140" Height="35" Style="{StaticResource ButtonLog}" Background="#716040"/>
+            </WrapPanel>
+        </Grid>
+        <Border Background="#8c7851" Grid.Column="1" Grid.Row="1" Style="{StaticResource BorderMain}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="1">
+                    <Label Content="Авторизация" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 30 0 10"/>
+                    <Label Content="Логин" Style="{StaticResource LabelLog}"/>
+                    <TextBox Style="{StaticResource BoxText}"/>
+                    <Label Content="Пароль" Style="{StaticResource LabelLog}"/>
+                    <PasswordBox Style="{StaticResource BoxPass}"/>
+                    <Button Content="Войти" Padding="0 5" Margin="0 20 0 0 " Style="{StaticResource ButtonLog}" Background="#716040"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Window>
