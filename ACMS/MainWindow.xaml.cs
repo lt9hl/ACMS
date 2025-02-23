@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ACMS.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ACMS.ApplicationData;
 
 namespace ACMS
 {
+    
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
@@ -23,6 +26,21 @@ namespace ACMS
         public MainWindow()
         {
             InitializeComponent();
+            AppConnect.modelOdb = new ACMSEntities();
+
+        }
+
+        Frame fr1 = new Frame(); 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        { 
+
+        }
+
+        private void LoginButt_Click(object sender, RoutedEventArgs e)
+        {
+            string pass = PassInp.Password;
+            string login = LoginInp.Text;
+            
         }
     }
 }
