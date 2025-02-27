@@ -1,5 +1,4 @@
-﻿using ACMS.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,23 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ACMS.ApplicationData;
 
-namespace ACMS
+namespace ACMS.Pages
 {
-    
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для StartPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class StartPage : Page
     {
-        public MainWindow()
+        public StartPage()
         {
             InitializeComponent();
-            AppConnect.modelOdb = new ACMSEntities();
-            AppFrame.PMain = frMain;
-            frMain.Navigate(new Login());
         }
-
     }
 }

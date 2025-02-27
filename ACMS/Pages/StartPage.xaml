@@ -1,0 +1,83 @@
+﻿<Page x:Class="ACMS.Pages.StartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ACMS.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StartPage">
+    <Page.Resources>
+        <Style x:Key="ButtonLog" TargetType="Button">
+            <Setter Property="Background" Value="#d5b893"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="12 4"/>
+            <Setter Property="Margin" Value="6 10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Foreground" Value="#6f4d38"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style TargetType="Border" x:Key="BorderMain">
+            <Setter Property="CornerRadius" Value="35"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Background" Value="#6f4d38"/>
+            <Setter Property="Margin" Value="15"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="LabelLog">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Margin" Value="20 5 0 0"/>
+            <Setter Property="Foreground" Value="#d5b893"/>
+
+        </Style>
+
+        <Style x:Key="BoxText" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="#d5b893"/>
+            <Setter Property="Foreground" Value="#d5b893"/>
+            <Setter Property="BorderThickness" Value="0 0 0 1"/>
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="20 0 20 0"/>
+
+        </Style>
+
+        <Style x:Key="BoxPass" TargetType="PasswordBox">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="BorderBrush" Value="#d5b893" />
+            <Setter Property="Foreground" Value="#d5b893"/>
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
+            <Setter Property="Margin" Value="20 0 20 0"/>
+
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="#d5b893" >
+        <Border Style="{StaticResource BorderMain}" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <WrapPanel Margin="10 0 0 0">
+                    <Button Content="Сотрудники" Style="{StaticResource ButtonLog}" Margin="10 10"/>
+                    <Button Content="Пропуска" Style="{StaticResource ButtonLog}" Background="#b39b7d"/>
+                    <Button Content="" Style="{StaticResource ButtonLog}"/>
+                    <Button Content="" Style="{StaticResource ButtonLog}"/>
+                    <Button Content="Отчеты" Style="{StaticResource ButtonLog}"/>
+                    
+                </WrapPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

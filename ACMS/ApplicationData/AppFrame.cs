@@ -9,6 +9,6 @@ namespace ACMS.ApplicationData
 {
     internal class AppFrame
     {
-        public static Page PMain;
+        public static Frame PMain;
     }
 }

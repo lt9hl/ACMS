@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
+using ACMS.ApplicationData;
+using System.Windows.Media.Media3D;
 
 namespace ACMS.Pages
 {
@@ -28,7 +30,84 @@ namespace ACMS.Pages
         }
 
         private void toReg_Click(object sender, RoutedEventArgs e)
-        { 
+        {
+
+        }
+
+        private void toLogin_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void RegistrDone_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string inpPass = Pass.Password;
+                string inpRepPass = RepPass.Password;
+                string inpLogin = Login.Text.Trim();
+                string inpEmail = Email.Text.Trim();
+
+                var user = AppConnect.modelOdb.Users.FirstOrDefault(x => x.Login == inpLogin);
+
+                Pass.Background = Brushes.Transparent;
+                RepPass.Background = Brushes.Transparent;
+                Login.Background = Brushes.Transparent;
+                Email.Background = Brushes.Transparent;
+
+                if (user != null)
+                {
+                    Login.Background = new SolidColorBrush(Color.FromRgb(99, 32, 36));
+                    MessageBox.Show("Имя пользователя занято", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (inpPass.Length < 8 || inpRepPass.Length < 8)
+                {
+                    Pass.Background = new SolidColorBrush(Color.FromRgb(99, 32, 36));
+                    RepPass.Background = new SolidColorBrush(Color.FromRgb(99, 32, 36));
+
+                    MessageBox.Show("Длинна пароля меньше 8 символов", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    Users userOdb = new Users()
+                    {
+                        Login = inpLogin,
+                        Password = inpPass,
+                        email = inpEmail
+                    };
+                    AppConnect.modelOdb.Users.Add(userOdb);
+                    AppConnect.modelOdb.SaveChanges();
+                    MessageBox.Show($"Пользователь {inpLogin} добавлен","Уведомление", MessageBoxButton.OK,MessageBoxImage.Information);
+                    NavigationService.GoBack();
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show($"Критическая ошибка в работе приложения\n{ex.Message}","Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            
+        }
+
+        private void RepPass_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            checkPass();
+        }
+           
+        void checkPass()
+        {
+            if (RepPass.Password != Pass.Password)
+                RegistrDone.IsEnabled = false;
+            else
+                RegistrDone.IsEnabled = true;
+        }
+
+        private void Pass_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            checkPass();
+        }
+
+        private void toLogin_MouseEnter(object sender, MouseEventArgs e)
+        {
 
         }
     }
