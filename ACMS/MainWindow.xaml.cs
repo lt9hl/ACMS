@@ -28,8 +28,25 @@ namespace ACMS
             InitializeComponent();
             AppConnect.modelOdb = new ACMSEntities();
             AppFrame.PMain = frMain;
-            frMain.Navigate(new Login());
+            
         }
 
+
+
+
+        private void CloseWin(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MinimWin(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void frMain_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }
