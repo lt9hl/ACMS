@@ -27,12 +27,9 @@ namespace ACMS.Pages
         public Reg()
         {
             InitializeComponent();
+            RegistrDone.IsEnabled = false;
         }
 
-        private void toReg_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void toLogin_Click(object sender, RoutedEventArgs e)
         {
@@ -45,27 +42,33 @@ namespace ACMS.Pages
             {
                 string inpPass = Pass.Password;
                 string inpRepPass = RepPass.Password;
-                string inpLogin = Login.Text.Trim();
+                string inpLogin = LoginI.Text.Trim();
                 string inpEmail = Email.Text.Trim();
 
                 var user = AppConnect.modelOdb.Users.FirstOrDefault(x => x.Login == inpLogin);
 
                 Pass.Background = Brushes.Transparent;
                 RepPass.Background = Brushes.Transparent;
-                Login.Background = Brushes.Transparent;
+                LoginI.Background = Brushes.Transparent;
                 Email.Background = Brushes.Transparent;
 
                 if (user != null)
                 {
-                    Login.Background = new SolidColorBrush(Color.FromRgb(99, 32, 36));
+                    LoginI.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
                     MessageBox.Show("Имя пользователя занято", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else if (inpPass.Length < 8 || inpRepPass.Length < 8)
                 {
-                    Pass.Background = new SolidColorBrush(Color.FromRgb(99, 32, 36));
-                    RepPass.Background = new SolidColorBrush(Color.FromRgb(99, 32, 36));
+                    Pass.Background = Brushes.DarkRed;
+                    RepPass.Background = Brushes.DarkRed;
 
                     MessageBox.Show("Длинна пароля меньше 8 символов", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if(!inpEmail.Contains("@") || !inpEmail.Contains("."))
+                {
+                    MessageBox.Show("Почта заполнена неправильно", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    Email.Background = Brushes.DarkRed;
                 }
                 else
                 {
@@ -95,7 +98,7 @@ namespace ACMS.Pages
            
         void checkPass()
         {
-            if (RepPass.Password != Pass.Password)
+            if (RepPass.Password != Pass.Password || RepPass.Password == null || Pass.Password == null )
                 RegistrDone.IsEnabled = false;
             else
                 RegistrDone.IsEnabled = true;
@@ -106,9 +109,16 @@ namespace ACMS.Pages
             checkPass();
         }
 
-        private void toLogin_MouseEnter(object sender, MouseEventArgs e)
+        private void LoginI_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (LoginI.Text != null) RegistrDone.IsEnabled = false;
+            else RegistrDone.IsEnabled = true;
+        }
 
+        private void Email_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Email.Text != null) RegistrDone.IsEnabled = false;
+            else RegistrDone.IsEnabled = true;
         }
     }
 }

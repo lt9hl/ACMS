@@ -1,4 +1,4 @@
-﻿<Window x:Class="ACMS.MainWindow"
+﻿<Window x:Name="WorkWin" x:Class="ACMS.MainWindow" 
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -7,13 +7,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ACMS"
         mc:Ignorable="d"
-        Title="СКУД" Height="600" Width="850"  WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" AllowsTransparency="True">
-   
+        Title="СКУД" Height="550" Width="800"  WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" Background="Transparent" AllowsTransparency="True" Icon="/Images/icons/free-icon-font-layers (1).png">
+
     <Window.Resources>
         <Style x:Key="ControlBut" TargetType="Button">
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="Width" Value="50"/>
             <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+        
+        <Style x:Key="ButtonStyleExit" TargetType="{x:Type Button}">
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="25"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -25,14 +33,26 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="HorizontalAlignment" Value="Right"/>
-
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="DarkRed" />
+                    <Setter Property="Background" Value="#ca3f20"/>
                 </Trigger>
             </Style.Triggers>
-
         </Style>
+        
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Gray"/>
+
+
+        <ControlTemplate x:Key="ButtonTemplateMinim" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
 
     </Window.Resources>
 
@@ -43,21 +63,21 @@
             <Grid>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="25"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Frame Background="Transparent"  x:Name="frMain" NavigationUIVisibility="Hidden" Source="/Pages/Login.xaml" Grid.RowSpan="2" MouseLeftButtonDown="frMain_MouseLeftButtonDown"/>
+                <Frame Background="Transparent"  x:Name="frMain" NavigationUIVisibility="Hidden" Source="/Pages/StartPage.xaml" Grid.RowSpan="2" MouseLeftButtonDown="frMain_MouseLeftButtonDown"/>
 
                 <WrapPanel HorizontalAlignment="Right">
 
 
-                    <Button Click="MinimWin" Background="Transparent" Style="{StaticResource ControlBut}">
-                        <Image Source="\Images\icons\minus.png" Stretch="UniformToFill"  Width="15" Height="15"/>
+                    <Button Height="25" Width="40" Template="{DynamicResource ButtonTemplateMinim}" Click="MinimWin" Background="Transparent" Style="{StaticResource ControlBut}">
+                        <Image Source="\Images\icons\minusnw.png" Stretch="UniformToFill"  Width="12" Height="12"/>
                     </Button>
 
-                    <Button Click="CloseWin" Style="{StaticResource ControlBut}"  >
-                        <Image Source="\Images\icons\cross.png" Stretch="UniformToFill" Width="15" Height="15"/>
+                    <Button Click="CloseWin" Style="{StaticResource ButtonStyleExit}"  >
+                        <Image Source="\Images\icons\crossnw.png" Stretch="UniformToFill" Width="12" Height="12"/>
                     </Button>
 
                 </WrapPanel>

@@ -207,9 +207,11 @@
       <DependentUpon>BD.edmx</DependentUpon>
       <LastGenOutput>BD.cs</LastGenOutput>
     </Content>
-    <Resource Include="Images\icons\cross-small.png" />
-    <Resource Include="Images\icons\minus.png" />
-    <Resource Include="Images\icons\cross.png" />
+    <Resource Include="Images\icons\menu.png" />
+    <Resource Include="Images\icons\free-icon-font-layers %281%29.png" />
+    <Resource Include="Images\icons\icon.png" />
+    <Resource Include="Images\icons\crossnw.png" />
+    <Resource Include="Images\icons\minusnw.png" />
     <Resource Include="Images\back.png" />
     <Resource Include="Images\bck6.png" />
   </ItemGroup>
