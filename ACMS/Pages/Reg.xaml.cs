@@ -64,7 +64,7 @@ namespace ACMS.Pages
 
                     MessageBox.Show("Длинна пароля меньше 8 символов", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                else if(!inpEmail.Contains("@") || !inpEmail.Contains("."))
+                else if (!inpEmail.Contains("@") || !inpEmail.Contains("."))
                 {
                     MessageBox.Show("Почта заполнена неправильно", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -80,28 +80,28 @@ namespace ACMS.Pages
                     };
                     AppConnect.modelOdb.Users.Add(userOdb);
                     AppConnect.modelOdb.SaveChanges();
-                    MessageBox.Show($"Пользователь {inpLogin} добавлен","Уведомление", MessageBoxButton.OK,MessageBoxImage.Information);
+                    MessageBox.Show($"Пользователь {inpLogin} добавлен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                     NavigationService.GoBack();
                 }
-            }catch(Exception ex)
+            } catch (Exception ex)
             {
-                MessageBox.Show($"Критическая ошибка в работе приложения\n{ex.Message}","Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Критическая ошибка в работе приложения\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
-            
+
+
         }
 
         private void RepPass_PasswordChanged(object sender, RoutedEventArgs e)
         {
             checkPass();
         }
-           
+
         void checkPass()
         {
-            if (RepPass.Password != Pass.Password || RepPass.Password == null || Pass.Password == null )
-                RegistrDone.IsEnabled = false;
-            else
+            if (RepPass.Password == Pass.Password && RepPass.Password != "" && LoginI.Text != "" && Email.Text != "")
                 RegistrDone.IsEnabled = true;
+            else
+                RegistrDone.IsEnabled = false;
         }
 
         private void Pass_PasswordChanged(object sender, RoutedEventArgs e)
@@ -109,16 +109,20 @@ namespace ACMS.Pages
             checkPass();
         }
 
+
         private void LoginI_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (LoginI.Text != null) RegistrDone.IsEnabled = false;
-            else RegistrDone.IsEnabled = true;
+            checkPass();
         }
 
         private void Email_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (Email.Text != null) RegistrDone.IsEnabled = false;
-            else RegistrDone.IsEnabled = true;
+            checkPass();
+        }
+
+        private void RepPass_PasswordChanged_1(object sender, RoutedEventArgs e)
+        {
+            checkPass();
         }
     }
 }

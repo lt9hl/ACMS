@@ -14,9 +14,22 @@ namespace ACMS.ApplicationData
     
     public partial class Doors
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Doors()
+        {
+            this.AccessLevelsDoors = new HashSet<AccessLevelsDoors>();
+            this.DoorsEmployees = new HashSet<DoorsEmployees>();
+        }
+    
         public int idDoor { get; set; }
         public string TitleDoor { get; set; }
         public string Description { get; set; }
         public int idDD { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AccessLevelsDoors> AccessLevelsDoors { get; set; }
+        public virtual DoorDirections DoorDirections { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DoorsEmployees> DoorsEmployees { get; set; }
     }
 }

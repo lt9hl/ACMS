@@ -17,7 +17,7 @@
         
         <Style x:Key="ButtSwap" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Margin" Value="30 20 0 0"/>
+            <Setter Property="Margin" Value="30 0 0 0"/>
             <Setter Property="Padding" Value="10 0 10 3"/>
             <Setter Property="Foreground" Value="#d2c2b7"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
@@ -75,6 +75,7 @@
         <Style x:Key="MainBorder" TargetType="Border">
             <Setter Property="CornerRadius" Value=" 10 0 0 10"/>
         </Style>
+        
         <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#7e972e"/>
         <SolidColorBrush x:Key="Button.Pressed.Border" Color="#6d8228"/>
         <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#d2c2b7"/>
@@ -89,11 +90,11 @@
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="true">
                     <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                    <Setter Property="BorderThickness" Value="0 2 0 0"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="true">
                     <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                    <Setter Property="BorderThickness" Value="0 2 0 0"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="false">
                     <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
@@ -135,9 +136,10 @@
             
             <StackPanel>
 
-                <WrapPanel Height="50">
-                    <Button Template="{DynamicResource ButtonTemplateTo}"  x:Name="toLogButt" Content="Вход" Style="{StaticResource ButtSwap}"  />
-                    <Button Template="{DynamicResource ButtonTemplateTo}" Click="toReg" x:Name="toRegButt" Content="Регистрация" Style="{StaticResource ButtSwap}"  Margin="10 20 0 0"/>
+                <WrapPanel Height="50" Margin="25 0 0 0">
+                    <Button Template="{DynamicResource ButtonTemplateTo}"  x:Name="toLogButt" Content="Вход" Style="{StaticResource ButtSwap}" Padding="0 20 0 0" />
+                    <Label Content="." FontSize="30" Margin="7 0 0 0"/>
+                    <Button Template="{DynamicResource ButtonTemplateTo}" Click="toReg" x:Name="toRegButt" Content="Регистрация" Style="{StaticResource ButtSwap}"  Margin="10 0 0 0" Padding="0 20 0 0"/>
                 </WrapPanel>
 
                 <StackPanel Margin="50 20 0 0" Background="Transparent">

@@ -14,9 +14,18 @@ namespace ACMS.ApplicationData
     
     public partial class WorkSchedules
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public WorkSchedules()
+        {
+            this.Keys = new HashSet<Keys>();
+        }
+    
         public int idWS { get; set; }
         public string TitleWS { get; set; }
         public System.TimeSpan StartDay { get; set; }
         public System.TimeSpan EndDay { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Keys> Keys { get; set; }
     }
 }

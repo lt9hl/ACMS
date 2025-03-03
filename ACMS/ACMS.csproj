@@ -75,6 +75,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationData\sysdiagrams.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="getC.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -144,6 +148,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\PagesW\DoorsFr.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PagesW\EmployeesFr.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PagesW\ReportFr.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PagesW\StartFr.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PagesW\UsersFr.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Reg.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -156,6 +180,21 @@
   <ItemGroup>
     <Compile Include="Pages\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PagesW\DoorsFr.xaml.cs">
+      <DependentUpon>DoorsFr.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PagesW\EmployeesFr.xaml.cs">
+      <DependentUpon>EmployeesFr.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PagesW\ReportFr.xaml.cs">
+      <DependentUpon>ReportFr.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PagesW\StartFr.xaml.cs">
+      <DependentUpon>StartFr.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PagesW\UsersFr.xaml.cs">
+      <DependentUpon>UsersFr.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Reg.xaml.cs">
       <DependentUpon>Reg.xaml</DependentUpon>
@@ -207,6 +246,18 @@
       <DependentUpon>BD.edmx</DependentUpon>
       <LastGenOutput>BD.cs</LastGenOutput>
     </Content>
+    <Resource Include="Images\icons\exit.png" />
+    <Resource Include="Images\leftMenu\doors.png" />
+    <Resource Include="Images\leftMenu\menuUsers.png" />
+    <Resource Include="Images\leftMenu\fingerprint.png" />
+    <Resource Include="Images\leftMenu\payment.png" />
+    <Resource Include="Images\leftMenu\portrait.png" />
+    <Resource Include="Images\leftMenu\stats.png" />
+    <Resource Include="Images\workIcons\exit.png" />
+    <Resource Include="Images\workIcons\addUser.png" />
+    <Resource Include="Images\workIcons\card.png" />
+    <Resource Include="Images\workIcons\users1.png" />
+    <Resource Include="Images\workIcons\badge.png" />
     <Resource Include="Images\icons\menu.png" />
     <Resource Include="Images\icons\free-icon-font-layers %281%29.png" />
     <Resource Include="Images\icons\icon.png" />

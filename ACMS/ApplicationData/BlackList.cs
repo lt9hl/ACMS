@@ -17,5 +17,7 @@ namespace ACMS.ApplicationData
         public int idBL { get; set; }
         public int idE { get; set; }
         public System.DateTime EnterDate { get; set; }
+    
+        public virtual Employees Employees { get; set; }
     }
 }

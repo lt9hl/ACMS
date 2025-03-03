@@ -19,5 +19,8 @@ namespace ACMS.ApplicationData
         public string KeyCard { get; set; }
         public int idAL { get; set; }
         public int idWS { get; set; }
+    
+        public virtual Employees Employees { get; set; }
+        public virtual WorkSchedules WorkSchedules { get; set; }
     }
 }

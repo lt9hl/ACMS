@@ -37,5 +37,6 @@ namespace ACMS.ApplicationData
         public virtual DbSet<Organizations> Organizations { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<WorkSchedules> WorkSchedules { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

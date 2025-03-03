@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ACMS.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="800"
       Title="StartPage">
     <Page.Resources>
+
         <Style TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="#d2c2b7" />
             <Setter Property="FontSize" Value="10"/>
-            <Setter Property="Opacity" Value="0.7"/>
         </Style>
 
         <Style x:Key="ButtSwap" TargetType="Button">
@@ -52,33 +52,55 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
 
-        <Style x:Key="ButtAuth" TargetType="Button">
+        <Style x:Key="ButtFast" TargetType="Button">
             <Setter Property="Background" Value="#c09954"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
-
-
-            <Setter Property="Margin" Value="50 30 0 0"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Width" Value="160"/>
-            <Setter Property="Height" Value="35"/>
+            <Setter Property="Width" Value="42"/>
+            <Setter Property="Height" Value="42"/>
             <Setter Property="Foreground" Value="#d2c2b7"/>
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="7"/>
+                </Style>
+            </Style.Resources>
         </Style>
 
-        <Style x:Key="CheckBoxAuth" TargetType="CheckBox">
+        <Style x:Key="ButtonMenu" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="#c09954"/>
-            <Setter Property="Margin" Value=" 0 5 0 0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="25 0 0 0"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="180"/>
+            <!--<Setter Property="BorderBrush" Value="Red"/>
+            <Setter Property="BorderThickness" Value="1"/>-->
+            <Setter Property="Margin" Value="0 6 0 0"/>
+            <Style.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="Foreground" Value="#d2c2b7"/>
+                    <Setter Property="Opacity" Value="0.7"/>
+                    <Setter Property="FontSize" Value="13"/>
+                </Style>
+                <Style TargetType="Image">
+                    <Setter Property="Width" Value="20"/>
+                    <Setter Property="Margin" Value="0 0 10 0"/>
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                </Style>
+            </Style.Resources>
 
         </Style>
 
-        <Style x:Key="MainBorder" TargetType="Border">
-            <Setter Property="CornerRadius" Value=" 10 0 0 10"/>
-        </Style>
+
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#292919" Opacity="0.5"/>
         <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#7e972e"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#292919" Opacity="0.7"/>
         <SolidColorBrush x:Key="Button.Pressed.Border" Color="#6d8228"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#d2c2b7"/>
-
-        <ControlTemplate x:Key="ButtonTemplateTo" TargetType="{x:Type ButtonBase}">
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        
+        <ControlTemplate x:Key="ButtonTemplate1" TargetType="{x:Type ButtonBase}">
             <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
                 <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Border>
@@ -87,70 +109,103 @@
                     <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
                     <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                    <Setter Property="BorderThickness" Value="2 0 0 0"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
                     <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                    <Setter Property="BorderThickness" Value="2 0 0 0"/>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
                     <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
 
 
-        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#c09954"/>
-        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#c09954"/>
-
-        <ControlTemplate x:Key="TextBoxTemplateTB" TargetType="{x:Type TextBoxBase}">
-            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
-                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
-                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
-                </Trigger>
-                <Trigger Property="IsKeyboardFocused" Value="true">
-                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
-                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
-                    <Setter Property="CaretBrush" Value="#d2c2b7"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-
     </Page.Resources>
     <Grid>
-        <Border x:Name="LoginGrid" Style="{StaticResource MainBorder}"  >
+        <Border x:Name="LoginGrid" CornerRadius="5">
             <Border.Background>
-                <LinearGradientBrush StartPoint="0.0, 0.5" EndPoint="0.7, 0.5">
-                <GradientStop Offset="-0.1" Color="#292919" />
-
-                <GradientStop Offset="1" Color="Transparent" />
-
-                </LinearGradientBrush>
+                <SolidColorBrush Color="#292919" Opacity="0.6"/>
             </Border.Background>
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="70"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="180"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="80"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="70"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
+
+                <Frame x:Name="FrStart" Grid.RowSpan="2" Grid.Column="1" Source="/Pages/PagesW/StartFr.xaml"/>
+                <Border BorderBrush="#292919" BorderThickness="0 0 1 0" CornerRadius="5 0 0 5 " Grid.RowSpan="2">
+                    <Border.Background>
+                        <SolidColorBrush Color="#292919" Opacity="0.6"/>
+                    </Border.Background>
+
+                    <StackPanel Margin="0 110 0 0 ">
+                        <Button Click="toEmpFr" Template="{DynamicResource ButtonTemplate1}" x:Name="ButtEmpl" Style="{StaticResource ButtonMenu}">
+                            <WrapPanel>
+                                <Image x:Name="empI" Source="\Images\leftMenu\portrait.png"/>
+                                <Label x:Name="EmpText" Content="Сотрудники"  />
+                            </WrapPanel>
+                        </Button>
+
+                        <Button Click="toUserFr" Template="{DynamicResource ButtonTemplate1}" x:Name="ByttUsers" Style="{StaticResource ButtonMenu}">
+                            <WrapPanel>
+                                <Image Source="\Images\leftMenu\menuUsers.png"/>
+                                <Label Content="Пользователи" />
+                            </WrapPanel>
+                        </Button>
+
+                        <Button Click="toEntFr" x:Name="ButtCards" Style="{StaticResource ButtonMenu}" Template="{DynamicResource ButtonTemplate1}">
+                            <WrapPanel>
+                                <Image Source="\Images\leftMenu\fingerprint.png"/>
+                                <Label Content="Пропуска" />
+                            </WrapPanel>
+                        </Button>
+
+                        <Button Click="toPayFr" x:Name="ButtCash" Style="{StaticResource ButtonMenu}" Template="{DynamicResource ButtonTemplate1}">
+                            <WrapPanel>
+                                <Image Source="\Images\leftMenu\payment.png"/>
+                                <Label Content="Оплаты" />
+                            </WrapPanel>
+                        </Button>
+
+                        <Button Click="toRepFr" x:Name="ButtStats" Style="{StaticResource ButtonMenu}" Template="{DynamicResource ButtonTemplate1}">
+                            <WrapPanel>
+                                <Image Source="\Images\leftMenu\stats.png"/>
+                                <Label Content="Отчеты"/>
+                            </WrapPanel>
+                        </Button>
+
+                        <Button Click="toDoorsFr" x:Name="ButtDoors" Style="{StaticResource ButtonMenu}" Template="{DynamicResource ButtonTemplate1}">
+                            <WrapPanel>
+                                <Image Source="\Images\leftMenu\doors.png"/>
+                                <Label Content="Двери"/>
+                            </WrapPanel>
+                        </Button>
+
+                    </StackPanel>
+                    
+                </Border>
+
+                <Button Click="BackToLogin" Style="{DynamicResource ButtonStyleExit}"  x:Name="exitToLogin"  Background="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="10 5 5 5" Margin="0 10 0 0" BorderBrush="Transparent" >
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="0 5 5 0"/>
+                        </Style>
+                    </Button.Resources>
+                    <Image x:Name="exitButt" Source="\Images\icons\exit.png" Width="20" />
+                </Button>
                 
-                <StackPanel Grid.Row="1" Grid.Column="1">
-                    <Label Content="Добро пожаловать" Foreground="#d2c2b7" FontSize="30"/>
-                </StackPanel>
+
 
                 <!--<Button Width="45" Height="45"  BorderThickness="0" x:Name="ButtonMenu" Background="Transparent">
                     <Button.Resources>
@@ -160,7 +215,7 @@
                     </Button.Resources>
                     <Image Source="\Images\icons\menu.png" Width="20"/>
                  <Button/>-->
-                
+
             </Grid>
         </Border>
     </Grid>

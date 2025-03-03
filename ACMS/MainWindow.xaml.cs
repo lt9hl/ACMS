@@ -14,21 +14,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ACMS.ApplicationData;
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.Sql;
 
 namespace ACMS
 {
+
     
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
             AppConnect.modelOdb = new ACMSEntities();
             AppFrame.PMain = frMain;
-            
+
         }
 
 

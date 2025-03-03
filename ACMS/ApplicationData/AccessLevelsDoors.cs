@@ -17,5 +17,8 @@ namespace ACMS.ApplicationData
         public int idDAL { get; set; }
         public int idAL { get; set; }
         public int idD { get; set; }
+    
+        public virtual AccessLevels AccessLevels { get; set; }
+        public virtual Doors Doors { get; set; }
     }
 }
