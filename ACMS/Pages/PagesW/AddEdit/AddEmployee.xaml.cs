@@ -29,17 +29,21 @@ namespace ACMS.Pages.PagesW.AddEdit
             var getEmp = new getC();
             DataContext = newEmp;
 
-            addNewEmplButt.IsEnabled = false; 
+            addNewEmplButt.IsEnabled = false;
 
-            foreach(Departments  i in AppConnect.modelOdb.Departments)
+            var dep = AppConnect.modelOdb.Departments;
+            var pos = AppConnect.modelOdb.Posts;
+            var org = AppConnect.modelOdb.Organizations;
+
+            foreach(var i in dep)
             {
                 DepName.Items.Add(i.TitleDep);
             }  
-            foreach (Posts i in AppConnect.modelOdb.Posts)
+            foreach (var i in pos)
             {
                 PostName.Items.Add(i.TitleP);
             }
-            foreach (Organizations i in AppConnect.modelOdb.Organizations)
+            foreach (var i in org)
             {
                 OrgName.Items.Add(i.OrgName);
             }
@@ -49,12 +53,25 @@ namespace ACMS.Pages.PagesW.AddEdit
         {
             try
             {
+                var SelOrg = AppConnect.modelOdb.Organizations.FirstOrDefault(x => x.OrgName == newEmp.Organizations.OrgName);
+                var SelPost = AppConnect.modelOdb.Posts.FirstOrDefault(x => x.TitleP == newEmp.Posts.TitleP);
+                var SelDep = AppConnect.modelOdb.Departments.FirstOrDefault(x => x.TitleDep == newEmp.Departments.TitleDep);
 
-               var ddep = AppConnect.modelOdb.Departments.FirstOrDefault(x => x == newEmp.Departments);
 
-                MessageBox.Show($"{newEmp.Fistname} {newEmp.Patronymic} {ddep.TitleDep.ToString()} {newEmp.idD} {newEmp.idO}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                
-                AppConnect.modelOdb.Employees.Add(newEmp);
+                Employees epnObd = new Employees()
+                {
+                    Fistname = newEmp.Fistname,
+                    Secondname = newEmp.Secondname,
+                    Patronymic = newEmp.Patronymic,
+                    idD = Convert.ToInt32(SelDep.idD),
+                    idO = Convert.ToInt32(SelOrg.idO),
+                    idP = Convert.ToInt32(SelPost.idP)
+                };
+
+                MessageBox.Show($"Пользователь  добавлен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+
+
+                AppConnect.modelOdb.Employees.Add(epnObd);
                 AppConnect.modelOdb.SaveChanges();
                 
                 MessageBox.Show($"Пользователь {newEmp.Secondname} {newEmp.Fistname} добавлен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);

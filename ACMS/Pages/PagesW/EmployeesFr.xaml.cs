@@ -36,7 +36,24 @@ namespace ACMS.Pages.PagesW
 
         private void delSelected(object sender, RoutedEventArgs e)
         {
+            var HotelForRemoving = listEmpl.SelectedItems.Cast<Employees>().ToList();
+            if(MessageBox.Show($"Вы точно хотите удалить {HotelForRemoving.Count} сотрудников","Внимание",MessageBoxButton.YesNo,MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    AppConnect.modelOdb.Employees.RemoveRange(HotelForRemoving);
+                    AppConnect.modelOdb.SaveChanges();
 
+                    var getEmp = new getC();
+                    listEmpl.ItemsSource = getEmp.Emp();
+
+                    MessageBox.Show("Сотрудники успешно удалены");
+                }
+                catch
+                {
+                    MessageBox.Show("Произошла ошибка при удалении","Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
         }
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
