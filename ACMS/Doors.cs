@@ -7,35 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACMS.ApplicationData
+namespace ACMS
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Employees
+    public partial class Doors
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employees()
+        public Doors()
         {
-            this.BlackList = new HashSet<BlackList>();
+            this.AccessLevelsDoors = new HashSet<AccessLevelsDoors>();
             this.DoorsEmployees = new HashSet<DoorsEmployees>();
-            this.Keys = new HashSet<Keys>();
         }
     
-        public int idE { get; set; }
-        public string Fistname { get; set; }
-        public string Secondname { get; set; }
-        public string Patronymic { get; set; }
-        public int idD { get; set; }
-        public int idO { get; set; }
+        public int idDoor { get; set; }
+        public string TitleDoor { get; set; }
+        public int idDD { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BlackList> BlackList { get; set; }
-        public virtual Departments Departments { get; set; }
+        public virtual ICollection<AccessLevelsDoors> AccessLevelsDoors { get; set; }
+        public virtual DoorDirections DoorDirections { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoorsEmployees> DoorsEmployees { get; set; }
-        public virtual Organizations Organizations { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Keys> Keys { get; set; }
     }
 }

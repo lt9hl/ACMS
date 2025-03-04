@@ -23,6 +23,10 @@ namespace ACMS.Pages.PagesW
         public DoorsFr()
         {
             InitializeComponent();
+
+            var getD = new getC();
+            listDoors.ItemsSource = getD.doors();
+            //listDoors.ItemsSource = getD.dooDir();
         }
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cdf685835fda40e6bf93bda7acc0d2ce" Name="Diagram1">
+        <EntityTypeShape EntityType="ACMSModel.AccessLevels" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.AccessLevelsDoors" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.BlackList" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Departments" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.DoorDirections" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Doors" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.DoorsEmployees" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Employees" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Keys" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Organizations" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Posts" Width="1.5" PointX="8.125" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Users" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.WorkSchedules" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <AssociationConnector Association="ACMSModel.FK_AccessLevelsDoors_AccessLevels" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_AccessLevelsDoors_Doors" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_BlackList_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Employees_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Doors_DoorDirections" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_DoorsEmployees_Doors" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_DoorsEmployees_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Employees_Organizations" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Keys_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Keys_WorkSchedules" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Employees_Posts" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

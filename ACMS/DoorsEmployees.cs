@@ -7,20 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACMS.ApplicationData
+namespace ACMS
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Keys
+    public partial class DoorsEmployees
     {
-        public int idK { get; set; }
+        public int idDE { get; set; }
+        public int idD { get; set; }
         public int idE { get; set; }
-        public string KeyCard { get; set; }
-        public int idAL { get; set; }
-        public int idWS { get; set; }
+        public System.DateTime EnterDateTime { get; set; }
     
+        public virtual Doors Doors { get; set; }
         public virtual Employees Employees { get; set; }
-        public virtual WorkSchedules WorkSchedules { get; set; }
     }
 }

@@ -7,18 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACMS.ApplicationData
+namespace ACMS
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class AccessLevelsDoors
+    public partial class Users
     {
-        public int idDAL { get; set; }
-        public int idAL { get; set; }
-        public int idD { get; set; }
-    
-        public virtual AccessLevels AccessLevels { get; set; }
-        public virtual Doors Doors { get; set; }
+        public int idU { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string email { get; set; }
     }
 }

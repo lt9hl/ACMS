@@ -7,29 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACMS.ApplicationData
+namespace ACMS
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Doors
+    public partial class Departments
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Doors()
+        public Departments()
         {
-            this.AccessLevelsDoors = new HashSet<AccessLevelsDoors>();
-            this.DoorsEmployees = new HashSet<DoorsEmployees>();
+            this.Employees = new HashSet<Employees>();
         }
     
-        public int idDoor { get; set; }
-        public string TitleDoor { get; set; }
-        public string Description { get; set; }
-        public int idDD { get; set; }
+        public int idD { get; set; }
+        public string TitleDep { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AccessLevelsDoors> AccessLevelsDoors { get; set; }
-        public virtual DoorDirections DoorDirections { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DoorsEmployees> DoorsEmployees { get; set; }
+        public virtual ICollection<Employees> Employees { get; set; }
     }
 }

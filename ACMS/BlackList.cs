@@ -7,16 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACMS.ApplicationData
+namespace ACMS
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class BlackList
     {
-        public int idU { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string email { get; set; }
+        public int idBL { get; set; }
+        public int idE { get; set; }
+        public System.DateTime EnterDate { get; set; }
+    
+        public virtual Employees Employees { get; set; }
     }
 }

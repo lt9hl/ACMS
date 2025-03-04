@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACMS.ApplicationData
+namespace ACMS
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ACMSEntities : DbContext
+    public partial class ACMSEntities1 : DbContext
     {
-        public ACMSEntities()
-            : base("name=ACMSEntities")
+        public ACMSEntities1()
+            : base("name=ACMSEntities1")
         {
         }
     
@@ -35,8 +35,9 @@ namespace ACMS.ApplicationData
         public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<Keys> Keys { get; set; }
         public virtual DbSet<Organizations> Organizations { get; set; }
+        public virtual DbSet<Posts> Posts { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<WorkSchedules> WorkSchedules { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }

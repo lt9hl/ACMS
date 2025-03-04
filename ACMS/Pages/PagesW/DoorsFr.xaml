@@ -5,10 +5,100 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ACMS.Pages.PagesW"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="620"
       Title="DoorsFr">
+    <Page.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#d2c2b7" />
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
 
-    <Grid>
-        
+        <Style x:Key="ListSt" TargetType="ListView">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+
+        </Style>
+
+        <Style x:Key="ButtCom" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            
+            <Setter Property="Margin" Value=" 10 5 0 5"/>
+            <Setter Property="Padding" Value=" 5"/>
+            <Style.Resources>
+                <Style TargetType="Image">
+                    <Setter Property="Width" Value="15"/>
+                    <Setter Property="Height" Value="15"/>
+                </Style>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+            </Style.Resources>
+            
+        </Style>
+    </Page.Resources>
+
+
+    <Grid Background="Transparent">
+
+        <Border CornerRadius="5" Height="500" Width="600" BorderBrush="Transparent" VerticalAlignment="Center" Margin="10 20" Padding="0 0 0 10">
+            <Border.Background>
+                <SolidColorBrush Color="#292919" Opacity="0.8"/>
+            </Border.Background>
+
+            <StackPanel>
+                <StackPanel>
+                    <Label Content="Двери" Foreground="#d2c2b7" FontSize="25" Margin="10 10 0 0"/>
+
+                    <WrapPanel>
+                        <Button x:Name="addButt" Style="{StaticResource ButtCom}"  Template="{DynamicResource ButtonTemplateAuth}">
+                            <Image Source="\Images\workIcons\add.png"/>
+                        </Button>
+
+                        <Button x:Name="editButt" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
+                            <Image Source="\Images\workIcons\edit.png"/>
+                        </Button>
+
+                        <Button x:Name="delButt" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
+                            <Image Source="\Images\workIcons\trash.png"/>
+                        </Button>
+                    </WrapPanel>
+                </StackPanel>
+
+                <ListView BorderBrush="#292919"  x:Name="listDoors" Height="390" Margin="10 0" Style="{StaticResource ListSt}">
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Height="20" Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                    <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                             <Run Text="{Binding TitleDoor}"/>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Height="20" Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                    <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                             <Run Text="{Binding DoorDirections.TitleDD}"/>
+                                    </TextBlock>
+                                </StackPanel>
+
+                            </Grid>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+
+            </Border>
+
     </Grid>
 </Page>

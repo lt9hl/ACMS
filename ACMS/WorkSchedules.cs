@@ -7,23 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACMS.ApplicationData
+namespace ACMS
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class AccessLevels
+    public partial class WorkSchedules
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AccessLevels()
+        public WorkSchedules()
         {
-            this.AccessLevelsDoors = new HashSet<AccessLevelsDoors>();
+            this.Keys = new HashSet<Keys>();
         }
     
-        public int idAL { get; set; }
-        public string TitleAL { get; set; }
+        public int idWS { get; set; }
+        public string TitleWS { get; set; }
+        public System.TimeSpan StartDay { get; set; }
+        public System.TimeSpan EndDay { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AccessLevelsDoors> AccessLevelsDoors { get; set; }
+        public virtual ICollection<Keys> Keys { get; set; }
     }
 }

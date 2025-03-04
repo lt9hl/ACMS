@@ -4,19 +4,58 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ACMS
 {
-    internal class getC
+    public class getC
     {
-        private static ACMSEntities _context;
-
-        public static ACMSEntities GetContext()
+        public Employees[] Emp()
         {
-            if (_context == null)
-                _context = new ACMSEntities();
-            return _context;
+            try
+            {
+                List<Employees> empl = AppConnect.modelOdb.Employees.ToList();
+                return empl.ToArray();
+            }
+            catch
+            {
+                Mess();
+                return null;
+            }
 
         }
+
+        public Doors[] doors()
+        {
+            try
+            {
+                List<Doors> doo = AppConnect.modelOdb.Doors.ToList();
+                return doo.ToArray();
+            }
+            catch
+            {
+                Mess();
+                return null;
+            }
+        }
+        public DoorDirections[] dooDir()
+        {
+            try
+            {
+                List<DoorDirections> dooDir = AppConnect.modelOdb.DoorDirections.ToList();
+                return dooDir.ToArray();
+            }
+            catch
+            {
+                Mess();
+                return null;
+            }
+        }
+        public void Mess()
+        {
+            MessageBox.Show($"Произошла ошибка в работе приложения", "", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
+   
 }
+

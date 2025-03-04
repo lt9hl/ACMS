@@ -12,7 +12,14 @@
             <Setter Property="Foreground" Value="#d2c2b7" />
             <Setter Property="FontSize" Value="10"/>
         </Style>
+
+        <Style x:Key="ListSt" TargetType="ListView">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+
+        </Style>
     </Page.Resources>
+    
 
     <Grid Background="Transparent">
         <Border CornerRadius="5">
@@ -85,27 +92,41 @@
 
                     <StackPanel Height="160" Width="400">
                         <Label Content="Новые сотрудники" Foreground="#d2c2b7" FontSize="18" Margin="10 10 0 0"/>
-                        <ListView x:Name="listNewEmployees" Height="95" Margin="10">
+                        
+                        <ListView  x:Name="listNewEmployees" Height="110"  Margin="10 0" Style="{StaticResource ListSt}">
+
                             <ListView.ItemTemplate>
+
                                 <DataTemplate>
-                                    
+
                                     <Grid>
+
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="50"/>
-                                            <ColumnDefinition Width="70"/>
-                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="110"/>
+                                            <ColumnDefinition Width="110"/>
+                                            <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>
-                                        <StackPanel Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                            
+                                        <StackPanel Height="20" Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
                                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                                 <Run Text="{Binding Fistname}"/>
                                             </TextBlock>
                                         </StackPanel>
-                                        <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                        
+                                        <StackPanel Height="20" Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
                                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
                                                 <Run Text="{Binding Secondname}"/>
                                             </TextBlock>
                                         </StackPanel>
+                                        
+                                        <StackPanel Height="20" Grid.Column="2" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                                 <Run Text="{Binding Patronymic}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                        
                                     </Grid>
+
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>

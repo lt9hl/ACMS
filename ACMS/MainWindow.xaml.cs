@@ -31,7 +31,7 @@ namespace ACMS
         public MainWindow()
         {
             InitializeComponent();
-            AppConnect.modelOdb = new ACMSEntities();
+            AppConnect.modelOdb = new ACMSEntities1();
             AppFrame.PMain = frMain;
 
         }

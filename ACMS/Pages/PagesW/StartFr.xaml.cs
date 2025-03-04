@@ -40,23 +40,11 @@ namespace ACMS.Pages.PagesW
             countUsers.Content = cU;
             countEmp1.Content = cE;
 
-            listNewEmployees.ItemsSource = Emp();
-        }
-        Employees[] Emp()
-        {
-            try
-            {
-                List<Employees> empl = AppConnect.modelOdb.Employees.ToList();
-                return empl.ToArray();
-            }
-            catch
-            {
-                MessageBox.Show($"dfdf", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            var empGet = new getC();
 
-                return null;
-            }
-
+            listNewEmployees.ItemsSource = empGet.Emp();
         }
+
 
     }
 }

@@ -7,23 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACMS.ApplicationData
+namespace ACMS
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Departments
+    public partial class DoorDirections
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Departments()
+        public DoorDirections()
         {
-            this.Employees = new HashSet<Employees>();
+            this.Doors = new HashSet<Doors>();
         }
     
-        public int idD { get; set; }
-        public string TitleDep { get; set; }
+        public int idDD { get; set; }
+        public string TitleDD { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employees> Employees { get; set; }
+        public virtual ICollection<Doors> Doors { get; set; }
     }
 }

@@ -5,10 +5,170 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ACMS.Pages.PagesW"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="620"
       Title="EmployeesFr">
+    <Page.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#d2c2b7" />
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
 
-    <Grid>
-        
+        <Style x:Key="ListSt" TargetType="ListView">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+
+        </Style>
+
+        <Style x:Key="ButtCom" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+
+            <Setter Property="Margin" Value=" 10 5 0 5"/>
+            <Setter Property="Padding" Value=" 5"/>
+            <Style.Resources>
+                <Style TargetType="Image">
+                    <Setter Property="Width" Value="15"/>
+                    <Setter Property="Height" Value="15"/>
+                </Style>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+            </Style.Resources>
+
+        </Style>
+
+        <Style x:Key="textBoxSearch" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+
+
+
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#6d8228" />
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#6d8228"/>
+
+        <ControlTemplate x:Key="ButtonTemplateBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                    <Setter Property="CaretBrush" Value="#d2c2b7"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+
+
+
+    </Page.Resources>
+
+
+    <Grid Background="Transparent">
+
+        <Border CornerRadius="5" Height="500" Width="600" BorderBrush="Transparent" VerticalAlignment="Center" Margin="10 20" Padding="0 0 0 10">
+            <Border.Background>
+                <SolidColorBrush Color="#292919" Opacity="0.8"/>
+            </Border.Background>
+
+            <StackPanel>
+                <StackPanel >
+                    <Label x:Name="labelEmpl" Content="Сотрудники" Foreground="#d2c2b7" FontSize="25" Margin="10 10 0 0"/>
+
+                    <StackPanel x:Name="StackMenu" Orientation="Horizontal">
+                        <Button x:Name="addButt" Style="{StaticResource ButtCom}"  Template="{DynamicResource ButtonTemplateAuth}" Click="addButt_Click">
+                            <Image x:Name="addIm" Source="\Images\workIcons\add.png"/>
+                        </Button>
+
+                        <Button x:Name="editButt" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
+                            <Image x:Name="EditIm" Source="\Images\workIcons\edit.png"/>
+                        </Button>
+
+                        <Button x:Name="delButt" Click="delSelected" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
+                            <Image x:Name="ImDel" Source="\Images\workIcons\trash.png"/>
+                        </Button>
+
+                        <TextBox BorderBrush="#6d8228" FontSize="12" Foreground="#d2c2b7" BorderThickness="0 0 0 1" x:Name="searchBox"  Margin="325 0 0 0" Width="150" Height="20" Template="{DynamicResource ButtonTemplateBox}"  Style="{StaticResource textBoxSearch}" TextChanged="searchBox_TextChanged"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Grid Margin="10 0">
+                    <Grid.ColumnDefinitions>
+                        <!--580-->
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label FontSize="12" x:Name="ListSecN" Grid.Column="0" Content="Фамилия" />
+                    <Label FontSize="12" x:Name="ListFName" Grid.Column="1" Content="Имя"/>
+                    <Label FontSize="12" x:Name="ListPatron" Grid.Column="2" Content="Отчество"/>
+                    <Label FontSize="12" x:Name="ListPost" Grid.Column="3" Content="Должность"/>
+                    <Label FontSize="12" x:Name="ListOrg" Grid.Column="4" Content="Организация"/>
+
+                    <ListView Grid.Row="1" Grid.ColumnSpan="5" BorderBrush="#292919"  x:Name="listEmpl" Height="390" Style="{StaticResource ListSt}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="110"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="140"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Row="2" Height="20" Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+             <Run Text="{Binding Fistname}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                <StackPanel Grid.Row="2" Height="20" Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+             <Run Text="{Binding Secondname}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                <StackPanel Grid.Row="2" Height="20" Grid.Column="2" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                    <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+<Run Text="{Binding Patronymic}"/>
+                                    </TextBlock>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2" Height="20" Grid.Column="3" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+            <Run Text="{Binding Posts.TitleP}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                <StackPanel Grid.Row="2" Height="20" Grid.Column="4" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+<Run Text="{Binding Organizations.OrgName}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                
+                            </Grid>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                </Grid>
+            </StackPanel>
+
+        </Border>
+
     </Grid>
 </Page>
