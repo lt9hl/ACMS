@@ -14,11 +14,11 @@ namespace ACMS
     
     public partial class Keys
     {
-        public int idK { get; set; }
-        public int idE { get; set; }
+        public int idKey { get; set; }
+        public int idEmployee { get; set; }
         public string KeyCard { get; set; }
-        public int idAL { get; set; }
-        public int idWS { get; set; }
+        public int idAccessLevel { get; set; }
+        public int idWorkSchedule { get; set; }
     
         public virtual Employees Employees { get; set; }
         public virtual WorkSchedules WorkSchedules { get; set; }

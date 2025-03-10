@@ -118,7 +118,7 @@
                     <Label x:Name="labelEmpl" Content="Создание" Foreground="#d2c2b7" FontSize="25" Margin="10 10 0 0"/>
                     <Border x:Name="BorderLog" CornerRadius="5" BorderBrush="Transparent"  Margin="50 20 50 5"  Padding="10 5">
                         <Border.Background>
-                            <SolidColorBrush Color="#553821" Opacity="0.6"/>
+                            <SolidColorBrush Color="#553821" Opacity="0.4"/>
                         </Border.Background>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -128,27 +128,27 @@
 
                                 <StackPanel>
                                 <Label x:Name="secondNText" FontSize="12" Content="Фамилия" Margin="0 5 0 2"/>
-                                    <TextBox Text="{Binding FistName}" Template="{DynamicResource TextBoxTemplateTB}" x:Name="secondN" Margin="5 0 0 5"  Style="{StaticResource TextBoxLog}" TextChanged="secondN_TextChanged" />
+                                <TextBox Template="{DynamicResource TextBoxTemplateTB}" x:Name="secondNInp" Margin="5 0 0 5"  Style="{StaticResource TextBoxLog}" TextChanged="secondN_TextChanged" />
 
                                 <Label x:Name="NameText" FontSize="12" Content="Имя" Margin="0 2 0 2"/>
-                                <TextBox x:Name="Name"  Text="{Binding Secondname}" Template="{DynamicResource TextBoxTemplateTB}" Margin="5 0 0 5" Style="{StaticResource TextBoxLog}" TextChanged="Name_TextChanged"/>
+                                <TextBox x:Name="NameInp" Template="{DynamicResource TextBoxTemplateTB}" Margin="5 0 0 5" Style="{StaticResource TextBoxLog}" TextChanged="Name_TextChanged"/>
 
 
                                 <Label x:Name="PatonText" FontSize="12" Content="Отчество" Margin="0 2 0 2"/>
-                                <TextBox x:Name="Patron"  Text="{Binding Patronymic}" Template="{DynamicResource TextBoxTemplateTB}" Margin="5 0 0 5" Style="{StaticResource TextBoxLog}" TextChanged="Patron_TextChanged"/>
+                                <TextBox x:Name="PatronymicInp" Template="{DynamicResource TextBoxTemplateTB}" Margin="5 0 0 5" Style="{StaticResource TextBoxLog}" TextChanged="Patron_TextChanged"/>
 
                                 </StackPanel>
 
                             <StackPanel Grid.Column="1"  x:Name="StackLogin" Margin="10 5 10 5">
 
                                 <Label FontSize="12" x:Name="PostText" Content="Должность" Margin="0 2 0 2"/>
-                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}" x:Name="PostName" SelectedItem="{Binding Posts.TitleP}" Margin="5 0 0 5" Style="{StaticResource comboStyle}"/>
+                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}" x:Name="PostName" Margin="5 0 0 5" Style="{StaticResource comboStyle}"/>
 
                                 <Label x:Name="DepText" FontSize="12" Content="Департамент" Margin="0 2 0 2"/>
-                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}" SelectedItem="{Binding Departments.TitleDep}" x:Name="DepName" Margin="5 0 0 5" Style="{StaticResource comboStyle}"/>
+                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}"  x:Name="DepName" Margin="5 0 0 5" Style="{StaticResource comboStyle}"/>
 
                                 <Label x:Name="OrgText" FontSize="12" Content="Организация" Margin="0 2 0 2"/>
-                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}" x:Name="OrgName" SelectedItem="{Binding Organizations.OrgName}" Margin="5 0 0 5" Style="{StaticResource comboStyle}"/>
+                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}" x:Name="OrgName"  Margin="5 0 0 5" Style="{StaticResource comboStyle}"/>
 
                             </StackPanel>
                             

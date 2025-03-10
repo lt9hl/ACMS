@@ -20,8 +20,8 @@ namespace ACMS
             this.Doors = new HashSet<Doors>();
         }
     
-        public int idDD { get; set; }
-        public string TitleDD { get; set; }
+        public int idDoorDirection { get; set; }
+        public string TitleDoorDirection { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Doors> Doors { get; set; }

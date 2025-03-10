@@ -16,14 +16,13 @@
         <Style x:Key="ListSt" TargetType="ListView">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#d2c2b7"/>
-
         </Style>
 
         <Style x:Key="ButtCom" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
 
             <Setter Property="Margin" Value=" 10 5 0 5"/>
-            <Setter Property="Padding" Value=" 5"/>
+            <Setter Property="Padding" Value="5"/>
             <Style.Resources>
                 <Style TargetType="Image">
                     <Setter Property="Width" Value="15"/>
@@ -67,8 +66,22 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
 
+        <!--Height="20"  Width="auto" Orientation="Vertical" HorizontalAlignment="Left"-->
+        <Style x:Key="table" TargetType="StackPanel">
+            <Setter Property="Height" Value="auto"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Width" Value="auto"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
 
-
+        <Style x:Key="comboStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
 
     </Page.Resources>
 
@@ -89,7 +102,7 @@
                             <Image x:Name="addIm" Source="\Images\workIcons\add.png"/>
                         </Button>
 
-                        <Button x:Name="editButt" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
+                        <Button x:Name="editButt" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}" Click="editButt_Click">
                             <Image x:Name="EditIm" Source="\Images\workIcons\edit.png"/>
                         </Button>
 
@@ -97,7 +110,15 @@
                             <Image x:Name="ImDel" Source="\Images\workIcons\trash.png"/>
                         </Button>
 
-                        <TextBox BorderBrush="#6d8228" FontSize="12" Foreground="#d2c2b7" BorderThickness="0 0 0 1" x:Name="searchBox"  Margin="325 0 0 0" Width="150" Height="20" Template="{DynamicResource ButtonTemplateBox}"  Style="{StaticResource textBoxSearch}" TextChanged="searchBox_TextChanged"/>
+                        <ComboBox x:Name="sortSelect" Template="{DynamicResource ComboBoxTemplateAdd}" Width="110" Style="{StaticResource comboStyle}" Margin="20 0 0 0 " SelectionChanged="sortSelect_SelectionChanged"/>
+
+                        <ComboBox x:Name="postSelect" Template="{DynamicResource ComboBoxTemplateAdd}" Width="100" Style="{StaticResource comboStyle}" Margin="20 0 0 0 " SelectionChanged="sortSelect_SelectionChanged"/>
+
+                        <Button x:Name="SortButt" Click="SortButtClick" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
+                            <Image x:Name="ImSort" Source="\Images\icons\sort.png"/>
+                        </Button>
+
+                        <TextBox BorderBrush="#6d8228" FontSize="12" Foreground="#d2c2b7" BorderThickness="0 0 0 1" x:Name="searchBox"  Margin="40 0 0 0" Width="150" Height="20" Template="{DynamicResource ButtonTemplateBox}"  Style="{StaticResource textBoxSearch}" TextChanged="searchBox_TextChanged"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -121,7 +142,7 @@
                     <Label FontSize="12" x:Name="ListPost" Grid.Column="3" Content="Должность"/>
                     <Label FontSize="12" x:Name="ListOrg" Grid.Column="4" Content="Организация"/>
 
-                    <ListView Grid.Row="1" Grid.ColumnSpan="5" BorderBrush="#292919"  x:Name="listEmpl" Height="390" Style="{StaticResource ListSt}">
+                    <ListView   Grid.Row="1" Grid.ColumnSpan="5" BorderBrush="#292919"  x:Name="listAllEmpl" Height="390" Style="{StaticResource ListSt}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -132,29 +153,28 @@
                                         <ColumnDefinition Width="140"/>
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-
-                                <StackPanel Grid.Row="2" Height="20" Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                    <StackPanel Grid.Row="2" Grid.Column="0" Style="{StaticResource table}">
                                         <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-             <Run Text="{Binding Fistname}"/>
+<Run Text="{Binding Secondname}"/>
                                         </TextBlock>
                                     </StackPanel>
 
-                                <StackPanel Grid.Row="2" Height="20" Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                    <StackPanel Grid.Row="2" Grid.Column="1" Style="{StaticResource table}">
                                         <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-             <Run Text="{Binding Secondname}"/>
+             <Run Text="{Binding Firstname}"/>
                                         </TextBlock>
                                     </StackPanel>
-                                <StackPanel Grid.Row="2" Height="20" Grid.Column="2" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                    <StackPanel Grid.Row="2" Grid.Column="2" Style="{StaticResource table}">
                                     <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
 <Run Text="{Binding Patronymic}"/>
                                     </TextBlock>
                                 </StackPanel>
-                                <StackPanel Grid.Row="2" Height="20" Grid.Column="3" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                    <StackPanel Grid.Row="2" Grid.Column="3" Style="{StaticResource table}">
                                         <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-            <Run Text="{Binding Posts.TitleP}"/>
+            <Run Text="{Binding Posts.TitlePost}"/>
                                         </TextBlock>
                                     </StackPanel>
-                                <StackPanel Grid.Row="2" Height="20" Grid.Column="4" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                    <StackPanel Grid.Row="2" Grid.Column="4" Style="{StaticResource table}">
                                         <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
 <Run Text="{Binding Organizations.OrgName}"/>
                                         </TextBlock>

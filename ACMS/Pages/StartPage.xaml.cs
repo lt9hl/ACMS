@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using ACMS.ApplicationData;
 using ACMS.Pages.PagesW;
 
+
 namespace ACMS.Pages
 {
     /// <summary>
@@ -22,12 +23,30 @@ namespace ACMS.Pages
     /// </summary>
     public partial class StartPage : Page
     {
-        public StartPage()
+        
+        public StartPage(string currUser)
         {
             InitializeComponent();
             AppFrame.FWork = FrStart;
-        }
 
+            userPermission.currPermission = currUser;
+
+            if (userPermission.currPermission == "Гость")
+            {
+                ButtUsers.IsEnabled = false;
+                ButtCards.IsEnabled = false;
+                ButtCash.IsEnabled = false;
+                ButtDoors.IsEnabled = false;
+
+            }
+            if (userPermission.currPermission == "Пользователь")
+            {
+                ButtUsers.IsEnabled = false;
+                ButtDoors.IsEnabled = false;
+            }
+            
+        }
+        getC userPermission = new getC();
         private void BackToLogin(object sender, RoutedEventArgs e)
         {
             AppFrame.PMain.Navigate(new LoginI());
@@ -60,7 +79,7 @@ namespace ACMS.Pages
 
         private void toEmpFr(object sender, RoutedEventArgs e)
         {
-            AppFrame.FWork.Navigate(new EmployeesFr());
+            AppFrame.FWork.Navigate(new EmployeesFr(userPermission.currPermission));
         }
     }
 }

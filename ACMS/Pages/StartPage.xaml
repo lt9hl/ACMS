@@ -97,8 +97,8 @@
         <SolidColorBrush x:Key="Button.Pressed.Background" Color="#292919" Opacity="0.7"/>
         <SolidColorBrush x:Key="Button.Pressed.Border" Color="#6d8228"/>
         <SolidColorBrush x:Key="Button.Disabled.Background" Color="Transparent"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="Transparent"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#d2c2b7" Opacity="0.5"/>
         
         <ControlTemplate x:Key="ButtonTemplate1" TargetType="{x:Type ButtonBase}">
             <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
@@ -150,14 +150,14 @@
                     </Border.Background>
 
                     <StackPanel Margin="0 110 0 0 ">
-                        <Button Click="toEmpFr" Template="{DynamicResource ButtonTemplate1}" x:Name="ButtEmpl" Style="{StaticResource ButtonMenu}">
+                        <Button  Click="toEmpFr" Template="{DynamicResource ButtonTemplate1}" x:Name="ButtEmpl" Style="{StaticResource ButtonMenu}">
                             <WrapPanel>
                                 <Image x:Name="empI" Source="\Images\leftMenu\portrait.png"/>
                                 <Label x:Name="EmpText" Content="Сотрудники"  />
                             </WrapPanel>
                         </Button>
 
-                        <Button Click="toUserFr" Template="{DynamicResource ButtonTemplate1}" x:Name="ByttUsers" Style="{StaticResource ButtonMenu}">
+                        <Button Click="toUserFr" Template="{DynamicResource ButtonTemplate1}" x:Name="ButtUsers" Style="{StaticResource ButtonMenu}">
                             <WrapPanel>
                                 <Image Source="\Images\leftMenu\menuUsers.png"/>
                                 <Label Content="Пользователи" />

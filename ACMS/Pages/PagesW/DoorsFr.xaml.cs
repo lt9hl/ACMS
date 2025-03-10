@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ACMS.ApplicationData;
 
 namespace ACMS.Pages.PagesW
 {
@@ -24,9 +25,8 @@ namespace ACMS.Pages.PagesW
         {
             InitializeComponent();
 
-            var getD = new getC();
-            listDoors.ItemsSource = getD.doors();
-            //listDoors.ItemsSource = getD.dooDir();
+
+            listDoors.ItemsSource = AppConnect.modelOdb.Doors.ToList();
         }
     }
 }

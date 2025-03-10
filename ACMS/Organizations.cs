@@ -20,7 +20,7 @@ namespace ACMS
             this.Employees = new HashSet<Employees>();
         }
     
-        public int idO { get; set; }
+        public int idOrganization { get; set; }
         public string OrgName { get; set; }
         public string INN { get; set; }
     

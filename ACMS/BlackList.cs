@@ -14,8 +14,8 @@ namespace ACMS
     
     public partial class BlackList
     {
-        public int idBL { get; set; }
-        public int idE { get; set; }
+        public int idBlackList { get; set; }
+        public int idEmployee { get; set; }
         public System.DateTime EnterDate { get; set; }
     
         public virtual Employees Employees { get; set; }

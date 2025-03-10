@@ -67,7 +67,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Frame Background="Transparent"  x:Name="frMain" NavigationUIVisibility="Hidden" Source="/Pages/StartPage.xaml" Grid.RowSpan="2" MouseLeftButtonDown="frMain_MouseLeftButtonDown"/>
+                <Frame Background="Transparent"  x:Name="frMain" NavigationUIVisibility="Hidden" Source="/Pages/Login.xaml" Grid.RowSpan="2" MouseLeftButtonDown="frMain_MouseLeftButtonDown"/>
 
                 <WrapPanel HorizontalAlignment="Right">
 

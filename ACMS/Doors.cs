@@ -23,7 +23,7 @@ namespace ACMS
     
         public int idDoor { get; set; }
         public string TitleDoor { get; set; }
-        public int idDD { get; set; }
+        public int idDoorDirection { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccessLevelsDoors> AccessLevelsDoors { get; set; }

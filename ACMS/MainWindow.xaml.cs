@@ -27,13 +27,15 @@ namespace ACMS
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
         public MainWindow()
         {
             InitializeComponent();
-            AppConnect.modelOdb = new ACMSEntities1();
+            AppConnect.modelOdb = new ACMSEntities();
             AppFrame.PMain = frMain;
 
+
+            
         }
 
 

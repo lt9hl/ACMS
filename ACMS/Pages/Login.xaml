@@ -12,7 +12,6 @@
         <Style TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="#d2c2b7" />
             <Setter Property="FontSize" Value="10"/>
-            <Setter Property="Opacity" Value="0.7"/>
         </Style>
         
         <Style x:Key="ButtSwap" TargetType="Button">
@@ -51,6 +50,12 @@
             <Setter Property="Width" Value="220"/>
             <Setter Property="Height" Value="20.62"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="labelSt">
+            <Setter Property="Foreground" Value="#d2c2b7" />
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Opacity" Value="0.7"/>
         </Style>
 
         <Style x:Key="ButtAuth" TargetType="Button">
@@ -102,6 +107,28 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
 
+        <ControlTemplate x:Key="ButtonTemplateGuest" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
 
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#c09954"/>
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#c09954"/>
@@ -144,7 +171,7 @@
 
                 <StackPanel Margin="50 20 0 0" Background="Transparent">
                     <Label Content="Авторизация" Style="{StaticResource AuthText}" Foreground="#d2c2b7" />
-                    <Label Content="Войдите, чтобы продолжить"/>
+                    <Label Content="Войдите, чтобы продолжить" Style="{StaticResource labelSt}" />
                 </StackPanel>
 
                 <Border x:Name="BorderLog" CornerRadius="5" BorderBrush="Transparent"  Margin="50 20 50 5" >
@@ -153,7 +180,7 @@
                     </Border.Background>
                     <StackPanel x:Name="StackLogin" Margin="10 5 10 5">
 
-                        <Label x:Name="LoginText" Content="Логин" Margin="0 5 0 0"/>
+                        <Label x:Name="LoginText" Content="Логин" Margin="0 5 0 0" Style="{StaticResource labelSt}"/>
                         <TextBox Template="{DynamicResource TextBoxTemplateTB}" x:Name="LoginInp" Margin="5 0 0 5"  Style="{StaticResource TextBoxLog}" TextChanged="LoginInp_TextChanged" />
                     
                     </StackPanel>
@@ -165,7 +192,7 @@
                     </Border.Background>
                     <StackPanel Margin="10 5 10 5" >
 
-                        <Label x:Name="PassText" Content="Пароль" Margin="0 5 0 0"/>
+                        <Label x:Name="PassText" Content="Пароль" Margin="0 5 0 0" Style="{StaticResource labelSt}"/>
 
                         <PasswordBox Template="{DynamicResource PasswordBoxTemplateAuth}" x:Name="PassInp" Margin="5 0 0 5" Style="{StaticResource PassBoxLog}" SelectionBrush="{x:Null}"/>
 
@@ -173,11 +200,24 @@
                     </StackPanel>
                 </Border>
 
-                <CheckBox Template="{DynamicResource CheckBoxTemplateAuth}" x:Name="CheckMem" Content="Запомнить меня" Style="{StaticResource CheckBoxAuth}" Margin="50 7 50 0 " Height="20"/>
-                <Button Template="{DynamicResource ButtonTemplateAuth}" x:Name="LoginButt" Style="{StaticResource ButtAuth}" Content="Войти" Click="LoginButt_Click">
+                <CheckBox Template="{DynamicResource CheckBoxTemplateAuth}" x:Name="CheckRememMe" Content="Запомнить меня" Style="{StaticResource CheckBoxAuth}" Margin="50 7 50 0 " Height="20" IsChecked="False" Checked="CheckRememMe_Checked"/>
+
+                <Button Template="{DynamicResource ButtonTemplateAuth}" FontSize="13" x:Name="LoginButton" Style="{StaticResource ButtAuth}" Content="Войти" Click="LoginButt_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                
+                <Button Width="100" FontSize="13" Template="{DynamicResource ButtonTemplateGuest}" x:Name="LoginGuest"  Content="Войти как гость" Click="LoginGuestButt_Click">
+                    <Button.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#d2c2b7"/>
+                            <Setter Property="Margin" Value="50 10 0 0"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
                         </Style>
                     </Button.Resources>
                 </Button>

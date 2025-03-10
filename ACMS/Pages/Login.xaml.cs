@@ -24,29 +24,35 @@ namespace ACMS.Pages
     /// </summary>
     public partial class LoginI : Page
     {
+        getC userPermission = new getC();
         private void toReg(object sender, RoutedEventArgs e)
         { 
             AppFrame.PMain.Navigate(new Reg());
         }
-            
 
-            public LoginI() {
-                InitializeComponent();
-                LoginButt.IsEnabled = false;
-            }
+        string[] remUser = { "" , "" };
+        public LoginI() {
+             InitializeComponent();
+             LoginButton.IsEnabled = false;
 
+
+        }
+        
             private void LoginButt_Click(object sender, RoutedEventArgs e)
             {
             try
             {
-                string logInp = LoginInp.Text;
+                string logInp = LoginInp.Text.Trim();
                 string passInp = PassInp.Password;
 
                 var user = AppConnect.modelOdb.Users.FirstOrDefault(x => x.Password == passInp && logInp == x.Login);
 
                 if (user != null)
                 {
-                    NavigationService.Navigate(new StartPage());
+
+                    userPermission.currPermission = user.Permissions.TitlePersmission;
+
+                    NavigationService.Navigate(new StartPage(userPermission.currPermission));
                 }
                 else
                 {
@@ -60,10 +66,7 @@ namespace ACMS.Pages
                 MessageBox.Show($"Критическая ошибка в работе приложения\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-
-        }
-
-
+            }
 
             private void toRegButt_Click(object sender, RoutedEventArgs e)
             {
@@ -74,18 +77,29 @@ namespace ACMS.Pages
             {
 
                 if (PassInp.Password == "")
-                    LoginButt.IsEnabled = false;
+                LoginButton.IsEnabled = false;
                 else
-                    LoginButt.IsEnabled = true;
+                LoginButton.IsEnabled = true;
             }
 
 
         private void LoginInp_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (LoginInp.Text == "")
-                LoginButt.IsEnabled = false;
+                LoginButton.IsEnabled = false;
             else
-                LoginButt.IsEnabled = true;
+                LoginButton.IsEnabled = true;
+        }
+
+        private void CheckRememMe_Checked(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+
+        private void LoginGuestButt_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new StartPage("Гость"));
         }
     }
 }

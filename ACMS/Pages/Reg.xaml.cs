@@ -76,10 +76,13 @@ namespace ACMS.Pages
                     {
                         Login = inpLogin,
                         Password = inpPass,
-                        email = inpEmail
+                        email = inpEmail,
+                        idPermission = 2
                     };
+
                     AppConnect.modelOdb.Users.Add(userOdb);
                     AppConnect.modelOdb.SaveChanges();
+
                     MessageBox.Show($"Пользователь {inpLogin} добавлен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                     NavigationService.GoBack();
                 }

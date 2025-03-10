@@ -20,8 +20,8 @@ namespace ACMS
             this.Employees = new HashSet<Employees>();
         }
     
-        public int idP { get; set; }
-        public string TitleP { get; set; }
+        public int idPost { get; set; }
+        public string TitlePost { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employees> Employees { get; set; }

@@ -32,17 +32,11 @@ namespace ACMS.Pages.PagesW
 
             InitializeComponent();
 
-            int cP = AppConnect.modelOdb.Keys.ToArray().Length;
-            int cU = AppConnect.modelOdb.Users.ToArray().Length;
-            int cE = AppConnect.modelOdb.Employees.ToArray().Length;
+            countEmpPa.Content = AppConnect.modelOdb.Keys.ToArray().Length;
+            countUsers.Content = AppConnect.modelOdb.Users.ToArray().Length;
+            countEmp1.Content = AppConnect.modelOdb.Employees.ToArray().Length;
 
-            countEmpPa.Content = cP;
-            countUsers.Content = cU;
-            countEmp1.Content = cE;
-
-            var empGet = new getC();
-
-            listNewEmployees.ItemsSource = empGet.Emp();
+            listNewEmployees.ItemsSource = AppConnect.modelOdb.Employees.ToList();
         }
 
 

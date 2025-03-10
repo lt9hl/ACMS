@@ -20,8 +20,8 @@ namespace ACMS
             this.AccessLevelsDoors = new HashSet<AccessLevelsDoors>();
         }
     
-        public int idAL { get; set; }
-        public string TitleAL { get; set; }
+        public int idAccessLevel { get; set; }
+        public string TitleLevel { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AccessLevelsDoors> AccessLevelsDoors { get; set; }

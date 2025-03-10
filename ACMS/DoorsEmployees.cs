@@ -14,9 +14,9 @@ namespace ACMS
     
     public partial class DoorsEmployees
     {
-        public int idDE { get; set; }
-        public int idD { get; set; }
-        public int idE { get; set; }
+        public int idDoorEmployee { get; set; }
+        public int idDoor { get; set; }
+        public int idEmployee { get; set; }
         public System.DateTime EnterDateTime { get; set; }
     
         public virtual Doors Doors { get; set; }

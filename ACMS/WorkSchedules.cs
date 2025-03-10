@@ -20,8 +20,8 @@ namespace ACMS
             this.Keys = new HashSet<Keys>();
         }
     
-        public int idWS { get; set; }
-        public string TitleWS { get; set; }
+        public int idWorkSchedule { get; set; }
+        public string TitleSchedule { get; set; }
         public System.TimeSpan StartDay { get; set; }
         public System.TimeSpan EndDay { get; set; }
     

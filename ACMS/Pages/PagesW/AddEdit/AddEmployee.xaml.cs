@@ -22,12 +22,10 @@ namespace ACMS.Pages.PagesW.AddEdit
     /// </summary>
     public partial class AddEmployee : Page
     {
-        private Employees newEmp = new Employees();
-        public AddEmployee()
+        public Employees currEmployee ;
+        public AddEmployee(Employees selecteEmployee)
         {
             InitializeComponent();
-            var getEmp = new getC();
-            DataContext = newEmp;
 
             addNewEmplButt.IsEnabled = false;
 
@@ -37,15 +35,33 @@ namespace ACMS.Pages.PagesW.AddEdit
 
             foreach(var i in dep)
             {
-                DepName.Items.Add(i.TitleDep);
+                DepName.Items.Add(i.TitleDepartment);
             }  
             foreach (var i in pos)
             {
-                PostName.Items.Add(i.TitleP);
+                PostName.Items.Add(i.TitlePost);
             }
             foreach (var i in org)
             {
                 OrgName.Items.Add(i.OrgName);
+            }
+
+            if (selecteEmployee == null)
+            {
+                labelEmpl.Content = "Создание";
+                addNewEmplButt.Content = "Создать";
+            }
+            else if (selecteEmployee != null)
+            {
+                currEmployee = selecteEmployee;
+                labelEmpl.Content = "Изменение";
+                addNewEmplButt.Content = "Изменить";
+                secondNInp.Text = currEmployee.Secondname;
+                NameInp.Text = currEmployee.Firstname;
+                PatronymicInp.Text = currEmployee.Patronymic;
+                PostName.SelectedItem = currEmployee.Posts.TitlePost;
+                DepName.SelectedItem = currEmployee.Departments.TitleDepartment;
+                OrgName.SelectedItem = currEmployee.Organizations.OrgName;
             }
         }
 
@@ -53,28 +69,28 @@ namespace ACMS.Pages.PagesW.AddEdit
         {
             try
             {
-                var SelOrg = AppConnect.modelOdb.Organizations.FirstOrDefault(x => x.OrgName == newEmp.Organizations.OrgName);
-                var SelPost = AppConnect.modelOdb.Posts.FirstOrDefault(x => x.TitleP == newEmp.Posts.TitleP);
-                var SelDep = AppConnect.modelOdb.Departments.FirstOrDefault(x => x.TitleDep == newEmp.Departments.TitleDep);
+                Employees employeeAddEdit = new Employees();
 
+                if(currEmployee != null)
+                    employeeAddEdit = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.idEmployee == currEmployee.idEmployee );
 
-                Employees epnObd = new Employees()
+                employeeAddEdit.Firstname = NameInp.Text;
+                employeeAddEdit.Secondname = secondNInp.Text;
+                employeeAddEdit.Patronymic = PatronymicInp.Text;
+                employeeAddEdit.idPost = AppConnect.modelOdb.Posts.FirstOrDefault(x => x.TitlePost == PostName.Text).idPost;
+                employeeAddEdit.idOrganization = AppConnect.modelOdb.Organizations.FirstOrDefault(x => x.OrgName == OrgName.Text).idOrganization;
+                employeeAddEdit.idDepartment = AppConnect.modelOdb.Departments.FirstOrDefault(x => x.TitleDepartment == DepName.Text).idDepartment;
+
+                if(currEmployee != null)
+                MessageBox.Show($"Данные пользователя изменены", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                else
                 {
-                    Fistname = newEmp.Fistname,
-                    Secondname = newEmp.Secondname,
-                    Patronymic = newEmp.Patronymic,
-                    idD = Convert.ToInt32(SelDep.idD),
-                    idO = Convert.ToInt32(SelOrg.idO),
-                    idP = Convert.ToInt32(SelPost.idP)
-                };
-
-                MessageBox.Show($"Пользователь  добавлен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-
-
-                AppConnect.modelOdb.Employees.Add(epnObd);
+                    AppConnect.modelOdb.Employees.Add(employeeAddEdit);
+                    MessageBox.Show($"Пользователь  добавлен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
                 AppConnect.modelOdb.SaveChanges();
-                
-                MessageBox.Show($"Пользователь {newEmp.Secondname} {newEmp.Fistname} добавлен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                NavigationService.Navigate(new EmployeesFr(null));
+
             }
             catch
             {
@@ -88,7 +104,7 @@ namespace ACMS.Pages.PagesW.AddEdit
         }
         private void checkTextBox()
         {
-            if (Name.Text == "" || Patron.Text == "" || secondN.Text == "" ) addNewEmplButt.IsEnabled = false;
+            if (NameInp.Text == "" || secondNInp.Text == "" || PatronymicInp.Text == "" ) addNewEmplButt.IsEnabled = false;
             else addNewEmplButt.IsEnabled = true;
         }
 

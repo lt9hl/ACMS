@@ -14,9 +14,9 @@ namespace ACMS
     
     public partial class AccessLevelsDoors
     {
-        public int idDAL { get; set; }
-        public int idAL { get; set; }
-        public int idD { get; set; }
+        public int idAccessLevelDoor { get; set; }
+        public int idAccessLevel { get; set; }
+        public int idDoor { get; set; }
     
         public virtual AccessLevels AccessLevels { get; set; }
         public virtual Doors Doors { get; set; }
