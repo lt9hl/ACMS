@@ -1,5 +1,4 @@
-﻿using ACMS.ApplicationData;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Runtime.Serialization;
+
+using ACMS.ApplicationData;
 using ACMS.Pages;
 using ACMS.Pages.PagesW.AddEdit;
-using System.Runtime.Serialization;
+using ACMS.Classes;
 
 namespace ACMS.Pages.PagesW
 {
@@ -25,20 +27,27 @@ namespace ACMS.Pages.PagesW
     /// </summary>
     public partial class EmployeesFr : Page
     {
+        currentUserAndRemember currentUser = new currentUserAndRemember();
+        Users user = new Users();
+
         int count = 0;
-        public EmployeesFr(string permission)
+        public EmployeesFr(currentUserAndRemember userInp)
         {
             InitializeComponent();
 
-            if (permission == "Гость")
+            user = AppConnect.modelOdb.Users.First(x => x.idUser == userInp.currentUserId);
+            currentUser = userInp;
+
+
+            if (user.Permissions.TitlePersmission == "Гость")
             {
                 addButt.IsEnabled = false;
                 delButt.IsEnabled = false;
                 editButt.IsEnabled = false;
             }
-            if (permission == "Пользователь")
+            if (user.Permissions.TitlePersmission == "Пользователь")
             {
-                addButt.IsEnabled = false;
+                delButt.IsEnabled = false;
             }
 
             sortSelect.Items.Add("Сортировка");
@@ -93,7 +102,7 @@ namespace ACMS.Pages.PagesW
 
         private void addButt_Click(object sender, RoutedEventArgs e)
         {
-                AppFrame.FWork.Navigate(new AddEmployee(null));
+                AppFrame.FWork.Navigate(new AddEmployee(null,currentUser));
         }
 
         private void editButt_Click(object sender, RoutedEventArgs e)
@@ -101,7 +110,7 @@ namespace ACMS.Pages.PagesW
             int selectedItem = listAllEmpl.SelectedIndex;
             if(selectedItem != -1)
             { 
-                AppFrame.FWork.Navigate(new AddEmployee(listAllEmpl.SelectedItem as Employees));
+                AppFrame.FWork.Navigate(new AddEmployee(listAllEmpl.SelectedItem as Employees,currentUser));
             }
             
         }
@@ -120,8 +129,16 @@ namespace ACMS.Pages.PagesW
         {
             try
             {
+
                 var empList = AppConnect.modelOdb.Employees.ToList();
-               
+
+                if (postSelect.SelectedIndex > 0)
+                {
+                    var selectedd = AppConnect.modelOdb.Posts.FirstOrDefault(x => x.TitlePost == postSelect.Text).idPost;
+
+                    empList = empList.Where(x => x.idPost == selectedd).ToList();
+                }
+
                 if (searchBox.Text.Length > 0)
                 {
                     empList = empList.Where(x => x.Firstname.ToLower().Contains(searchBox.Text.ToLower()) || x.Secondname.ToLower().Contains(searchBox.Text.ToLower()) ||
@@ -145,13 +162,7 @@ namespace ACMS.Pages.PagesW
                 }
             }
 
-            if(postSelect.SelectedIndex > 0)
-                {
-                    var selectedd = AppConnect.modelOdb.Posts.FirstOrDefault(x => x.TitlePost == postSelect.Text).idPost;
-
-                    empList = empList.Where(x => x.idPost == selectedd).ToList();
-                }
-
+            
             if (count % 2 == 1)
             {
                 switch (sortSelect.SelectedIndex)

@@ -100,6 +100,7 @@
     <Compile Include="BlackList.cs">
       <DependentUpon>ACMSDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Classes\currentUserAndRemember.cs" />
     <Compile Include="Departments.cs">
       <DependentUpon>ACMSDB.tt</DependentUpon>
     </Compile>
@@ -115,7 +116,6 @@
     <Compile Include="Employees.cs">
       <DependentUpon>ACMSDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="getC.cs" />
     <Compile Include="Keys.cs">
       <DependentUpon>ACMSDB.tt</DependentUpon>
     </Compile>
@@ -124,6 +124,9 @@
     </Compile>
     <Compile Include="Pages\PagesW\AddEdit\AddEmployee.xaml.cs">
       <DependentUpon>AddEmployee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PagesW\KeysFr.xaml.cs">
+      <DependentUpon>KeysFr.xaml</DependentUpon>
     </Compile>
     <Compile Include="Permissions.cs">
       <DependentUpon>ACMSDB.tt</DependentUpon>
@@ -167,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PagesW\EmployeesFr.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PagesW\KeysFr.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

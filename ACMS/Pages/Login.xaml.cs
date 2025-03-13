@@ -1,4 +1,4 @@
-﻿using ACMS.ApplicationData;
+﻿
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +17,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using ACMS.Classes;
+using ACMS.ApplicationData;
+
 namespace ACMS.Pages
 {
     /// <summary>
@@ -24,35 +27,44 @@ namespace ACMS.Pages
     /// </summary>
     public partial class LoginI : Page
     {
-        getC userPermission = new getC();
+        currentUserAndRemember currentUser = new currentUserAndRemember();
+        Users user = new Users();
+
+        public LoginI(currentUserAndRemember userInp) {
+             InitializeComponent();
+
+             LoginButton.IsEnabled = false;
+
+            user = AppConnect.modelOdb.Users.First(x => x.idUser == userInp.currentUserId);
+            currentUser = userInp;
+
+            if(currentUser.rememberUser) {
+                LoginInp.Text = user.Login.ToString();
+                PassInp.Password = user.Password;
+            }
+
+        }
         private void toReg(object sender, RoutedEventArgs e)
-        { 
+        {
             AppFrame.PMain.Navigate(new Reg());
         }
 
-        string[] remUser = { "" , "" };
-        public LoginI() {
-             InitializeComponent();
-             LoginButton.IsEnabled = false;
-
-
-        }
-        
-            private void LoginButt_Click(object sender, RoutedEventArgs e)
+        private void LoginButt_Click(object sender, RoutedEventArgs e)
             {
             try
             {
                 string logInp = LoginInp.Text.Trim();
                 string passInp = PassInp.Password;
+                var inputUser = AppConnect.modelOdb.Users.FirstOrDefault(x => x.Password == passInp && logInp == x.Login);
 
-                var user = AppConnect.modelOdb.Users.FirstOrDefault(x => x.Password == passInp && logInp == x.Login);
-
-                if (user != null)
+                if (inputUser != null)
                 {
+                    if (CheckRememMe.IsChecked == true)
+                        currentUser.rememberUser = true;
 
-                    userPermission.currPermission = user.Permissions.TitlePersmission;
+                     currentUser.currentUserId = inputUser.idUser;
 
-                    NavigationService.Navigate(new StartPage(userPermission.currPermission));
+                    NavigationService.Navigate(new StartPage(currentUser));
                 }
                 else
                 {
@@ -75,21 +87,21 @@ namespace ACMS.Pages
 
             private void PassInp_PasswordChanged(object sender, RoutedEventArgs e)
             {
-
-                if (PassInp.Password == "")
-                LoginButton.IsEnabled = false;
-                else
-                LoginButton.IsEnabled = true;
+            checkInp();
+            }
+            private void LoginInp_TextChanged(object sender, TextChangedEventArgs e)
+            {
+            checkInp();
             }
 
-
-        private void LoginInp_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (LoginInp.Text == "")
-                LoginButton.IsEnabled = false;
-            else
+        public void checkInp() {
+            if (PassInp.Password.Length > 0 && LoginInp.Text.Length > 0)
                 LoginButton.IsEnabled = true;
+            else
+                LoginButton.IsEnabled = false;
         }
+
+
 
         private void CheckRememMe_Checked(object sender, RoutedEventArgs e)
         {
@@ -99,8 +111,9 @@ namespace ACMS.Pages
 
         private void LoginGuestButt_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new StartPage("Гость"));
+            NavigationService.Navigate(new StartPage(currentUser));
         }
+
     }
 }
 

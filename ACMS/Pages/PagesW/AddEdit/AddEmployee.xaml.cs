@@ -1,5 +1,4 @@
-﻿using ACMS.ApplicationData;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
@@ -15,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using ACMS.ApplicationData;
+using ACMS.Classes;
+
 namespace ACMS.Pages.PagesW.AddEdit
 {
     /// <summary>
@@ -22,10 +24,14 @@ namespace ACMS.Pages.PagesW.AddEdit
     /// </summary>
     public partial class AddEmployee : Page
     {
-        public Employees currEmployee ;
-        public AddEmployee(Employees selecteEmployee)
+        public Employees currEmployee;
+
+        currentUserAndRemember currentUser = new currentUserAndRemember();
+        public AddEmployee(Employees selecteEmployee, currentUserAndRemember userInp)
         {
             InitializeComponent();
+
+            currentUser = userInp;
 
             addNewEmplButt.IsEnabled = false;
 
@@ -33,10 +39,10 @@ namespace ACMS.Pages.PagesW.AddEdit
             var pos = AppConnect.modelOdb.Posts;
             var org = AppConnect.modelOdb.Organizations;
 
-            foreach(var i in dep)
+            foreach (var i in dep)
             {
                 DepName.Items.Add(i.TitleDepartment);
-            }  
+            }
             foreach (var i in pos)
             {
                 PostName.Items.Add(i.TitlePost);
@@ -71,8 +77,8 @@ namespace ACMS.Pages.PagesW.AddEdit
             {
                 Employees employeeAddEdit = new Employees();
 
-                if(currEmployee != null)
-                    employeeAddEdit = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.idEmployee == currEmployee.idEmployee );
+                if (currEmployee != null)
+                    employeeAddEdit = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.idEmployee == currEmployee.idEmployee);
 
                 employeeAddEdit.Firstname = NameInp.Text;
                 employeeAddEdit.Secondname = secondNInp.Text;
@@ -81,20 +87,20 @@ namespace ACMS.Pages.PagesW.AddEdit
                 employeeAddEdit.idOrganization = AppConnect.modelOdb.Organizations.FirstOrDefault(x => x.OrgName == OrgName.Text).idOrganization;
                 employeeAddEdit.idDepartment = AppConnect.modelOdb.Departments.FirstOrDefault(x => x.TitleDepartment == DepName.Text).idDepartment;
 
-                if(currEmployee != null)
-                MessageBox.Show($"Данные пользователя изменены", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (currEmployee != null)
+                    MessageBox.Show($"Данные пользователя изменены", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 else
                 {
                     AppConnect.modelOdb.Employees.Add(employeeAddEdit);
                     MessageBox.Show($"Пользователь  добавлен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 AppConnect.modelOdb.SaveChanges();
-                NavigationService.Navigate(new EmployeesFr(null));
+                NavigationService.Navigate(new EmployeesFr(currentUser));
 
             }
             catch
             {
-                MessageBox.Show("Ошибка при добавлении пользователя","Ошибка",MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show("Ошибка при добавлении пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -104,7 +110,7 @@ namespace ACMS.Pages.PagesW.AddEdit
         }
         private void checkTextBox()
         {
-            if (NameInp.Text == "" || secondNInp.Text == "" || PatronymicInp.Text == "" ) addNewEmplButt.IsEnabled = false;
+            if (NameInp.Text == "" || secondNInp.Text == "" || PatronymicInp.Text == "") addNewEmplButt.IsEnabled = false;
             else addNewEmplButt.IsEnabled = true;
         }
 

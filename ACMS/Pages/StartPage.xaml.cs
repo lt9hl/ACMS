@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ACMS.ApplicationData;
+using ACMS.Classes;
 using ACMS.Pages.PagesW;
 
 
@@ -23,15 +24,18 @@ namespace ACMS.Pages
     /// </summary>
     public partial class StartPage : Page
     {
-        
-        public StartPage(string currUser)
+        currentUserAndRemember currentUser = new currentUserAndRemember();
+        Users user = new Users();
+        public StartPage(currentUserAndRemember userInp)
         {
             InitializeComponent();
             AppFrame.FWork = FrStart;
 
-            userPermission.currPermission = currUser;
+            user = AppConnect.modelOdb.Users.First(x => x.idUser == userInp.currentUserId);
+            currentUser = userInp;
 
-            if (userPermission.currPermission == "Гость")
+
+            if (user.Permissions.TitlePersmission == "Гость")
             {
                 ButtUsers.IsEnabled = false;
                 ButtCards.IsEnabled = false;
@@ -39,17 +43,17 @@ namespace ACMS.Pages
                 ButtDoors.IsEnabled = false;
 
             }
-            if (userPermission.currPermission == "Пользователь")
+            if (user.Permissions.TitlePersmission == "Пользователь")
             {
                 ButtUsers.IsEnabled = false;
                 ButtDoors.IsEnabled = false;
             }
             
         }
-        getC userPermission = new getC();
+
         private void BackToLogin(object sender, RoutedEventArgs e)
         {
-            AppFrame.PMain.Navigate(new LoginI());
+            AppFrame.PMain.Navigate(new LoginI(currentUser));
         }
 
         private void toDoorsFr(object sender, RoutedEventArgs e)
@@ -69,17 +73,17 @@ namespace ACMS.Pages
 
         private void toEntFr(object sender, RoutedEventArgs e)
         {
-
+            AppFrame.FWork.Navigate(new KeysFr());
         }
 
         private void toUserFr(object sender, RoutedEventArgs e)
         {
-            AppFrame.FWork.Navigate(new UsersFr());
+            AppFrame.FWork.Navigate(new UsersFr(currentUser));
         }
 
         private void toEmpFr(object sender, RoutedEventArgs e)
         {
-            AppFrame.FWork.Navigate(new EmployeesFr(userPermission.currPermission));
+            AppFrame.FWork.Navigate(new EmployeesFr(currentUser));
         }
     }
 }

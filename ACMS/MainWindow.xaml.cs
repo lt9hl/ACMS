@@ -1,4 +1,4 @@
-﻿using ACMS.Pages;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +18,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Data.Sql;
 
+using ACMS.Pages;
+using ACMS.Classes;
+
 namespace ACMS
 {
 
@@ -27,15 +30,15 @@ namespace ACMS
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        currentUserAndRemember currentUser = new currentUserAndRemember();
         public MainWindow()
         {
             InitializeComponent();
             AppConnect.modelOdb = new ACMSEntities();
             AppFrame.PMain = frMain;
 
+            AppFrame.PMain.Navigate(new LoginI(currentUser));
 
-            
         }
 
 

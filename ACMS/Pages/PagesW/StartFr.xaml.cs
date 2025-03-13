@@ -36,7 +36,16 @@ namespace ACMS.Pages.PagesW
             countUsers.Content = AppConnect.modelOdb.Users.ToArray().Length;
             countEmp1.Content = AppConnect.modelOdb.Employees.ToArray().Length;
 
-            listNewEmployees.ItemsSource = AppConnect.modelOdb.Employees.ToList();
+            var listEmployees = AppConnect.modelOdb.Employees.ToList();
+            List<Employees> newEmployees = new List<Employees>(0);
+
+            for (int i = listEmployees.Count-1; i > listEmployees.Count - 5; i--)
+            {
+                newEmployees.Add(listEmployees[i]);
+            }
+
+            //List<Employees> employeesList = AppConnect.modelOdb.Employees.Where(emp => emp.idEmployee >).ToList();
+            listNewEmployees.ItemsSource = newEmployees;
         }
 
 

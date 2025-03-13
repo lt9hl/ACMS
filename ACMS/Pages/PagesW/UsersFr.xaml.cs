@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ACMS.ApplicationData;
+using ACMS.Classes;
 
 namespace ACMS.Pages.PagesW
 {
@@ -22,37 +23,49 @@ namespace ACMS.Pages.PagesW
     /// </summary>
     public partial class UsersFr : Page
     {
-        public UsersFr()
+        currentUserAndRemember currentUser = new currentUserAndRemember();
+        Users user = new Users();
+
+        public UsersFr(currentUserAndRemember userInp)
         {
             InitializeComponent();
+
             listUsers.ItemsSource = AppConnect.modelOdb.Users.ToList();
+
+            user = AppConnect.modelOdb.Users.First(x => x.idUser == userInp.currentUserId);
+            currentUser = userInp;
         }
 
         private void delSelected(object sender, RoutedEventArgs e)
         {
             funDelete();
-            listUsers.ItemsSource = AppConnect.modelOdb.Users.ToList();
             
         }
         public void funDelete()
         {
             var ObjForRemoving = listUsers.SelectedItems.Cast<Users>().ToList();
-            if (MessageBox.Show($"Вы точно хотите удалить {ObjForRemoving.Count} пользователей", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (ObjForRemoving.Contains(user))
+                MessageBox.Show("Невозможно удалить текущего пользователя","Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
+            else
             {
-                try
+                if (MessageBox.Show($"Вы точно хотите удалить {ObjForRemoving.Count} пользователей", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    AppConnect.modelOdb.Users.RemoveRange(ObjForRemoving);
-                    AppConnect.modelOdb.SaveChanges();
+                    try
+                    { 
+                        AppConnect.modelOdb.Users.RemoveRange(ObjForRemoving);
+                        AppConnect.modelOdb.SaveChanges();
 
-                    listUsers.ItemsSource = AppConnect.modelOdb.Employees.ToList();
+                        MessageBox.Show("Пользователи успешно удалены","Уведомление",MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    MessageBox.Show("Пользователи успешно удалены");
-                }
-                catch
-                {
-                    MessageBox.Show("Произошла ошибка при удалении", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                        listUsers.ItemsSource = AppConnect.modelOdb.Users.ToList();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Произошла ошибка при удалении", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
             }
+            
         }
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {

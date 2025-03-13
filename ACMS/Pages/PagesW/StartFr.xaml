@@ -93,7 +93,7 @@
                     <StackPanel Height="160" Width="400">
                         <Label Content="Новые сотрудники" Foreground="#d2c2b7" FontSize="18" Margin="10 10 0 0"/>
                         
-                        <ListView  x:Name="listNewEmployees" Height="110"  Margin="10 0" Style="{StaticResource ListSt}">
+                        <ListView  x:Name="listNewEmployees" Height="110" BorderBrush="Transparent"  Margin="10 0" Style="{StaticResource ListSt}">
 
                             <ListView.ItemTemplate>
 
@@ -109,13 +109,13 @@
                                             
                                         <StackPanel Height="20" Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
                                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-                                                <Run Text="{Binding Fistname}"/>
+                                                <Run Text="{Binding Secondname}"/>
                                             </TextBlock>
                                         </StackPanel>
                                         
                                         <StackPanel Height="20" Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
                                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-                                                <Run Text="{Binding Secondname}"/>
+                                                <Run Text="{Binding Firstname}"/>
                                             </TextBlock>
                                         </StackPanel>
                                         

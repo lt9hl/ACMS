@@ -194,7 +194,7 @@
 
                         <Label x:Name="PassText" Content="Пароль" Margin="0 5 0 0" Style="{StaticResource labelSt}"/>
 
-                        <PasswordBox Template="{DynamicResource PasswordBoxTemplateAuth}" x:Name="PassInp" Margin="5 0 0 5" Style="{StaticResource PassBoxLog}" SelectionBrush="{x:Null}"/>
+                        <PasswordBox Template="{DynamicResource PasswordBoxTemplateAuth}" x:Name="PassInp" Margin="5 0 0 5" Style="{StaticResource PassBoxLog}" SelectionBrush="{x:Null}" PasswordChanged="PassInp_PasswordChanged"/>
 
 
                     </StackPanel>
