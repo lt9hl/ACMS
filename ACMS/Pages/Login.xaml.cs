@@ -2,7 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,9 +18,10 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ACMS;
 
-using ACMS.Classes;
 using ACMS.ApplicationData;
+using ACMS.Properties;
 
 namespace ACMS.Pages
 {
@@ -27,20 +30,16 @@ namespace ACMS.Pages
     /// </summary>
     public partial class LoginI : Page
     {
-        currentUserAndRemember currentUser = new currentUserAndRemember();
-        Users user = new Users();
-
-        public LoginI(currentUserAndRemember userInp) {
+        public LoginI() {
              InitializeComponent();
+            var currentUser = AppConnect.modelOdb.CurrentUser.OrderByDescending(x => x.idCurrentUser).ToList()[0];
 
-             LoginButton.IsEnabled = false;
+            LoginButton.IsEnabled = false;
 
-            user = AppConnect.modelOdb.Users.First(x => x.idUser == userInp.currentUserId);
-            currentUser = userInp;
-
-            if(currentUser.rememberUser) {
-                LoginInp.Text = user.Login.ToString();
-                PassInp.Password = user.Password;
+            if (currentUser.SaveOrNo == 1)
+            {
+                LoginInp.Text = currentUser.Users.Login.ToString();
+                PassInp.Password = currentUser.Users.Password;
             }
 
         }
@@ -56,15 +55,39 @@ namespace ACMS.Pages
                 string logInp = LoginInp.Text.Trim();
                 string passInp = PassInp.Password;
                 var inputUser = AppConnect.modelOdb.Users.FirstOrDefault(x => x.Password == passInp && logInp == x.Login);
+                
 
-                if (inputUser != null)
+                if (inputUser != null )
                 {
-                    if (CheckRememMe.IsChecked == true)
-                        currentUser.rememberUser = true;
+                    var whiteList = AppConnect.modelOdb.BlackList.FirstOrDefault(x => x.idUser == inputUser.idUser);
+                    if (whiteList == null)
+                    {
+                        var newCurrentUser = new CurrentUser()
+                        {
+                            idUser = inputUser.idUser,
+                            SaveOrNo = 0
+                        };
 
-                     currentUser.currentUserId = inputUser.idUser;
+                        if (CheckRememMe.IsChecked == true)
+                        {
+                            newCurrentUser = new CurrentUser
+                            {
+                                idUser = inputUser.idUser,
+                                SaveOrNo = 1
+                            };
 
-                    NavigationService.Navigate(new StartPage(currentUser));
+                        }
+
+                        AppConnect.modelOdb.CurrentUser.Add(newCurrentUser);
+                        AppConnect.modelOdb.SaveChanges();
+
+                        NavigationService.Navigate(new StartPage());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь заблокирован","Ошибка",MessageBoxButton.OK,MessageBoxImage.Error);
+                    }
+                    
                 }
                 else
                 {
@@ -111,7 +134,17 @@ namespace ACMS.Pages
 
         private void LoginGuestButt_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new StartPage(currentUser));
+
+            var newCurrentUser = new CurrentUser()
+            {
+                idUser = 6,
+                SaveOrNo = 0
+            };
+           
+            AppConnect.modelOdb.CurrentUser.Add(newCurrentUser);
+            AppConnect.modelOdb.SaveChanges();
+
+            NavigationService.Navigate(new StartPage());
         }
 
     }

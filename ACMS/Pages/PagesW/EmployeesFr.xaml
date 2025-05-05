@@ -110,9 +110,9 @@
                             <Image x:Name="ImDel" Source="\Images\workIcons\trash.png"/>
                         </Button>
 
-                        <ComboBox x:Name="sortSelect" Template="{DynamicResource ComboBoxTemplateAdd}" Width="110" Style="{StaticResource comboStyle}" Margin="20 0 0 0 " SelectionChanged="sortSelect_SelectionChanged"/>
-
                         <ComboBox x:Name="postSelect" Template="{DynamicResource ComboBoxTemplateAdd}" Width="100" Style="{StaticResource comboStyle}" Margin="20 0 0 0 " SelectionChanged="sortSelect_SelectionChanged"/>
+
+                        <ComboBox x:Name="sortSelect" Template="{DynamicResource ComboBoxTemplateAdd}" Width="110" Style="{StaticResource comboStyle}" Margin="20 0 0 0 " SelectionChanged="sortSelect_SelectionChanged"/>
 
                         <Button x:Name="SortButt" Click="SortButtClick" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
                             <Image x:Name="ImSort" Source="\Images\icons\sort.png"/>
@@ -125,10 +125,11 @@
                 <Grid Margin="10 0">
                     <Grid.ColumnDefinitions>
                         <!--580-->
+                        <ColumnDefinition Width="50" />
                         <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="110"/>
                         <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="110"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -136,47 +137,54 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Label FontSize="12" x:Name="ListSecN" Grid.Column="0" Content="Фамилия" />
-                    <Label FontSize="12" x:Name="ListFName" Grid.Column="1" Content="Имя"/>
-                    <Label FontSize="12" x:Name="ListPatron" Grid.Column="2" Content="Отчество"/>
-                    <Label FontSize="12" x:Name="ListPost" Grid.Column="3" Content="Должность"/>
-                    <Label FontSize="12" x:Name="ListOrg" Grid.Column="4" Content="Организация"/>
+                    <Label FontSize="12" x:Name="ListPhoto" Grid.Column="0" Content="Фото"  />
+                    <Label FontSize="12" x:Name="ListSecN" Grid.Column="1" Content="Фамилия" />
+                    <Label FontSize="12" x:Name="ListFName" Grid.Column="2" Content="Имя"/>
+                    <Label FontSize="12" x:Name="ListPatron" Grid.Column="3" Content="Отчество"/>
+                    <Label FontSize="12" x:Name="ListPost" Grid.Column="4" Content="Должность"/>
+                    <Label FontSize="12" x:Name="ListOrg" Grid.Column="5" Content="Организация"/>
+                     
 
-                    <ListView   Grid.Row="1" Grid.ColumnSpan="5" BorderBrush="#292919"  x:Name="listAllEmpl" Height="390" Style="{StaticResource ListSt}">
+                    <ListView   Grid.Row="1" Grid.ColumnSpan="6" BorderBrush="#292919"  x:Name="listAllEmpl" Height="390" Style="{StaticResource ListSt}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
                                         <ColumnDefinition Width="100" />
                                         <ColumnDefinition Width="110"/>
                                         <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition Width="140"/>
+                                        <ColumnDefinition Width="110"/>
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Grid.Row="2" Grid.Column="0" Style="{StaticResource table}">
+                                    <StackPanel Grid.Column="0" >
+                                        <Image HorizontalAlignment="Left" x:Name="employeePhoto" Width="35" Height="35" Source="{Binding photo}" />
+                                    </StackPanel>
+                                    
+                                    <StackPanel Grid.Row="2" Grid.Column="1" Style="{StaticResource table}">
                                         <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-<Run Text="{Binding Secondname}"/>
+                                            <Run Text="{Binding Secondname}"/>
                                         </TextBlock>
                                     </StackPanel>
 
-                                    <StackPanel Grid.Row="2" Grid.Column="1" Style="{StaticResource table}">
+                                    <StackPanel Grid.Row="2" Grid.Column="2" Style="{StaticResource table}">
                                         <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-             <Run Text="{Binding Firstname}"/>
+                                            <Run Text="{Binding Firstname}"/>
                                         </TextBlock>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="2" Grid.Column="2" Style="{StaticResource table}">
+                                    <StackPanel Grid.Row="2" Grid.Column="3" Style="{StaticResource table}">
                                     <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-<Run Text="{Binding Patronymic}"/>
+                                        <Run Text="{Binding Patronymic}"/>
                                     </TextBlock>
                                 </StackPanel>
-                                    <StackPanel Grid.Row="2" Grid.Column="3" Style="{StaticResource table}">
-                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-            <Run Text="{Binding Posts.TitlePost}"/>
-                                        </TextBlock>
-                                    </StackPanel>
                                     <StackPanel Grid.Row="2" Grid.Column="4" Style="{StaticResource table}">
                                         <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-<Run Text="{Binding Organizations.OrgName}"/>
+                                            <Run Text="{Binding Posts.TitlePost}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Grid.Column="5" Style="{StaticResource table}">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                            <Run Text="{Binding Organizations.OrgName}"/>
                                         </TextBlock>
                                     </StackPanel>
                                 

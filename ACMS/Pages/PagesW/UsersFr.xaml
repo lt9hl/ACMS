@@ -89,6 +89,10 @@
                         <Button x:Name="delButt" Click="delSelected" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
                             <Image x:Name="ImDel" Source="\Images\workIcons\trash.png"/>
                         </Button>
+                        
+                        <Button x:Name="lockUnlockButt" Click="unlockLockSelected" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
+                            <Image x:Name="ImageLockUnlock" Source="\Images\workIcons\lock.png"/>
+                        </Button>
 
                         <TextBox BorderBrush="#6d8228" FontSize="12" Foreground="#d2c2b7" BorderThickness="0 0 0 1" x:Name="searchBox"  Margin="400 0 0 0" Width="150" Height="20" Template="{DynamicResource ButtonTemplateBox}"  Style="{StaticResource textBoxSearch}" TextChanged="searchBox_TextChanged"/>
                     
@@ -112,7 +116,7 @@
                     <Label FontSize="12" x:Name="PersmissionName" Grid.Column="2" Content="Права"/>
 
 
-                    <ListView Grid.Row="1" Grid.ColumnSpan="5" BorderBrush="#292919"  x:Name="listUsers" Height="390" Style="{StaticResource ListSt}">
+                    <ListView Grid.Row="1" Grid.ColumnSpan="5" BorderBrush="#292919"  x:Name="listUsers" Height="390" Style="{StaticResource ListSt}" SelectionChanged="listUsers_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>

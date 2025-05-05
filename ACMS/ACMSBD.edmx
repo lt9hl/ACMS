@@ -25,8 +25,16 @@
             <PropertyRef Name="idBlackList" />
           </Key>
           <Property Name="idBlackList" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idEmployee" Type="int" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
           <Property Name="EnterDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CurrentUser">
+          <Key>
+            <PropertyRef Name="idCurrentUser" />
+          </Key>
+          <Property Name="idCurrentUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="SaveOrNo" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Departments">
           <Key>
@@ -70,6 +78,7 @@
           <Property Name="idDepartment" Type="int" Nullable="false" />
           <Property Name="idOrganization" Type="int" Nullable="false" />
           <Property Name="idPost" Type="int" Nullable="false" />
+          <Property Name="photo" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Keys">
           <Key>
@@ -89,6 +98,14 @@
           <Property Name="OrgName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="INN" Type="nvarchar" MaxLength="10" />
         </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="idPayment" />
+          </Key>
+          <Property Name="idPayment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTypePayment" Type="int" Nullable="false" />
+          <Property Name="idProduct" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Permissions">
           <Key>
             <PropertyRef Name="idPermission" />
@@ -103,6 +120,14 @@
           <Property Name="idPost" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TitlePost" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cost" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -112,6 +137,13 @@
           <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TypesPayments">
+          <Key>
+            <PropertyRef Name="idTypePayment" />
+          </Key>
+          <Property Name="idTypePayment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -160,17 +192,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BlackList_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="1">
+        <Association Name="FK_BlackList_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="BlackList" Type="Self.BlackList" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employees">
-              <PropertyRef Name="idEmployee" />
+            <Principal Role="Users">
+              <PropertyRef Name="idUser" />
             </Principal>
             <Dependent Role="BlackList">
-              <PropertyRef Name="idEmployee" />
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CurrentUser_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CurrentUser" Type="Self.CurrentUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="CurrentUser">
+              <PropertyRef Name="idUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -284,6 +330,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Payments_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="idTypePayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_TypesPayments">
+          <End Role="TypesPayments" Type="Self.TypesPayments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesPayments">
+              <PropertyRef Name="idTypePayment" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="idTypePayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Users_Permissions">
           <End Role="Permissions" Type="Self.Permissions" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -302,6 +376,7 @@
           <EntitySet Name="AccessLevels" EntityType="Self.AccessLevels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AccessLevelsDoors" EntityType="Self.AccessLevelsDoors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BlackList" EntityType="Self.BlackList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CurrentUser" EntityType="Self.CurrentUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DoorDirections" EntityType="Self.DoorDirections" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Doors" EntityType="Self.Doors" Schema="dbo" store:Type="Tables" />
@@ -309,9 +384,12 @@
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Keys" EntityType="Self.Keys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organizations" EntityType="Self.Organizations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypesPayments" EntityType="Self.TypesPayments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WorkSchedules" EntityType="Self.WorkSchedules" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AccessLevelsDoors_AccessLevels" Association="Self.FK_AccessLevelsDoors_AccessLevels">
@@ -322,9 +400,13 @@
             <End Role="Doors" EntitySet="Doors" />
             <End Role="AccessLevelsDoors" EntitySet="AccessLevelsDoors" />
           </AssociationSet>
-          <AssociationSet Name="FK_BlackList_Employees" Association="Self.FK_BlackList_Employees">
-            <End Role="Employees" EntitySet="Employees" />
+          <AssociationSet Name="FK_BlackList_Users" Association="Self.FK_BlackList_Users">
+            <End Role="Users" EntitySet="Users" />
             <End Role="BlackList" EntitySet="BlackList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CurrentUser_Users" Association="Self.FK_CurrentUser_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CurrentUser" EntitySet="CurrentUser" />
           </AssociationSet>
           <AssociationSet Name="FK_Doors_DoorDirections" Association="Self.FK_Doors_DoorDirections">
             <End Role="DoorDirections" EntitySet="DoorDirections" />
@@ -358,6 +440,14 @@
             <End Role="WorkSchedules" EntitySet="WorkSchedules" />
             <End Role="Keys" EntitySet="Keys" />
           </AssociationSet>
+          <AssociationSet Name="FK_Payments_Products" Association="Self.FK_Payments_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_TypesPayments" Association="Self.FK_Payments_TypesPayments">
+            <End Role="TypesPayments" EntitySet="TypesPayments" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
           <AssociationSet Name="FK_Users_Permissions" Association="Self.FK_Users_Permissions">
             <End Role="Permissions" EntitySet="Permissions" />
             <End Role="Users" EntitySet="Users" />
@@ -390,9 +480,18 @@
             <PropertyRef Name="idBlackList" />
           </Key>
           <Property Name="idBlackList" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idEmployee" Type="Int32" Nullable="false" />
           <Property Name="EnterDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK_BlackList_Employees" FromRole="BlackList" ToRole="Employees" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="ACMSModel.FK_BlackList_Users" FromRole="BlackList" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="CurrentUser">
+          <Key>
+            <PropertyRef Name="idCurrentUser" />
+          </Key>
+          <Property Name="idCurrentUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="SaveOrNo" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_CurrentUser_Users" FromRole="CurrentUser" ToRole="Users" />
         </EntityType>
         <EntityType Name="Departments">
           <Key>
@@ -437,18 +536,18 @@
             <PropertyRef Name="idEmployee" />
           </Key>
           <Property Name="idEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Secondname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="idDepartment" Type="Int32" Nullable="false" />
           <Property Name="idOrganization" Type="Int32" Nullable="false" />
           <Property Name="idPost" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="BlackList" Relationship="Self.FK_BlackList_Employees" FromRole="Employees" ToRole="BlackList" />
+          <Property Name="photo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Departments" Relationship="Self.FK_Employees_Departments" FromRole="Employees" ToRole="Departments" />
           <NavigationProperty Name="DoorsEmployees" Relationship="Self.FK_DoorsEmployees_Employees" FromRole="Employees" ToRole="DoorsEmployees" />
           <NavigationProperty Name="Organizations" Relationship="Self.FK_Employees_Organizations" FromRole="Employees" ToRole="Organizations" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Employees_Posts" FromRole="Employees" ToRole="Posts" />
           <NavigationProperty Name="Keys" Relationship="Self.FK_Keys_Employees" FromRole="Employees" ToRole="Keys" />
-          <Property Name="Firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Keys">
           <Key>
@@ -471,6 +570,16 @@
           <Property Name="INN" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Organizations" FromRole="Organizations" ToRole="Employees" />
         </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="idPayment" />
+          </Key>
+          <Property Name="idPayment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTypePayment" Type="Int32" Nullable="false" />
+          <Property Name="idProduct" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Payments_Products" FromRole="Payments" ToRole="Products" />
+          <NavigationProperty Name="TypesPayments" Relationship="ACMSModel.FK_Payments_TypesPayments" FromRole="Payments" ToRole="TypesPayments" />
+        </EntityType>
         <EntityType Name="Permissions">
           <Key>
             <PropertyRef Name="idPermission" />
@@ -487,6 +596,15 @@
           <Property Name="TitlePost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Posts" FromRole="Posts" ToRole="Employees" />
         </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cost" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK_Payments_Products" FromRole="Products" ToRole="Payments" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -497,6 +615,14 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="TypesPayments">
+          <Key>
+            <PropertyRef Name="idTypePayment" />
+          </Key>
+          <Property Name="idTypePayment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Payments" Relationship="ACMSModel.FK_Payments_TypesPayments" FromRole="TypesPayments" ToRole="Payments" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="idUser" />
@@ -506,7 +632,9 @@
           <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="idPermission" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CurrentUser" Relationship="Self.FK_CurrentUser_Users" FromRole="Users" ToRole="CurrentUser" />
           <NavigationProperty Name="Permissions" Relationship="Self.FK_Users_Permissions" FromRole="Users" ToRole="Permissions" />
+          <NavigationProperty Name="BlackList" Relationship="ACMSModel.FK_BlackList_Users" FromRole="Users" ToRole="BlackList" />
         </EntityType>
         <EntityType Name="WorkSchedules">
           <Key>
@@ -546,17 +674,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_BlackList_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="1">
+        <Association Name="FK_CurrentUser_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="BlackList" Type="Self.BlackList" Multiplicity="*" />
+          <End Role="CurrentUser" Type="Self.CurrentUser" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Employees">
-              <PropertyRef Name="idEmployee" />
+            <Principal Role="Users">
+              <PropertyRef Name="idUser" />
             </Principal>
-            <Dependent Role="BlackList">
-              <PropertyRef Name="idEmployee" />
+            <Dependent Role="CurrentUser">
+              <PropertyRef Name="idUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -670,6 +798,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Payments_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="idTypePayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Users_Permissions">
           <End Role="Permissions" Type="Self.Permissions" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -684,10 +826,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ACMSEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ACMSEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AccessLevels" EntityType="Self.AccessLevels" />
           <EntitySet Name="AccessLevelsDoors" EntityType="Self.AccessLevelsDoors" />
           <EntitySet Name="BlackList" EntityType="Self.BlackList" />
+          <EntitySet Name="CurrentUser" EntityType="Self.CurrentUser" />
           <EntitySet Name="Departments" EntityType="Self.Departments" />
           <EntitySet Name="DoorDirections" EntityType="Self.DoorDirections" />
           <EntitySet Name="Doors" EntityType="Self.Doors" />
@@ -695,9 +838,12 @@
           <EntitySet Name="Employees" EntityType="Self.Employees" />
           <EntitySet Name="Keys" EntityType="Self.Keys" />
           <EntitySet Name="Organizations" EntityType="Self.Organizations" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" />
           <EntitySet Name="Permissions" EntityType="Self.Permissions" />
           <EntitySet Name="Posts" EntityType="Self.Posts" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TypesPayments" EntityType="Self.TypesPayments" />
           <EntitySet Name="Users" EntityType="Self.Users" />
           <EntitySet Name="WorkSchedules" EntityType="Self.WorkSchedules" />
           <AssociationSet Name="FK_AccessLevelsDoors_AccessLevels" Association="Self.FK_AccessLevelsDoors_AccessLevels">
@@ -708,9 +854,9 @@
             <End Role="Doors" EntitySet="Doors" />
             <End Role="AccessLevelsDoors" EntitySet="AccessLevelsDoors" />
           </AssociationSet>
-          <AssociationSet Name="FK_BlackList_Employees" Association="Self.FK_BlackList_Employees">
-            <End Role="Employees" EntitySet="Employees" />
-            <End Role="BlackList" EntitySet="BlackList" />
+          <AssociationSet Name="FK_CurrentUser_Users" Association="Self.FK_CurrentUser_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CurrentUser" EntitySet="CurrentUser" />
           </AssociationSet>
           <AssociationSet Name="FK_Employees_Departments" Association="Self.FK_Employees_Departments">
             <End Role="Departments" EntitySet="Departments" />
@@ -744,17 +890,57 @@
             <End Role="WorkSchedules" EntitySet="WorkSchedules" />
             <End Role="Keys" EntitySet="Keys" />
           </AssociationSet>
+          <AssociationSet Name="FK_Payments_Products" Association="Self.FK_Payments_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
           <AssociationSet Name="FK_Users_Permissions" Association="Self.FK_Users_Permissions">
             <End Role="Permissions" EntitySet="Permissions" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_Payments_TypesPayments" Association="ACMSModel.FK_Payments_TypesPayments">
+            <End Role="TypesPayments" EntitySet="TypesPayments" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlackList_Users" Association="ACMSModel.FK_BlackList_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BlackList" EntitySet="BlackList" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Payments_TypesPayments">
+          <End Type="ACMSModel.TypesPayments" Role="TypesPayments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ACMSModel.Payments" Role="Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesPayments">
+              <PropertyRef Name="idTypePayment" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="idTypePayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BlackList_Users">
+          <End Type="ACMSModel.Users" Role="Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ACMSModel.BlackList" Role="BlackList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="BlackList">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище ACMSModelContainer" CdmEntityContainer="ACMSEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ACMSModelContainer" CdmEntityContainer="ACMSEntities1">
           <EntitySetMapping Name="AccessLevels">
             <EntityTypeMapping TypeName="ACMSModel.AccessLevels">
               <MappingFragment StoreEntitySet="AccessLevels">
@@ -775,9 +961,18 @@
           <EntitySetMapping Name="BlackList">
             <EntityTypeMapping TypeName="ACMSModel.BlackList">
               <MappingFragment StoreEntitySet="BlackList">
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="idBlackList" ColumnName="idBlackList" />
-                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
                 <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentUser">
+            <EntityTypeMapping TypeName="ACMSModel.CurrentUser">
+              <MappingFragment StoreEntitySet="CurrentUser">
+                <ScalarProperty Name="idCurrentUser" ColumnName="idCurrentUser" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="SaveOrNo" ColumnName="SaveOrNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -819,13 +1014,14 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="ACMSModel.Employees">
               <MappingFragment StoreEntitySet="Employees">
-                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="Secondname" ColumnName="Secondname" />
                 <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
                 <ScalarProperty Name="idDepartment" ColumnName="idDepartment" />
                 <ScalarProperty Name="idOrganization" ColumnName="idOrganization" />
                 <ScalarProperty Name="idPost" ColumnName="idPost" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -849,6 +1045,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="ACMSModel.Payments">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="idPayment" ColumnName="idPayment" />
+                <ScalarProperty Name="idTypePayment" ColumnName="idTypePayment" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Permissions">
             <EntityTypeMapping TypeName="ACMSModel.Permissions">
               <MappingFragment StoreEntitySet="Permissions">
@@ -865,6 +1070,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ACMSModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="ACMSModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -873,6 +1087,14 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypesPayments">
+            <EntityTypeMapping TypeName="ACMSModel.TypesPayments">
+              <MappingFragment StoreEntitySet="TypesPayments">
+                <ScalarProperty Name="idTypePayment" ColumnName="idTypePayment" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

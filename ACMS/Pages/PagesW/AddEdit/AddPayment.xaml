@@ -1,4 +1,4 @@
-﻿<Page x:Class="ACMS.Pages.PagesW.AddEdit.AddEmployee"
+﻿<Page x:Class="ACMS.Pages.PagesW.AddEdit.AddPayment"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ACMS.Pages.PagesW.AddEdit"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="620"
-      Title="AddEmployee">
+      Title="AddPayment">
     <Page.Resources>
         <Style TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="#d2c2b7" />
@@ -41,7 +41,7 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
         </Style>
-        
+
         <Style x:Key="TextBoxLog" TargetType="TextBox">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
@@ -94,7 +94,7 @@
             <Setter Property="Width" Value="160"/>
             <Setter Property="Height" Value="35"/>
             <Setter Property="Foreground" Value="#d2c2b7"/>
-            
+
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -102,6 +102,13 @@
             </Style.Resources>
         </Style>
 
+        <Style x:Key="comboMenu">
+            <Style.Resources>
+                <Style TargetType="CheckBox">
+                    <Setter Property="Foreground" Value="#d2c2b7"/>
+                </Style>
+            </Style.Resources>
+        </Style>
     </Page.Resources>
 
 
@@ -113,7 +120,7 @@
             </Border.Background>
 
             <StackPanel>
-                
+
                 <StackPanel >
                     <Label x:Name="labelEmpl" Content="Создание" Foreground="#d2c2b7" FontSize="25" Margin="10 10 0 0"/>
                     <Border x:Name="BorderLog" CornerRadius="5" BorderBrush="Transparent"  Margin="30 10 30 5"  Padding="10 5">
@@ -126,47 +133,29 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
 
-                            
-                                <StackPanel>
-                                <WrapPanel>
-                                    <Image x:Name="employeePhotoSelect" Width="80" Height="80" Margin="15 15 0 0" />
-                                    <WrapPanel Margin="0 5 0 0">
-                                        <TextBox x:Name="PathPhotoTextBox" Width="150" BorderBrush="Transparent" Height="25" Style="{StaticResource TextBoxLog}" Template="{DynamicResource TextBoxTemplateTB}"/>
-                                        <Button Style="{StaticResource ButtAuth}" Content="Обзор.." Width="70" Height="25" Margin="5 0 0 0 " Click="Button_Click"/>
-                                    </WrapPanel>
-                                </WrapPanel>
-                                
+
+                            <StackPanel>
+
+                                <Label FontSize="12" x:Name="PostText" Content="Товар" Margin="0 2 0 2"/>
+                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}" x:Name="ProductName" Margin="5 0 0 5" Style="{StaticResource comboStyle}" SelectionChanged="ProductName_SelectionChanged" />
 
 
-                                <Label FontSize="12" x:Name="PostText" Content="Должность" Margin="0 2 0 2"/>
-                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}" x:Name="PostName" Margin="5 0 0 5" Style="{StaticResource comboStyle}"/>
-
-                                <Label x:Name="DepText" FontSize="12" Content="Департамент" Margin="0 2 0 2"/>
-                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}"  x:Name="DepName" Margin="5 0 0 5" Style="{StaticResource comboStyle}"/>
+                                <Label x:Name="DepText" FontSize="12" Content="Тип оплаты" Margin="0 2 0 2"/>
+                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}"  x:Name="TypePaymentName" Margin="5 0 0 5" Style="{StaticResource comboStyle}"/>
 
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1"  x:Name="StackLogin" Margin="10 5 10 5">
-                                
-                                <Label x:Name="secondNText" FontSize="12" Content="Фамилия" Margin="0 5 0 2"/>
-                                <TextBox Template="{DynamicResource TextBoxTemplateTB}" x:Name="secondNInp" Margin="5 0 0 5"  Style="{StaticResource TextBoxLog}" TextChanged="secondN_TextChanged" />
+                            <StackPanel Grid.Column="1"  x:Name="StackLogin" >
 
-                                <Label x:Name="NameText" FontSize="12" Content="Имя" Margin="0 2 0 2"/>
-                                <TextBox x:Name="NameInp" Template="{DynamicResource TextBoxTemplateTB}" Margin="5 0 0 5" Style="{StaticResource TextBoxLog}" TextChanged="Name_TextChanged"/>
-
-
-                                <Label x:Name="PatonText" FontSize="12" Content="Отчество" Margin="0 2 0 2"/>
-                                <TextBox x:Name="PatronymicInp" Template="{DynamicResource TextBoxTemplateTB}" Margin="5 0 0 5" Style="{StaticResource TextBoxLog}" TextChanged="Patron_TextChanged"/>
-
-                                <Label x:Name="OrgText" FontSize="12" Content="Организация" Margin="0 2 0 2"/>
-                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}" x:Name="OrgName"  Margin="5 0 0 5" Style="{StaticResource comboStyle}"/>
+                                <Label x:Name="secondNText" FontSize="12" Content="Стоимость" Margin="0 2 0 2"/>
+                                <TextBox Template="{DynamicResource TextBoxTemplateTB}" x:Name="CostInp" Margin="5 0 0 5"  Style="{StaticResource TextBoxLog}"  IsEnabled="False" />
 
                             </StackPanel>
-                            
+
                         </Grid>
-                        
+
                     </Border>
-                    <Button x:Name="addNewEmplButt" Click="addNewEmpl"  Content="Добавить" Style="{StaticResource ButtAuth}" HorizontalAlignment="Center" Template="{DynamicResource ButtonTemplateAuth}"/>
+                    <Button x:Name="addNewPaymentButton" Click="addNewPayment"  Content="Добавить" Style="{StaticResource ButtAuth}" HorizontalAlignment="Center" Template="{DynamicResource ButtonTemplateAuth}"/>
                 </StackPanel>
             </StackPanel>
 

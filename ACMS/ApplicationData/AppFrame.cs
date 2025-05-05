@@ -11,5 +11,6 @@ namespace ACMS.ApplicationData
     {
         public static Frame PMain;
         public static Frame FWork;
+        public static Frame ReportFrDay;
     }
 }

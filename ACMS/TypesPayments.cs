@@ -12,25 +12,18 @@ namespace ACMS
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class TypesPayments
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Users()
+        public TypesPayments()
         {
-            this.CurrentUser = new HashSet<CurrentUser>();
-            this.BlackList = new HashSet<BlackList>();
+            this.Payments = new HashSet<Payments>();
         }
     
-        public int idUser { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public string email { get; set; }
-        public int idPermission { get; set; }
+        public int idTypePayment { get; set; }
+        public string Title { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CurrentUser> CurrentUser { get; set; }
-        public virtual Permissions Permissions { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BlackList> BlackList { get; set; }
+        public virtual ICollection<Payments> Payments { get; set; }
     }
 }

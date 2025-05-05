@@ -13,10 +13,10 @@ namespace ACMS
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ACMSEntities : DbContext
+    public partial class ACMSEntities1 : DbContext
     {
-        public ACMSEntities()
-            : base("name=ACMSEntities")
+        public ACMSEntities1()
+            : base("name=ACMSEntities1")
         {
         }
     
@@ -28,6 +28,7 @@ namespace ACMS
         public virtual DbSet<AccessLevels> AccessLevels { get; set; }
         public virtual DbSet<AccessLevelsDoors> AccessLevelsDoors { get; set; }
         public virtual DbSet<BlackList> BlackList { get; set; }
+        public virtual DbSet<CurrentUser> CurrentUser { get; set; }
         public virtual DbSet<Departments> Departments { get; set; }
         public virtual DbSet<DoorDirections> DoorDirections { get; set; }
         public virtual DbSet<Doors> Doors { get; set; }
@@ -35,9 +36,12 @@ namespace ACMS
         public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<Keys> Keys { get; set; }
         public virtual DbSet<Organizations> Organizations { get; set; }
+        public virtual DbSet<Payments> Payments { get; set; }
         public virtual DbSet<Permissions> Permissions { get; set; }
         public virtual DbSet<Posts> Posts { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<TypesPayments> TypesPayments { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<WorkSchedules> WorkSchedules { get; set; }
     }

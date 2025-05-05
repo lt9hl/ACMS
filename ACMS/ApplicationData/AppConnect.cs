@@ -9,6 +9,6 @@ namespace ACMS.ApplicationData
 {
     internal class AppConnect
     {
-        public static ACMSEntities modelOdb;
+        public static ACMSEntities1 modelOdb;
     }
 }

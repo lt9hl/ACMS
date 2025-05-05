@@ -16,8 +16,6 @@
         <Style x:Key="ListSt" TargetType="ListView">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#d2c2b7"/>
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
 
         <Style x:Key="ButtCom" TargetType="Button">
@@ -42,6 +40,8 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
         </Style>
+
+
 
         <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#6d8228" />
         <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#6d8228"/>
@@ -98,55 +98,76 @@
                     <Label x:Name="labelEmpl" Content="Пропуска" Foreground="#d2c2b7" FontSize="25" Margin="10 10 0 0"/>
 
                     <StackPanel x:Name="StackMenu" Orientation="Horizontal">
-                        <Button x:Name="addButt" Style="{StaticResource ButtCom}"  Template="{DynamicResource ButtonTemplateAuth}" >
+                        <Button x:Name="addButt" Style="{StaticResource ButtCom}"  Template="{DynamicResource ButtonTemplateAuth}" Click="addButt_Click">
                             <Image x:Name="addIm" Source="\Images\workIcons\add.png"/>
                         </Button>
 
-                        <Button x:Name="editButt" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}" >
-                            <Image x:Name="EditIm" Source="\Images\workIcons\edit.png"/>
-                        </Button>
-
-                        <Button x:Name="delButt" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
+                        <Button x:Name="delButt" Click="delSelected" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
                             <Image x:Name="ImDel" Source="\Images\workIcons\trash.png"/>
                         </Button>
 
-                        <ComboBox x:Name="sortSelect" Template="{DynamicResource ComboBoxTemplateAdd}" Width="110" Style="{StaticResource comboStyle}" Margin="20 0 0 0 " />
+                        <ComboBox x:Name="sortSelect" Template="{DynamicResource ComboBoxTemplateAdd}" Width="110" Style="{StaticResource comboStyle}" Margin="20 0 0 0 " SelectionChanged="sortSelect_SelectionChanged"/>
 
-                        <Button x:Name="SortButt"  Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
+                        <ComboBox x:Name="postSelect" Template="{DynamicResource ComboBoxTemplateAdd}" Width="100" Style="{StaticResource comboStyle}" Margin="20 0 0 0 " SelectionChanged="sortSelect_SelectionChanged"/>
+
+                        <Button x:Name="SortButt" Click="SortButtClick" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
                             <Image x:Name="ImSort" Source="\Images\icons\sort.png"/>
                         </Button>
 
-                        <TextBox BorderBrush="#6d8228" FontSize="12" Foreground="#d2c2b7" BorderThickness="0 0 0 1" x:Name="searchBox"  Margin="150 0 0 0" Width="150" Height="20" Template="{DynamicResource ButtonTemplateBox}"  Style="{StaticResource textBoxSearch}" />
+                        <TextBox BorderBrush="#6d8228" FontSize="12" Foreground="#d2c2b7" BorderThickness="0 0 0 1" x:Name="searchBox"  Margin="40 0 0 0" Width="150" Height="20" Template="{DynamicResource ButtonTemplateBox}"  Style="{StaticResource textBoxSearch}" TextChanged="searchBox_TextChanged"/>
                     </StackPanel>
                 </StackPanel>
 
                 <Grid Margin="10 0">
                     <Grid.ColumnDefinitions>
                         <!--580-->
-                        <ColumnDefinition Width="150"/>
-
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Label FontSize="12" x:Name="ListFIO" Grid.Column="0" Content="ФИО" />
+                    <Label FontSize="12" x:Name="ListSecN" Grid.Column="0" Content="Фамилия" />
+                    <Label FontSize="12" x:Name="ListFName" Grid.Column="1" Content="Имя"/>
+                    <Label FontSize="12" x:Name="ListPatron" Grid.Column="2" Content="Отчество"/>
+                    <Label FontSize="12" x:Name="ListPost" Grid.Column="3" Content="Пропуск"/>
 
-                    <ListView   Grid.Row="1" Grid.ColumnSpan="5" BorderBrush="#292919"  x:Name="listAllKeys" Height="390" Style="{StaticResource ListSt}">
+
+                    <ListView   Grid.Row="1" Grid.ColumnSpan="6" BorderBrush="#292919"  x:Name="listAllKeys" Height="390" Style="{StaticResource ListSt}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="110"/>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
                                     <StackPanel Grid.Row="2" Grid.Column="0" Style="{StaticResource table}">
-                                        <TextBox Width="auto" TextWrapping="Wrap" Height="auto">
-                                            <TextBox.Text>
-                                                <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                                                    <Binding Path="Keys.Employees.Firstname"/>
-                                                    <Binding Path="Keys.Employees.Secondname"/>
-                                                </MultiBinding>
-                                            </TextBox.Text>
-                                        </TextBox>
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                            <Run Text="{Binding Employees.Secondname}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Grid.Column="1" Style="{StaticResource table}">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                        <Run Text="{Binding Employees.Firstname}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Grid.Column="2" Style="{StaticResource table}">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                            <Run Text="{Binding Employees.Patronymic}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Grid.Column="3" Style="{StaticResource table}">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                            <Run Text="{Binding KeyCard}"/>
+                                        </TextBlock>
                                     </StackPanel>
 
                                 </Grid>

@@ -1,6 +1,7 @@
 ﻿using ACMS.ApplicationData;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -25,10 +26,18 @@ namespace ACMS.Pages.PagesW
         public ReportFr()
         {
             InitializeComponent();
-            var emplList = AppConnect.modelOdb.Employees.ToList();
 
-            foreach(var employee in emplList)
-                emplList.Add(employee);
+            AppFrame.ReportFrDay = ReportFrDay;
+        }
+
+        private void GoToAnotherReport(object sender, RoutedEventArgs e)
+        {
+            AppFrame.ReportFrDay.Navigate(new ReportEmployee());
+        }
+
+        private void GoBackReport(object sender, RoutedEventArgs e)
+        {
+            AppFrame.ReportFrDay.Navigate(new ReportDay());
         }
     }
 }

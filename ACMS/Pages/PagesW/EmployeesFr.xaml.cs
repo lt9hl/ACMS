@@ -17,7 +17,7 @@ using System.Runtime.Serialization;
 using ACMS.ApplicationData;
 using ACMS.Pages;
 using ACMS.Pages.PagesW.AddEdit;
-using ACMS.Classes;
+
 
 namespace ACMS.Pages.PagesW
 {
@@ -27,25 +27,22 @@ namespace ACMS.Pages.PagesW
     /// </summary>
     public partial class EmployeesFr : Page
     {
-        currentUserAndRemember currentUser = new currentUserAndRemember();
-        Users user = new Users();
+        CurrentUser currentUser = AppConnect.modelOdb.CurrentUser.OrderByDescending(x => x.idCurrentUser).ToList()[0];
 
         int count = 0;
-        public EmployeesFr(currentUserAndRemember userInp)
+        public EmployeesFr()
         {
             InitializeComponent();
 
-            user = AppConnect.modelOdb.Users.First(x => x.idUser == userInp.currentUserId);
-            currentUser = userInp;
 
 
-            if (user.Permissions.TitlePersmission == "Гость")
+            if (currentUser.Users.Permissions.TitlePersmission == "Гость")
             {
                 addButt.IsEnabled = false;
                 delButt.IsEnabled = false;
                 editButt.IsEnabled = false;
             }
-            if (user.Permissions.TitlePersmission == "Пользователь")
+            if (currentUser.Users.Permissions.TitlePersmission == "Пользователь")
             {
                 delButt.IsEnabled = false;
             }
@@ -76,21 +73,29 @@ namespace ACMS.Pages.PagesW
         public void funDelete(ListView curListView)
         {
             var ObjForRemoving = curListView.SelectedItems.Cast<Employees>().ToList();
-            if (MessageBox.Show($"Вы точно хотите удалить {ObjForRemoving.Count} сотрудников", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (ObjForRemoving.Count > 0)
             {
-                try
+                if (MessageBox.Show($"Вы точно хотите удалить {ObjForRemoving.Count} сотрудников", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    AppConnect.modelOdb.Employees.RemoveRange(ObjForRemoving);
-                    AppConnect.modelOdb.SaveChanges();
+                    try
+                    {
+                        AppConnect.modelOdb.Employees.RemoveRange(ObjForRemoving);
+                        AppConnect.modelOdb.SaveChanges();
 
-                    curListView.ItemsSource = AppConnect.modelOdb.Employees.ToList();
+                        curListView.ItemsSource = AppConnect.modelOdb.Employees.ToList();
 
-                    MessageBox.Show("Сотрудники успешно удалены");
+                        MessageBox.Show("Сотрудники успешно удалены");
+                        listAllEmpl.ItemsSource = AppConnect.modelOdb.Keys.ToList();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Произошла ошибка при удалении", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
                 }
-                catch
-                {
-                    MessageBox.Show("Произошла ошибка при удалении", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+            }
+            else
+            {
+                MessageBox.Show("Необходимо выбрать объекты для удаления", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -102,15 +107,27 @@ namespace ACMS.Pages.PagesW
 
         private void addButt_Click(object sender, RoutedEventArgs e)
         {
-                AppFrame.FWork.Navigate(new AddEmployee(null,currentUser));
+                AppFrame.FWork.Navigate(new AddEmployee(null));
         }
 
         private void editButt_Click(object sender, RoutedEventArgs e)
         {
             int selectedItem = listAllEmpl.SelectedIndex;
-            if(selectedItem != -1)
-            { 
-                AppFrame.FWork.Navigate(new AddEmployee(listAllEmpl.SelectedItem as Employees,currentUser));
+            var countSelected = listAllEmpl.SelectedItems.Cast<Employees>().ToList().Count();
+            if (selectedItem != -1)
+            {
+                if (countSelected > 1)
+                {
+                    MessageBox.Show("Выберите один объект", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    AppFrame.FWork.Navigate(new AddEmployee(listAllEmpl.SelectedItem as Employees));
+                }
+            }
+            else
+            {
+                MessageBox.Show("Необходимо выбрать объект для изменения","Предупреждение",MessageBoxButton.OK,MessageBoxImage.Information);
             }
             
         }
@@ -134,9 +151,7 @@ namespace ACMS.Pages.PagesW
 
                 if (postSelect.SelectedIndex > 0)
                 {
-                    var selectedd = AppConnect.modelOdb.Posts.FirstOrDefault(x => x.TitlePost == postSelect.Text).idPost;
-
-                    empList = empList.Where(x => x.idPost == selectedd).ToList();
+                    empList = AppConnect.modelOdb.Employees.Where(x => x.idPost == postSelect.SelectedIndex).ToList();
                 }
 
                 if (searchBox.Text.Length > 0)
@@ -144,7 +159,6 @@ namespace ACMS.Pages.PagesW
                     empList = empList.Where(x => x.Firstname.ToLower().Contains(searchBox.Text.ToLower()) || x.Secondname.ToLower().Contains(searchBox.Text.ToLower()) ||
                     x.Patronymic.ToLower().Contains(searchBox.Text.ToLower()) || x.Posts.TitlePost.ToLower().Contains(searchBox.Text.ToLower()) ||
                     x.Organizations.OrgName.ToLower().Contains(searchBox.Text.ToLower())).ToList();
-
                 }
 
             if (sortSelect.SelectedIndex > 0)

@@ -12,11 +12,11 @@ namespace ACMS
     using System;
     using System.Collections.Generic;
     
-    public partial class BlackList
+    public partial class CurrentUser
     {
-        public int idBlackList { get; set; }
-        public System.DateTime EnterDate { get; set; }
+        public int idCurrentUser { get; set; }
         public int idUser { get; set; }
+        public byte SaveOrNo { get; set; }
     
         public virtual Users Users { get; set; }
     }

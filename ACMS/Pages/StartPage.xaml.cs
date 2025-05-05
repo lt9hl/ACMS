@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ACMS.ApplicationData;
-using ACMS.Classes;
 using ACMS.Pages.PagesW;
 
 
@@ -24,18 +23,16 @@ namespace ACMS.Pages
     /// </summary>
     public partial class StartPage : Page
     {
-        currentUserAndRemember currentUser = new currentUserAndRemember();
-        Users user = new Users();
-        public StartPage(currentUserAndRemember userInp)
+        CurrentUser currentUser = AppConnect.modelOdb.CurrentUser.OrderByDescending(x => x.idCurrentUser).ToList()[0];
+
+        public StartPage()
         {
             InitializeComponent();
             AppFrame.FWork = FrStart;
 
-            user = AppConnect.modelOdb.Users.First(x => x.idUser == userInp.currentUserId);
-            currentUser = userInp;
 
 
-            if (user.Permissions.TitlePersmission == "Гость")
+            if (currentUser.Users.Permissions.TitlePersmission == "Гость")
             {
                 ButtUsers.IsEnabled = false;
                 ButtCards.IsEnabled = false;
@@ -43,7 +40,7 @@ namespace ACMS.Pages
                 ButtDoors.IsEnabled = false;
 
             }
-            if (user.Permissions.TitlePersmission == "Пользователь")
+            if (currentUser.Users.Permissions.TitlePersmission == "Пользователь")
             {
                 ButtUsers.IsEnabled = false;
                 ButtDoors.IsEnabled = false;
@@ -53,7 +50,7 @@ namespace ACMS.Pages
 
         private void BackToLogin(object sender, RoutedEventArgs e)
         {
-            AppFrame.PMain.Navigate(new LoginI(currentUser));
+            AppFrame.PMain.Navigate(new LoginI());
         }
 
         private void toDoorsFr(object sender, RoutedEventArgs e)
@@ -68,7 +65,7 @@ namespace ACMS.Pages
 
         private void toPayFr(object sender, RoutedEventArgs e)
         {
-
+            AppFrame.FWork.Navigate(new PaymentsFrame());
         }
 
         private void toEntFr(object sender, RoutedEventArgs e)
@@ -78,12 +75,17 @@ namespace ACMS.Pages
 
         private void toUserFr(object sender, RoutedEventArgs e)
         {
-            AppFrame.FWork.Navigate(new UsersFr(currentUser));
+            AppFrame.FWork.Navigate(new UsersFr());
         }
 
         private void toEmpFr(object sender, RoutedEventArgs e)
         {
-            AppFrame.FWork.Navigate(new EmployeesFr(currentUser));
+            AppFrame.FWork.Navigate(new EmployeesFr());
+        }
+
+        private void FrStart_Navigated(object sender, NavigationEventArgs e)
+        {
+
         }
     }
 }

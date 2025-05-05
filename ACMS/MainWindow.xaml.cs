@@ -13,13 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ACMS.ApplicationData;
+
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Sql;
 
 using ACMS.Pages;
-using ACMS.Classes;
+
+using ACMS.ApplicationData;
 
 namespace ACMS
 {
@@ -30,19 +31,15 @@ namespace ACMS
     /// </summary>
     public partial class MainWindow : Window
     {
-        currentUserAndRemember currentUser = new currentUserAndRemember();
+
         public MainWindow()
         {
             InitializeComponent();
-            AppConnect.modelOdb = new ACMSEntities();
+            AppConnect.modelOdb = new ACMSEntities1();
             AppFrame.PMain = frMain;
 
-            AppFrame.PMain.Navigate(new LoginI(currentUser));
-
+            AppFrame.PMain.Navigate(new LoginI());
         }
-
-
-
 
         private void CloseWin(object sender, RoutedEventArgs e)
         {

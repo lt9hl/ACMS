@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
@@ -15,7 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using ACMS.ApplicationData;
-using ACMS.Classes;
+using Microsoft.Win32;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ACMS.Pages.PagesW.AddEdit
 {
@@ -26,12 +28,9 @@ namespace ACMS.Pages.PagesW.AddEdit
     {
         public Employees currEmployee;
 
-        currentUserAndRemember currentUser = new currentUserAndRemember();
-        public AddEmployee(Employees selecteEmployee, currentUserAndRemember userInp)
+        public AddEmployee(Employees selecteEmployee)
         {
             InitializeComponent();
-
-            currentUser = userInp;
 
             addNewEmplButt.IsEnabled = false;
 
@@ -68,6 +67,7 @@ namespace ACMS.Pages.PagesW.AddEdit
                 PostName.SelectedItem = currEmployee.Posts.TitlePost;
                 DepName.SelectedItem = currEmployee.Departments.TitleDepartment;
                 OrgName.SelectedItem = currEmployee.Organizations.OrgName;
+                l
             }
         }
 
@@ -95,7 +95,7 @@ namespace ACMS.Pages.PagesW.AddEdit
                     MessageBox.Show($"Пользователь  добавлен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 AppConnect.modelOdb.SaveChanges();
-                NavigationService.Navigate(new EmployeesFr(currentUser));
+                NavigationService.Navigate(new EmployeesFr());
 
             }
             catch
@@ -122,6 +122,31 @@ namespace ACMS.Pages.PagesW.AddEdit
         private void Patron_TextChanged(object sender, TextChangedEventArgs e)
         {
             checkTextBox();
+        }
+
+        public string fullPathToFile;
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+
+            dialog.Title = "Выберите фото";
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                
+                fullPathToFile = dialog.FileName;
+
+                employeePhotoSelect.Source = new BitmapImage(new Uri(fullPathToFile));
+                PathPhotoTextBox.Text = fullPathToFile;
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                
+                //FileInfo selectedFile = new FileInfo(dialog); 
+
+                //fullPathToFile.CopyTo(@"C:\SomeDir\hta.txt",true);
+
+            }
         }
     }
 }

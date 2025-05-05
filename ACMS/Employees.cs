@@ -17,21 +17,19 @@ namespace ACMS
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Employees()
         {
-            this.BlackList = new HashSet<BlackList>();
             this.DoorsEmployees = new HashSet<DoorsEmployees>();
             this.Keys = new HashSet<Keys>();
         }
     
         public int idEmployee { get; set; }
+        public string Firstname { get; set; }
         public string Secondname { get; set; }
         public string Patronymic { get; set; }
         public int idDepartment { get; set; }
         public int idOrganization { get; set; }
         public int idPost { get; set; }
-        public string Firstname { get; set; }
+        public string photo { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BlackList> BlackList { get; set; }
         public virtual Departments Departments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoorsEmployees> DoorsEmployees { get; set; }

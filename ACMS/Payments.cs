@@ -12,12 +12,13 @@ namespace ACMS
     using System;
     using System.Collections.Generic;
     
-    public partial class BlackList
+    public partial class Payments
     {
-        public int idBlackList { get; set; }
-        public System.DateTime EnterDate { get; set; }
-        public int idUser { get; set; }
+        public int idPayment { get; set; }
+        public int idTypePayment { get; set; }
+        public int idProduct { get; set; }
     
-        public virtual Users Users { get; set; }
+        public virtual Products Products { get; set; }
+        public virtual TypesPayments TypesPayments { get; set; }
     }
 }
