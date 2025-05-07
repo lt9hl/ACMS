@@ -1,0 +1,165 @@
+﻿<Page x:Class="ACMS.Pages.PagesW.AddEdit.AddEditKey"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ACMS.Pages.PagesW.AddEdit"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="620"
+      Title="AddEditKey">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#d2c2b7" />
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+
+        <Style x:Key="ListSt" TargetType="ListView">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+
+        </Style>
+
+        <Style x:Key="ButtCom" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+
+            <Setter Property="Margin" Value=" 10 5 0 5"/>
+            <Setter Property="Padding" Value=" 5"/>
+            <Style.Resources>
+                <Style TargetType="Image">
+                    <Setter Property="Width" Value="15"/>
+                    <Setter Property="Height" Value="15"/>
+                </Style>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+            </Style.Resources>
+
+        </Style>
+
+        <Style x:Key="textBoxSearch" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+
+        <Style x:Key="TextBoxLog" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+            <Setter Property="FontSize" Value="14"/>
+
+        </Style>
+
+
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#c09954"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#c09954"/>
+
+        <ControlTemplate x:Key="TextBoxTemplateTB" TargetType="{x:Type TextBoxBase}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                    <Setter Property="CaretBrush" Value="#d2c2b7"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="comboStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="ButtAuth" TargetType="Button">
+            <Setter Property="Background" Value="#c09954"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Margin" Value="0 20 0 0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+    </Page.Resources>
+
+
+    <Grid Background="Transparent">
+
+        <Border CornerRadius="5"  Width="600" BorderBrush="Transparent" VerticalAlignment="Center" Margin="10 20" Padding="0 0 0 10">
+            <Border.Background>
+                <SolidColorBrush Color="#292919" Opacity="0.8"/>
+            </Border.Background>
+
+            <StackPanel>
+
+                <StackPanel >
+                    <Label x:Name="labelEmpl" Content="Создание" Foreground="#d2c2b7" FontSize="25" Margin="10 10 0 0"/>
+                    <Border x:Name="BorderLog" CornerRadius="5" BorderBrush="Transparent"  Margin="30 10 30 5"  Padding="10 5">
+                        <Border.Background>
+                            <SolidColorBrush Color="#553821" Opacity="0.4"/>
+                        </Border.Background>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <StackPanel x:Name="StackEmployeeInfo" >
+                                <Label FontSize="12" x:Name="EmployeeText" Content="Сотрудник" Margin="0 2 0 2"/>
+                                <ComboBox Template="{DynamicResource ComboBoxTemplateAdd}" x:Name="EmployeeName" Margin="5 0 0 5" Style="{StaticResource comboStyle}" SelectionChanged="EmployeeName_SelectionChanged"/>
+
+                                <Label x:Name="DepText" FontSize="12" Content="Департамент" Margin="0 2 0 2"/>
+                                <TextBox   x:Name="DepName" Template="{DynamicResource TextBoxTemplateTB}" Margin="5 0 0 5" Style="{StaticResource TextBoxLog}" IsEnabled="False"/>
+
+                                <Label x:Name="OrgText" FontSize="12" Content="Организация" Margin="0 2 0 2"/>
+                                <TextBox  x:Name="OrgName" Template="{DynamicResource TextBoxTemplateTB}" Margin="5 0 0 5" Style="{StaticResource TextBoxLog}" IsEnabled="False"/>
+
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1"  x:Name="StackKeyInfo" >
+
+                                <Label x:Name="KeyInpText" FontSize="12" Content="Ключ" Margin="0 2 0 2"/>
+                                <TextBox Template="{DynamicResource TextBoxTemplateTB}" x:Name="KeyInp" Margin="5 0 0 5"  Style="{StaticResource TextBoxLog}" />
+
+                                <Label x:Name="AccessLevelText" FontSize="12" Content="Уровень доступа" Margin="0 2 0 2"/>
+                                <ComboBox x:Name="AccessLevelInp" Template="{DynamicResource ComboBoxTemplateAdd}" Margin="5 0 0 5" Style="{StaticResource comboStyle}" />
+
+                                <Label x:Name="WorkScheduleText" FontSize="12" Content="График работы" Margin="0 2 0 2"/>
+                                <ComboBox x:Name="WorkScheduleInp" Template="{DynamicResource ComboBoxTemplateAdd}" Margin="5 0 0 5" Style="{StaticResource comboStyle}" />
+
+                            </StackPanel>
+                        </Grid>
+
+                    </Border>
+                    <Button x:Name="addNewKeyButt" Click="addNewKey"  Content="Добавить" Style="{StaticResource ButtAuth}" HorizontalAlignment="Center" Template="{DynamicResource ButtonTemplateAuth}"/>
+                </StackPanel>
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+</Page>

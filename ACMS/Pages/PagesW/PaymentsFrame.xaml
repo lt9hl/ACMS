@@ -1,0 +1,142 @@
+﻿<Page x:Class="ACMS.Pages.PagesW.PaymentsFrame"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ACMS.Pages.PagesW"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="620"
+      Title="PaymentsFrame">
+    <Page.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#d2c2b7" />
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+
+        <Style x:Key="ListSt" TargetType="ListView">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+
+        </Style>
+
+        <Style x:Key="ButtCom" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+
+            <Setter Property="Margin" Value=" 10 5 0 5"/>
+            <Setter Property="Padding" Value=" 5"/>
+            <Style.Resources>
+                <Style TargetType="Image">
+                    <Setter Property="Width" Value="15"/>
+                    <Setter Property="Height" Value="15"/>
+                </Style>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+            </Style.Resources>
+
+        </Style>
+    </Page.Resources>
+
+
+    <Grid Background="Transparent">
+
+        <Border CornerRadius="5" Height="500" Width="600" BorderBrush="Transparent" VerticalAlignment="Center" Margin="10 20" Padding="0 0 0 10">
+            <Border.Background>
+                <SolidColorBrush Color="#292919" Opacity="0.8"/>
+            </Border.Background>
+
+            <StackPanel>
+                <StackPanel>
+                    <Label Content="Оплаты" Foreground="#d2c2b7" FontSize="25" Margin="10 10 0 0"/>
+
+                    <WrapPanel>
+                        <Button x:Name="addButt" Style="{StaticResource ButtCom}"  Template="{DynamicResource ButtonTemplateAuth}" Click="addButt_Click">
+                            <Image Source="\Images\workIcons\add.png"/>
+                        </Button>
+
+                        <Button x:Name="delButt" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}" Click="delButt_Click">
+                            <Image Source="\Images\workIcons\trash.png"/>
+                        </Button>
+
+                        <Button x:Name="SavePdf" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}" Click="SavePdf_Click">
+                            <Image Source="\Images\workIcons\download.png"/>
+                        </Button>
+                        
+                        <Button x:Name="qrButton" Click="qrForSelected" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
+                            <Image x:Name="qrImage" Source="\Images\workIcons\qrcode.png"/>
+                        </Button>
+
+
+                    </WrapPanel>
+                </StackPanel>
+                <Grid Height="300" VerticalAlignment="Bottom" Margin="10 0">
+                    <Grid.ColumnDefinitions>
+                        <!--580-->
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition />
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label FontSize="12" x:Name="ListNumber" Grid.Column="0" Content="Номер чека" />
+                    <Label FontSize="12" x:Name="ListProduct" Grid.Column="1" Content="Товар"/>
+                    <Label FontSize="12" x:Name="ListCost" Grid.Column="2" Content="Стоимость"/>
+                    <Label FontSize="12" x:Name="ListTypePayment" Grid.Column="3" Content="Тип оплаты"/>
+
+                    <ListView BorderBrush="#292919" Grid.Row="1" Grid.ColumnSpan="4"  x:Name="listPayment" Height="370" Style="{StaticResource ListSt}">
+
+                        <ListView.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <!--580-->
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition />
+
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Height="20" Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                         <Run Text="{Binding idPayment}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Height="20" Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                         <Run Text="{Binding Products.Title}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Height="20" Grid.Column="2" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                            <Run Text="{Binding Products.Cost}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Height="20" Grid.Column="3" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                            <Run Text="{Binding TypesPayments.Title}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+</Page>

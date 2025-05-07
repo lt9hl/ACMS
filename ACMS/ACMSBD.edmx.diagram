@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3c7522b1fc42447887097f62b947e301" Name="Diagram1">
+        <EntityTypeShape EntityType="ACMSModel.AccessLevels" Width="1.5" PointX="3" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.AccessLevelsDoors" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.BlackList" Width="1.5" PointX="5.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.CurrentUser" Width="1.5" PointX="12.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Departments" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.DoorDirections" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Doors" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.DoorsEmployees" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Employees" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Keys" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Organizations" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Payments" Width="1.5" PointX="10" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Permissions" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Posts" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Products" Width="1.5" PointX="7.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.TypesPayments" Width="1.5" PointX="12.375" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.Users" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACMSModel.WorkSchedules" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <AssociationConnector Association="ACMSModel.FK_AccessLevelsDoors_AccessLevels" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_AccessLevelsDoors_Doors" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_CurrentUser_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Employees_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Doors_DoorDirections" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_DoorsEmployees_Doors" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_DoorsEmployees_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Employees_Organizations" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Employees_Posts" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Keys_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Keys_WorkSchedules" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Payments_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Users_Permissions" ManuallyRouted="false" />
+        <AssociationConnector Association="ACMSModel.FK_Payments_TypesPayments" />
+        <AssociationConnector Association="ACMSModel.FK_BlackList_Users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

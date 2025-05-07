@@ -1,0 +1,142 @@
+﻿<Page x:Class="ACMS.Pages.PagesW.StartFr"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ACMS.Pages.PagesW"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="620"
+      Title="StartFr">
+    <Page.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#d2c2b7" />
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+
+        <Style x:Key="ListSt" TargetType="ListView">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+
+        </Style>
+    </Page.Resources>
+    
+
+    <Grid Background="Transparent">
+        <Border CornerRadius="5">
+           
+            
+            <WrapPanel Margin="10 100 10 10" Grid.Column="1" Grid.RowSpan="2">
+
+                <Label x:Name="CountUsers" Margin="20 0 0 0" Content="Начальная страница" Foreground="#d2c2b7" FontSize="25"/>
+
+                <Border x:Name="BorderStatsMain" CornerRadius="5" BorderBrush="Transparent" Margin="10" Padding="0 0 0 10">
+                    <Border.Background>
+                        <SolidColorBrush Color="#292919" Opacity="0.8"/>
+                    </Border.Background>
+
+                    <StackPanel>
+                        <Label Foreground="#d2c2b7"  x:Name="Stats" Content="Статистика" FontSize="18" Margin="10 10 0 0"/>
+
+                        <WrapPanel>
+
+                            <Border x:Name="BorderStats" CornerRadius="5" BorderBrush="Transparent" HorizontalAlignment="Left"  Margin="15 20 20 0" Width="150" Height="80" >
+                                <Border.Background>
+                                    <SolidColorBrush Color="#553821" Opacity="0.4"/>
+                                </Border.Background>
+                                <StackPanel >
+                                    <WrapPanel>
+                                        <Image Margin="10 10 0 0" Source="\Images\workIcons\users1.png" Width="60" Height="50" HorizontalAlignment="Left"/>
+                                        <Label Foreground="#d2c2b7" Content="3" x:Name="countUsers" FontSize="25" VerticalAlignment="Center" Margin="30 0 0 0"/>
+                                    </WrapPanel>
+                                    <Label Content="Пользователей" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Padding="0 0 0 5" Width="85"/>
+
+                                </StackPanel>
+                            </Border>
+                            <Border x:Name="BorderSftats" CornerRadius="5" BorderBrush="Transparent" HorizontalAlignment="Left"  Margin="10 20 20 0" Width="150" Height="80" >
+                                <Border.Background>
+                                    <SolidColorBrush Color="#553821" Opacity="0.4" />
+                                </Border.Background>
+                                <StackPanel >
+                                    <WrapPanel>
+                                        <Image Margin="10 10 0 0" Source="\Images\workIcons\badge.png" Width="60" Height="50" HorizontalAlignment="Left"/>
+                                        <Label  Content="3" x:Name="countEmp1" FontSize="25" VerticalAlignment="Center" Margin="30 0 0 0"/>
+                                    </WrapPanel>
+                                    <Label Content="Сотрудников" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Padding="0 0 0 5" Width="85"/>
+
+                                </StackPanel>
+                            </Border>
+
+                            <Border x:Name="BorderStats2" CornerRadius="5" BorderBrush="Transparent"   Margin="10 20 20 0" Width="150" Height="80" >
+                                <Border.Background>
+                                    <SolidColorBrush Color="#553821" Opacity="0.4"/>
+                                </Border.Background>
+
+                                <StackPanel >
+                                    <WrapPanel>
+                                        <Image Margin="10 10 0 0" Source="\Images\workIcons\card.png" Width="60" Height="50" HorizontalAlignment="Left"/>
+                                        <Label Content="5" x:Name="countEmpPa" FontSize="25" VerticalAlignment="Center" Margin="30 0 0 0"/>
+                                    </WrapPanel>
+                                    <Label Content="Пропусков" HorizontalAlignment="Right" HorizontalContentAlignment="Center" Padding="0 0 0 5" Width="85"/>
+
+                                </StackPanel>
+
+                            </Border>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border CornerRadius="5" BorderBrush="Transparent" Margin="10 20" Padding="0 0 0 10" HorizontalAlignment="Left">
+                    <Border.Background>
+                        <SolidColorBrush Color="#292919" Opacity="0.8"/>
+                    </Border.Background>
+
+                    <StackPanel Height="160" Width="400">
+                        <Label Content="Новые сотрудники" Foreground="#d2c2b7" FontSize="18" Margin="10 10 0 0"/>
+                        
+                        <ListView  x:Name="listNewEmployees" Height="110" BorderBrush="Transparent"  Margin="10 0" Style="{StaticResource ListSt}">
+
+                            <ListView.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    <Grid>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="110"/>
+                                            <ColumnDefinition Width="110"/>
+                                            <ColumnDefinition Width="100"/>
+                                        </Grid.ColumnDefinitions>
+                                            
+                                        <StackPanel Height="20" Grid.Column="0" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                                <Run Text="{Binding Secondname}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                        
+                                        <StackPanel Height="20" Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                                <Run Text="{Binding Firstname}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                        
+                                        <StackPanel Height="20" Grid.Column="2" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
+                                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
+                                                 <Run Text="{Binding Patronymic}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                        
+                                    </Grid>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+
+                </Border>
+
+            </WrapPanel>
+
+        </Border>
+       
+    </Grid>
+</Page>

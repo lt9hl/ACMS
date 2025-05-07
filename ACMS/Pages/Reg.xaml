@@ -5,120 +5,191 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ACMS.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="550" d:DesignWidth="800"
       Title="Reg">
     <Page.Resources>
-        <Style x:Key="ButtonLog" TargetType="Button">
-            <Setter Property="Margin" Value="0 7 0 0"/>
-            <!--<Setter Property="BorderThickness" Value="1 1 0 1"/>-->
-        <Setter Property="Background" Value="#6f4d38"/>
-        <Setter Property="VerticalContentAlignment" Value="Top"/>
-        <Setter Property="Padding" Value="0 4 0 0"/>
-        <Setter Property="FontSize" Value="14"/>
-        <Setter Property="FontWeight" Value="DemiBold"/>
-        <Setter Property="Foreground" Value="#d5b893"/>
-        <Setter Property="BorderBrush" Value="#6f4d38"/>
-         <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#d2c2b7" />
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
 
-        <Style.Resources>
-            <Style TargetType="{x:Type Border}">
-                <Setter Property="CornerRadius" Value="10"/>
-            </Style>
-        </Style.Resources>
-    </Style>
+        <Style TargetType="Label" x:Key="opLabelStyle">
+            <Setter Property="Foreground" Value="#d2c2b7" />
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Opacity" Value="0.7"/>
+        </Style>
+        <Style x:Key="ButtSwap" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="30 0 0 0"/>
+            <Setter Property="Padding" Value="10 0 10 3"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
 
-    <Style TargetType="Border" x:Key="BorderMain">
-        <Setter Property="CornerRadius" Value="35"/>
-        <Setter Property="Margin" Value="0"/>
-    </Style>
+        <Style x:Key="AuthText" TargetType="Label">
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Margin" Value="0 60 0 0"/>
+        </Style>
 
-    <Style TargetType="Label" x:Key="LabelLog">
-        <Setter Property="FontSize" Value="18"/>
-        <Setter Property="Margin" Value="20 5 0 0"/>
-        <Setter Property="Foreground" Value="#d5b893"/>
-        
-    </Style>
-
-    <Style x:Key="BoxText" TargetType="TextBox">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="#d5b893"/>
-            <Setter Property="Foreground" Value="#d5b893"/>
-            <Setter Property="BorderThickness" Value="0 0 0 1"/>
-        <Setter Property="Height" Value="27"/>
-        <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="20 0 20 0"/>
+        <Style x:Key="TextBoxLog" TargetType="TextBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Height" Value="20.62"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+            <Setter Property="FontSize" Value="14"/>
 
         </Style>
 
-    <Style x:Key="BoxPass" TargetType="PasswordBox">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Height" Value="27"/>
-        <Setter Property="FontSize" Value="16"/>
-        <Setter Property="BorderBrush" Value="#d5b893" />
-            <Setter Property="Foreground" Value="#d5b893"/>
-            <Setter Property="BorderThickness" Value="0 0 0 1" />
-            <Setter Property="Margin" Value="20 0 20 0"/>
+        <!--<Style x:Key="ComboBoxAuth" TargetType="Border">
+         <Setter Property="Margin" Value="50 5 50 0"/>
+     </Style>-->
+
+        <Style x:Key="PassBoxLog" TargetType="PasswordBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Height" Value="20.62"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+
+        <Style x:Key="ButtAuth" TargetType="Button">
+            <Setter Property="Background" Value="#c09954"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+
+
+            <Setter Property="Margin" Value="50 30 0 0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Foreground" Value="#d2c2b7"/>
+        </Style>
+
+        <Style x:Key="CheckBoxAuth" TargetType="CheckBox">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="#c09954"/>
+            <Setter Property="Margin" Value=" 0 5 0 0"/>
 
         </Style>
+
+        <Style x:Key="MainBorder" TargetType="Border">
+            <Setter Property="CornerRadius" Value=" 10 0 0 10"/>
+        </Style>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#7e972e"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#6d8228"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#d2c2b7"/>
+
+        <ControlTemplate x:Key="ButtonTemplateTo" TargetType="{x:Type ButtonBase}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                    <Setter Property="BorderThickness" Value="0 2 0 0"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                    <Setter Property="BorderThickness" Value="0 2 0 0"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#c09954"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#c09954"/>
+
+        <ControlTemplate x:Key="TextBoxTemplateTB" TargetType="{x:Type TextBoxBase}">
+            <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                    <Setter Property="CaretBrush" Value="#d2c2b7"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
 
     </Page.Resources>
 
-    <Grid x:Name="LoginGrid" Background="#d5b893">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="300"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
-            <WrapPanel Grid.Row="1" Margin="40 0 0 0">
-                <Button x:Name="toLogin" Content="Вход" Width="110" Height="35" Style="{StaticResource ButtonLog}" Background="#573d2c" Foreground="#d5b893" Padding="0" Click="toLogin_Click" MouseEnter="toLogin_MouseEnter"/>
+    <Grid Background="Transparent" >
+        <Border x:Name="LoginGrid" Style="{StaticResource MainBorder}" Width="350" HorizontalAlignment="Left">
+            <Border.Background>
+                <SolidColorBrush Color="#292919" Opacity="0.6"/>
+            </Border.Background>
 
-                <Button Content="Регистрация" Width="150" Height="35" Style="{StaticResource ButtonLog}" Padding="0" x:Name="toReg" Click="toReg_Click"/>
-            </WrapPanel>
-        </Grid>
-        <Border Background="#6f4d38" Grid.Column="1" Grid.Row="1" Style="{StaticResource BorderMain}">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="20" Color="#6f4d38" ShadowDepth="2"/>
-            </Border.Effect>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="75" />
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Column="1">
-                    <Label Content="Регистрация" Foreground="#d5b893" FontSize="25" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 30 0 10"/>
+            <StackPanel>
+
+                <WrapPanel Height="50" Margin="25 0 0 0">
+                    <Button Template="{DynamicResource ButtonTemplateTo}" Click="toLogin_Click" x:Name="toLog" Content="Вход" Style="{StaticResource ButtSwap}" Padding="0 20 0 0" />
+                    <Label Content="." FontSize="30" Margin="7 0 0 0"/>
+                    <Button Template="{DynamicResource ButtonTemplateTo}" x:Name="toReg" Content="Регистрация" Style="{StaticResource ButtSwap}"  Margin="10 0 0 0" Padding="0 20 0 0"/>
+                </WrapPanel>
+
+                <StackPanel Margin="50 0 0 0" Background="Transparent">
+                    <Label Content="Регистрация" Style="{StaticResource AuthText}" Foreground="#d2c2b7" />
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="1">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Row="1">
-                            <Label x:Name="LoginText" Content="Логин" Style="{StaticResource LabelLog}"/>
-                            <TextBox x:Name="Login" Style="{StaticResource BoxText}"/>
-                            <Label x:Name="emailText" Content="Почта" Style="{StaticResource LabelLog}"/>
-                            <TextBox x:Name="Email" Style="{StaticResource BoxText}"/>
-                        </StackPanel>
-                        <StackPanel Grid.Row="1" Grid.Column="1">
-                            <Label x:Name="PassText" Content="Пароль" Style="{StaticResource LabelLog}" Margin="20 5 0 0"/>
-                            <PasswordBox x:Name="Pass" Style="{StaticResource BoxPass}" PasswordChanged="Pass_PasswordChanged"/>
-                            <Label x:Name="RepPassText" Content="Повтор пароля" Style="{StaticResource LabelLog}"/>
-                            <PasswordBox x:Name="RepPass" Style="{StaticResource BoxPass}" PasswordChanged="RepPass_PasswordChanged"/>
-                        </StackPanel>
-                    </Grid>
-                    <Button x:Name="RegistrDone" Content="Зарегистрироваться" Padding="15 5" Margin="0 20 0 0 " Style="{StaticResource ButtonLog}" Background="#d5b893" Foreground="#6f4d38" Click="RegistrDone_Click"/>
-                </StackPanel>
-            </Grid>
+
+                <Border x:Name="BorderLog" CornerRadius="5" BorderBrush="Transparent"  Margin="50 20 50 5" >
+                    <Border.Background>
+                        <SolidColorBrush Color="#553821" Opacity="0.6"/>
+                    </Border.Background>
+                    <StackPanel x:Name="StackLogin" Margin="10 5 10 5">
+
+                        <Label x:Name="LogText" Content="Логин" Margin="0 5 0 0" Style="{StaticResource opLabelStyle}"/>
+                        <TextBox Template="{DynamicResource TextBoxTemplateTB}" x:Name="LoginI" Margin="5 0 0 5"  Style="{StaticResource TextBoxLog}" TextChanged="LoginI_TextChanged" />
+
+                        <Label x:Name="MailText" Content="Почта" Margin="0 2 0 0" Style="{StaticResource opLabelStyle}"/>
+                        <TextBox x:Name="Email" Template="{DynamicResource TextBoxTemplateTB}" Margin="5 0 0 5" Style="{StaticResource TextBoxLog}" TextChanged="Email_TextChanged"/>
+
+                    </StackPanel>
+                </Border>
+
+                <Border x:Name="BorderPass" CornerRadius="5" BorderBrush="Transparent"  Margin="50 4 50 5" >
+                    <Border.Background>
+                        <SolidColorBrush Color="#553821" Opacity="0.6"/>
+                    </Border.Background>
+                    <StackPanel Margin="10 5 10 5" >
+
+                        <Label x:Name="PassText" Content="Пароль" Margin="0 5 0 0" Style="{StaticResource opLabelStyle}"/>
+                        <PasswordBox Template="{DynamicResource PasswordBoxTemplateAuth}" x:Name="Pass" Margin="5 0 0 5" Style="{StaticResource PassBoxLog}" SelectionBrush="{x:Null}"/>
+
+                        <Label x:Name="RepPassText" Content="Повтор пароля" Margin="0 2 0 0" Style="{StaticResource opLabelStyle}"/>
+                        <PasswordBox Template="{DynamicResource PasswordBoxTemplateAuth}" x:Name="RepPass" Margin="5 0 0 5" Style="{StaticResource PassBoxLog}" SelectionBrush="{x:Null}" PasswordChanged="RepPass_PasswordChanged_1"/>
+
+                    </StackPanel>
+                </Border>
+
+                <Button Template="{DynamicResource ButtonTemplateAuth}" x:Name="RegistrDone" Style="{StaticResource ButtAuth}" Content="Зарегистрироваться" Click="RegistrDone_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+            </StackPanel>
+
         </Border>
+
+
     </Grid>
 </Page>

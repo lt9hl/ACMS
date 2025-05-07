@@ -10,5 +10,7 @@ namespace ACMS.ApplicationData
     internal class AppFrame
     {
         public static Frame PMain;
+        public static Frame FWork;
+        public static Frame ReportFrDay;
     }
 }

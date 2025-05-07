@@ -1,4 +1,4 @@
-﻿using ACMS.Pages;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,23 +13,50 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
+using System.Data;
+using System.Data.SqlClient;
+using System.Data.Sql;
+
+using ACMS.Pages;
+
 using ACMS.ApplicationData;
+using System.Reflection;
 
 namespace ACMS
 {
+
     
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
-            AppConnect.modelOdb = new ACMSEntities();
+            
+
+            AppConnect.modelOdb = new ACMSEntities1();
             AppFrame.PMain = frMain;
-            frMain.Navigate(new Login());
+
+            AppFrame.PMain.Navigate(new LoginI());
         }
 
+        private void CloseWin(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MinimWin(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void frMain_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
     }
 }

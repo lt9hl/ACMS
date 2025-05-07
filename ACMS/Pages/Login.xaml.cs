@@ -1,11 +1,15 @@
-﻿using ACMS.ApplicationData;
+﻿
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -14,69 +18,140 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ACMS;
+
+using ACMS.ApplicationData;
+using ACMS.Properties;
 
 namespace ACMS.Pages
 {
     /// <summary>
     /// Логика взаимодействия для Login.xaml
     /// </summary>
-    public partial class Login : Page
+    public partial class LoginI : Page
     {
-        public Login()
+        public LoginI() {
+             InitializeComponent();
+            var currentUser = AppConnect.modelOdb.CurrentUser.OrderByDescending(x => x.idCurrentUser).ToList()[0];
+
+            LoginButton.IsEnabled = false;
+
+            if (currentUser.SaveOrNo == 1)
+            {
+                LoginInp.Text = currentUser.Users.Login.ToString();
+                PassInp.Password = currentUser.Users.Password;
+            }
+
+        }
+        private void toReg(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            LoginButt.IsEnabled = false;
-            
-            
+            AppFrame.PMain.Navigate(new Reg());
         }
 
         private void LoginButt_Click(object sender, RoutedEventArgs e)
-        {
-            string logInp = LoginInp.Text;
-            string passInp = PassInp.Password;
-
-            var user = AppConnect.modelOdb.Users.FirstOrDefault(x => x.Password == passInp && logInp == x.Login);
-
-            if(user != null)
             {
-                NavigationService.Navigate(new StartPage());
-            }
-            else
+            try
             {
-                MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
-                LoginInp.Text = "";
-                PassInp.Password = "";
+                string logInp = LoginInp.Text.Trim();
+                string passInp = PassInp.Password;
+                var inputUser = AppConnect.modelOdb.Users.FirstOrDefault(x => x.Password == passInp && logInp == x.Login);
+                
+
+                if (inputUser != null )
+                {
+                    var whiteList = AppConnect.modelOdb.BlackList.FirstOrDefault(x => x.idUser == inputUser.idUser);
+                    if (whiteList == null)
+                    {
+                        var newCurrentUser = new CurrentUser();
+                        if (CheckRememMe.IsChecked == false)
+                        {
+                            newCurrentUser = new CurrentUser()
+                            {
+                                idUser = inputUser.idUser,
+                                SaveOrNo = 0
+                            };
+                            AppConnect.modelOdb.CurrentUser.Add(newCurrentUser);
+
+                        }
+                        if (CheckRememMe.IsChecked == true)
+                        {
+                            newCurrentUser = new CurrentUser
+                            {
+                                idUser = inputUser.idUser,
+                                SaveOrNo = 1
+                            };
+                            AppConnect.modelOdb.CurrentUser.Add(newCurrentUser);
+
+                        }
+
+                        AppConnect.modelOdb.SaveChanges();
+
+                        NavigationService.Navigate(new StartPage());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь заблокирован","Ошибка",MessageBoxButton.OK,MessageBoxImage.Error);
+                    }
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoginInp.Text = "";
+                    PassInp.Password = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Критическая ошибка в работе приложения\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-        }
+            }
 
-        private void toLoginButt_Click(object sender, RoutedEventArgs e)
-        {
+            private void toRegButt_Click(object sender, RoutedEventArgs e)
+            {
+                NavigationService.Navigate(new Reg());
+            }
 
-        }
+            private void PassInp_PasswordChanged(object sender, RoutedEventArgs e)
+            {
+            checkInp();
+            }
+            private void LoginInp_TextChanged(object sender, TextChangedEventArgs e)
+            {
+            checkInp();
+            }
 
-        private void toRegButt_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Reg());
-        }
-
-        private void PassInp_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-
-            if (PassInp.Password == "")
-                LoginButt.IsEnabled = false;
+        public void checkInp() {
+            if (PassInp.Password.Length > 0 && LoginInp.Text.Length > 0)
+                LoginButton.IsEnabled = true;
             else
-                LoginButt.IsEnabled = true;
+                LoginButton.IsEnabled = false;
         }
 
-        private void LoginButt_MouseEnter(object sender, MouseEventArgs e)
+
+
+        private void CheckRememMe_Checked(object sender, RoutedEventArgs e)
         {
-            ////DoubleAnimation btnToLog = new DoubleAnimation();
-            ////btnToLog.From = 23;
-            ////btnToLog.To = 30;
-            ////btnToLog.Duration = TimeSpan.FromSeconds(3);
-            ////btnToLog.SpeedRatio = 2;
-            ////toLoginButt.BeginAnimation(Button.HeightProperty, btnToLog);
+            
         }
+
+
+        private void LoginGuestButt_Click(object sender, RoutedEventArgs e)
+        {
+
+            var newCurrentUser = new CurrentUser()
+            {
+                idUser = 6,
+                SaveOrNo = 0
+            };
+           
+            AppConnect.modelOdb.CurrentUser.Add(newCurrentUser);
+            AppConnect.modelOdb.SaveChanges();
+
+            NavigationService.Navigate(new StartPage());
+        }
+
     }
 }
+

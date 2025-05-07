@@ -1,0 +1,1145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище ACMSModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessLevels">
+          <Key>
+            <PropertyRef Name="idAccessLevel" />
+          </Key>
+          <Property Name="idAccessLevel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleLevel" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccessLevelsDoors">
+          <Key>
+            <PropertyRef Name="idAccessLevelDoor" />
+          </Key>
+          <Property Name="idAccessLevelDoor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAccessLevel" Type="int" Nullable="false" />
+          <Property Name="idDoor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BlackList">
+          <Key>
+            <PropertyRef Name="idBlackList" />
+          </Key>
+          <Property Name="idBlackList" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="EnterDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CurrentUser">
+          <Key>
+            <PropertyRef Name="idCurrentUser" />
+          </Key>
+          <Property Name="idCurrentUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUser" Type="int" Nullable="false" />
+          <Property Name="SaveOrNo" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="idDepartment" />
+          </Key>
+          <Property Name="idDepartment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleDepartment" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DoorDirections">
+          <Key>
+            <PropertyRef Name="idDoorDirection" />
+          </Key>
+          <Property Name="idDoorDirection" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleDoorDirection" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Doors">
+          <Key>
+            <PropertyRef Name="idDoor" />
+          </Key>
+          <Property Name="idDoor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleDoor" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idDoorDirection" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DoorsEmployees">
+          <Key>
+            <PropertyRef Name="idDoorEmployee" />
+          </Key>
+          <Property Name="idDoorEmployee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDoor" Type="int" Nullable="false" />
+          <Property Name="idEmployee" Type="int" Nullable="false" />
+          <Property Name="EnterDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="idEmployee" />
+          </Key>
+          <Property Name="idEmployee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Secondname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="idDepartment" Type="int" Nullable="false" />
+          <Property Name="idOrganization" Type="int" Nullable="false" />
+          <Property Name="idPost" Type="int" Nullable="false" />
+          <Property Name="photo" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Keys">
+          <Key>
+            <PropertyRef Name="idKey" />
+          </Key>
+          <Property Name="idKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEmployee" Type="int" Nullable="false" />
+          <Property Name="KeyCard" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="idAccessLevel" Type="int" Nullable="false" />
+          <Property Name="idWorkSchedule" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Organizations">
+          <Key>
+            <PropertyRef Name="idOrganization" />
+          </Key>
+          <Property Name="idOrganization" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrgName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="INN" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="idPayment" />
+          </Key>
+          <Property Name="idPayment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTypePayment" Type="int" Nullable="false" />
+          <Property Name="idProduct" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="idPermission" />
+          </Key>
+          <Property Name="idPermission" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitlePersmission" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="idPost" />
+          </Key>
+          <Property Name="idPost" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitlePost" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cost" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TypesPayments">
+          <Key>
+            <PropertyRef Name="idTypePayment" />
+          </Key>
+          <Property Name="idTypePayment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="idPermission" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkSchedules">
+          <Key>
+            <PropertyRef Name="idWorkSchedule" />
+          </Key>
+          <Property Name="idWorkSchedule" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TitleSchedule" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="StartDay" Type="time" Precision="7" Nullable="false" />
+          <Property Name="EndDay" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AccessLevelsDoors_AccessLevels">
+          <End Role="AccessLevels" Type="Self.AccessLevels" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AccessLevelsDoors" Type="Self.AccessLevelsDoors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessLevels">
+              <PropertyRef Name="idAccessLevel" />
+            </Principal>
+            <Dependent Role="AccessLevelsDoors">
+              <PropertyRef Name="idAccessLevel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessLevelsDoors_Doors">
+          <End Role="Doors" Type="Self.Doors" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AccessLevelsDoors" Type="Self.AccessLevelsDoors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doors">
+              <PropertyRef Name="idDoor" />
+            </Principal>
+            <Dependent Role="AccessLevelsDoors">
+              <PropertyRef Name="idDoor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BlackList_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BlackList" Type="Self.BlackList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="BlackList">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CurrentUser_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CurrentUser" Type="Self.CurrentUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="CurrentUser">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doors_DoorDirections">
+          <End Role="DoorDirections" Type="Self.DoorDirections" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Doors" Type="Self.Doors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoorDirections">
+              <PropertyRef Name="idDoorDirection" />
+            </Principal>
+            <Dependent Role="Doors">
+              <PropertyRef Name="idDoorDirection" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoorsEmployees_Doors">
+          <End Role="Doors" Type="Self.Doors" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DoorsEmployees" Type="Self.DoorsEmployees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doors">
+              <PropertyRef Name="idDoor" />
+            </Principal>
+            <Dependent Role="DoorsEmployees">
+              <PropertyRef Name="idDoor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoorsEmployees_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DoorsEmployees" Type="Self.DoorsEmployees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="DoorsEmployees">
+              <PropertyRef Name="idEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="idDepartment" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="idDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Organizations">
+          <End Role="Organizations" Type="Self.Organizations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="idOrganization" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="idOrganization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Posts">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="idPost" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="idPost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keys_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Keys" Type="Self.Keys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="Keys">
+              <PropertyRef Name="idEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keys_WorkSchedules">
+          <End Role="WorkSchedules" Type="Self.WorkSchedules" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Keys" Type="Self.Keys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkSchedules">
+              <PropertyRef Name="idWorkSchedule" />
+            </Principal>
+            <Dependent Role="Keys">
+              <PropertyRef Name="idWorkSchedule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="idTypePayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_TypesPayments">
+          <End Role="TypesPayments" Type="Self.TypesPayments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesPayments">
+              <PropertyRef Name="idTypePayment" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="idTypePayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Permissions">
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="idPermission" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="idPermission" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ACMSModelContainer">
+          <EntitySet Name="AccessLevels" EntityType="Self.AccessLevels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AccessLevelsDoors" EntityType="Self.AccessLevelsDoors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BlackList" EntityType="Self.BlackList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CurrentUser" EntityType="Self.CurrentUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoorDirections" EntityType="Self.DoorDirections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Doors" EntityType="Self.Doors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoorsEmployees" EntityType="Self.DoorsEmployees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Keys" EntityType="Self.Keys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organizations" EntityType="Self.Organizations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypesPayments" EntityType="Self.TypesPayments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkSchedules" EntityType="Self.WorkSchedules" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AccessLevelsDoors_AccessLevels" Association="Self.FK_AccessLevelsDoors_AccessLevels">
+            <End Role="AccessLevels" EntitySet="AccessLevels" />
+            <End Role="AccessLevelsDoors" EntitySet="AccessLevelsDoors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccessLevelsDoors_Doors" Association="Self.FK_AccessLevelsDoors_Doors">
+            <End Role="Doors" EntitySet="Doors" />
+            <End Role="AccessLevelsDoors" EntitySet="AccessLevelsDoors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlackList_Users" Association="Self.FK_BlackList_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BlackList" EntitySet="BlackList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CurrentUser_Users" Association="Self.FK_CurrentUser_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CurrentUser" EntitySet="CurrentUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doors_DoorDirections" Association="Self.FK_Doors_DoorDirections">
+            <End Role="DoorDirections" EntitySet="DoorDirections" />
+            <End Role="Doors" EntitySet="Doors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoorsEmployees_Doors" Association="Self.FK_DoorsEmployees_Doors">
+            <End Role="Doors" EntitySet="Doors" />
+            <End Role="DoorsEmployees" EntitySet="DoorsEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoorsEmployees_Employees" Association="Self.FK_DoorsEmployees_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="DoorsEmployees" EntitySet="DoorsEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Departments" Association="Self.FK_Employees_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Organizations" Association="Self.FK_Employees_Organizations">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Posts" Association="Self.FK_Employees_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keys_Employees" Association="Self.FK_Keys_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Keys" EntitySet="Keys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keys_WorkSchedules" Association="Self.FK_Keys_WorkSchedules">
+            <End Role="WorkSchedules" EntitySet="WorkSchedules" />
+            <End Role="Keys" EntitySet="Keys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_Products" Association="Self.FK_Payments_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_TypesPayments" Association="Self.FK_Payments_TypesPayments">
+            <End Role="TypesPayments" EntitySet="TypesPayments" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Permissions" Association="Self.FK_Users_Permissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ACMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccessLevels">
+          <Key>
+            <PropertyRef Name="idAccessLevel" />
+          </Key>
+          <Property Name="idAccessLevel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleLevel" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AccessLevelsDoors" Relationship="Self.FK_AccessLevelsDoors_AccessLevels" FromRole="AccessLevels" ToRole="AccessLevelsDoors" />
+        </EntityType>
+        <EntityType Name="AccessLevelsDoors">
+          <Key>
+            <PropertyRef Name="idAccessLevelDoor" />
+          </Key>
+          <Property Name="idAccessLevelDoor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAccessLevel" Type="Int32" Nullable="false" />
+          <Property Name="idDoor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AccessLevels" Relationship="Self.FK_AccessLevelsDoors_AccessLevels" FromRole="AccessLevelsDoors" ToRole="AccessLevels" />
+          <NavigationProperty Name="Doors" Relationship="Self.FK_AccessLevelsDoors_Doors" FromRole="AccessLevelsDoors" ToRole="Doors" />
+        </EntityType>
+        <EntityType Name="BlackList">
+          <Key>
+            <PropertyRef Name="idBlackList" />
+          </Key>
+          <Property Name="idBlackList" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EnterDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="ACMSModel.FK_BlackList_Users" FromRole="BlackList" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="CurrentUser">
+          <Key>
+            <PropertyRef Name="idCurrentUser" />
+          </Key>
+          <Property Name="idCurrentUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUser" Type="Int32" Nullable="false" />
+          <Property Name="SaveOrNo" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_CurrentUser_Users" FromRole="CurrentUser" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="idDepartment" />
+          </Key>
+          <Property Name="idDepartment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Departments" FromRole="Departments" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="DoorDirections">
+          <Key>
+            <PropertyRef Name="idDoorDirection" />
+          </Key>
+          <Property Name="idDoorDirection" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleDoorDirection" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Doors" Relationship="Self.FK_Doors_DoorDirections" FromRole="DoorDirections" ToRole="Doors" />
+        </EntityType>
+        <EntityType Name="Doors">
+          <Key>
+            <PropertyRef Name="idDoor" />
+          </Key>
+          <Property Name="idDoor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleDoor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idDoorDirection" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AccessLevelsDoors" Relationship="Self.FK_AccessLevelsDoors_Doors" FromRole="Doors" ToRole="AccessLevelsDoors" />
+          <NavigationProperty Name="DoorDirections" Relationship="Self.FK_Doors_DoorDirections" FromRole="Doors" ToRole="DoorDirections" />
+          <NavigationProperty Name="DoorsEmployees" Relationship="Self.FK_DoorsEmployees_Doors" FromRole="Doors" ToRole="DoorsEmployees" />
+        </EntityType>
+        <EntityType Name="DoorsEmployees">
+          <Key>
+            <PropertyRef Name="idDoorEmployee" />
+          </Key>
+          <Property Name="idDoorEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDoor" Type="Int32" Nullable="false" />
+          <Property Name="idEmployee" Type="Int32" Nullable="false" />
+          <Property Name="EnterDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Doors" Relationship="Self.FK_DoorsEmployees_Doors" FromRole="DoorsEmployees" ToRole="Doors" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_DoorsEmployees_Employees" FromRole="DoorsEmployees" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="idEmployee" />
+          </Key>
+          <Property Name="idEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Secondname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idDepartment" Type="Int32" Nullable="false" />
+          <Property Name="idOrganization" Type="Int32" Nullable="false" />
+          <Property Name="idPost" Type="Int32" Nullable="false" />
+          <Property Name="photo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Employees_Departments" FromRole="Employees" ToRole="Departments" />
+          <NavigationProperty Name="DoorsEmployees" Relationship="Self.FK_DoorsEmployees_Employees" FromRole="Employees" ToRole="DoorsEmployees" />
+          <NavigationProperty Name="Organizations" Relationship="Self.FK_Employees_Organizations" FromRole="Employees" ToRole="Organizations" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK_Employees_Posts" FromRole="Employees" ToRole="Posts" />
+          <NavigationProperty Name="Keys" Relationship="Self.FK_Keys_Employees" FromRole="Employees" ToRole="Keys" />
+        </EntityType>
+        <EntityType Name="Keys">
+          <Key>
+            <PropertyRef Name="idKey" />
+          </Key>
+          <Property Name="idKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idEmployee" Type="Int32" Nullable="false" />
+          <Property Name="KeyCard" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idAccessLevel" Type="Int32" Nullable="false" />
+          <Property Name="idWorkSchedule" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Keys_Employees" FromRole="Keys" ToRole="Employees" />
+          <NavigationProperty Name="WorkSchedules" Relationship="Self.FK_Keys_WorkSchedules" FromRole="Keys" ToRole="WorkSchedules" />
+        </EntityType>
+        <EntityType Name="Organizations">
+          <Key>
+            <PropertyRef Name="idOrganization" />
+          </Key>
+          <Property Name="idOrganization" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrgName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="INN" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Organizations" FromRole="Organizations" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="idPayment" />
+          </Key>
+          <Property Name="idPayment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTypePayment" Type="Int32" Nullable="false" />
+          <Property Name="idProduct" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Payments_Products" FromRole="Payments" ToRole="Products" />
+          <NavigationProperty Name="TypesPayments" Relationship="ACMSModel.FK_Payments_TypesPayments" FromRole="Payments" ToRole="TypesPayments" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="idPermission" />
+          </Key>
+          <Property Name="idPermission" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitlePersmission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Permissions" FromRole="Permissions" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="idPost" />
+          </Key>
+          <Property Name="idPost" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitlePost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Posts" FromRole="Posts" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="idProduct" />
+          </Key>
+          <Property Name="idProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cost" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK_Payments_Products" FromRole="Products" ToRole="Payments" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TypesPayments">
+          <Key>
+            <PropertyRef Name="idTypePayment" />
+          </Key>
+          <Property Name="idTypePayment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Payments" Relationship="ACMSModel.FK_Payments_TypesPayments" FromRole="TypesPayments" ToRole="Payments" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="idUser" />
+          </Key>
+          <Property Name="idUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idPermission" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CurrentUser" Relationship="Self.FK_CurrentUser_Users" FromRole="Users" ToRole="CurrentUser" />
+          <NavigationProperty Name="Permissions" Relationship="Self.FK_Users_Permissions" FromRole="Users" ToRole="Permissions" />
+          <NavigationProperty Name="BlackList" Relationship="ACMSModel.FK_BlackList_Users" FromRole="Users" ToRole="BlackList" />
+        </EntityType>
+        <EntityType Name="WorkSchedules">
+          <Key>
+            <PropertyRef Name="idWorkSchedule" />
+          </Key>
+          <Property Name="idWorkSchedule" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TitleSchedule" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDay" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndDay" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Keys" Relationship="Self.FK_Keys_WorkSchedules" FromRole="WorkSchedules" ToRole="Keys" />
+        </EntityType>
+        <Association Name="FK_AccessLevelsDoors_AccessLevels">
+          <End Role="AccessLevels" Type="Self.AccessLevels" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AccessLevelsDoors" Type="Self.AccessLevelsDoors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccessLevels">
+              <PropertyRef Name="idAccessLevel" />
+            </Principal>
+            <Dependent Role="AccessLevelsDoors">
+              <PropertyRef Name="idAccessLevel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessLevelsDoors_Doors">
+          <End Role="Doors" Type="Self.Doors" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AccessLevelsDoors" Type="Self.AccessLevelsDoors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doors">
+              <PropertyRef Name="idDoor" />
+            </Principal>
+            <Dependent Role="AccessLevelsDoors">
+              <PropertyRef Name="idDoor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CurrentUser_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CurrentUser" Type="Self.CurrentUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="CurrentUser">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="idDepartment" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="idDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doors_DoorDirections">
+          <End Role="DoorDirections" Type="Self.DoorDirections" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Doors" Type="Self.Doors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DoorDirections">
+              <PropertyRef Name="idDoorDirection" />
+            </Principal>
+            <Dependent Role="Doors">
+              <PropertyRef Name="idDoorDirection" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoorsEmployees_Doors">
+          <End Role="Doors" Type="Self.Doors" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DoorsEmployees" Type="Self.DoorsEmployees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doors">
+              <PropertyRef Name="idDoor" />
+            </Principal>
+            <Dependent Role="DoorsEmployees">
+              <PropertyRef Name="idDoor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DoorsEmployees_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DoorsEmployees" Type="Self.DoorsEmployees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="DoorsEmployees">
+              <PropertyRef Name="idEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Organizations">
+          <End Role="Organizations" Type="Self.Organizations" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organizations">
+              <PropertyRef Name="idOrganization" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="idOrganization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Posts">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="idPost" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="idPost" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keys_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Keys" Type="Self.Keys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="idEmployee" />
+            </Principal>
+            <Dependent Role="Keys">
+              <PropertyRef Name="idEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keys_WorkSchedules">
+          <End Role="WorkSchedules" Type="Self.WorkSchedules" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Keys" Type="Self.Keys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkSchedules">
+              <PropertyRef Name="idWorkSchedule" />
+            </Principal>
+            <Dependent Role="Keys">
+              <PropertyRef Name="idWorkSchedule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payments_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="idTypePayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Permissions">
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permissions">
+              <PropertyRef Name="idPermission" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="idPermission" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ACMSEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessLevels" EntityType="Self.AccessLevels" />
+          <EntitySet Name="AccessLevelsDoors" EntityType="Self.AccessLevelsDoors" />
+          <EntitySet Name="BlackList" EntityType="Self.BlackList" />
+          <EntitySet Name="CurrentUser" EntityType="Self.CurrentUser" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" />
+          <EntitySet Name="DoorDirections" EntityType="Self.DoorDirections" />
+          <EntitySet Name="Doors" EntityType="Self.Doors" />
+          <EntitySet Name="DoorsEmployees" EntityType="Self.DoorsEmployees" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Keys" EntityType="Self.Keys" />
+          <EntitySet Name="Organizations" EntityType="Self.Organizations" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TypesPayments" EntityType="Self.TypesPayments" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="WorkSchedules" EntityType="Self.WorkSchedules" />
+          <AssociationSet Name="FK_AccessLevelsDoors_AccessLevels" Association="Self.FK_AccessLevelsDoors_AccessLevels">
+            <End Role="AccessLevels" EntitySet="AccessLevels" />
+            <End Role="AccessLevelsDoors" EntitySet="AccessLevelsDoors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccessLevelsDoors_Doors" Association="Self.FK_AccessLevelsDoors_Doors">
+            <End Role="Doors" EntitySet="Doors" />
+            <End Role="AccessLevelsDoors" EntitySet="AccessLevelsDoors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CurrentUser_Users" Association="Self.FK_CurrentUser_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CurrentUser" EntitySet="CurrentUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Departments" Association="Self.FK_Employees_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doors_DoorDirections" Association="Self.FK_Doors_DoorDirections">
+            <End Role="DoorDirections" EntitySet="DoorDirections" />
+            <End Role="Doors" EntitySet="Doors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoorsEmployees_Doors" Association="Self.FK_DoorsEmployees_Doors">
+            <End Role="Doors" EntitySet="Doors" />
+            <End Role="DoorsEmployees" EntitySet="DoorsEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DoorsEmployees_Employees" Association="Self.FK_DoorsEmployees_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="DoorsEmployees" EntitySet="DoorsEmployees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Organizations" Association="Self.FK_Employees_Organizations">
+            <End Role="Organizations" EntitySet="Organizations" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Posts" Association="Self.FK_Employees_Posts">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keys_Employees" Association="Self.FK_Keys_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Keys" EntitySet="Keys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keys_WorkSchedules" Association="Self.FK_Keys_WorkSchedules">
+            <End Role="WorkSchedules" EntitySet="WorkSchedules" />
+            <End Role="Keys" EntitySet="Keys" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_Products" Association="Self.FK_Payments_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Permissions" Association="Self.FK_Users_Permissions">
+            <End Role="Permissions" EntitySet="Permissions" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payments_TypesPayments" Association="ACMSModel.FK_Payments_TypesPayments">
+            <End Role="TypesPayments" EntitySet="TypesPayments" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BlackList_Users" Association="ACMSModel.FK_BlackList_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="BlackList" EntitySet="BlackList" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Payments_TypesPayments">
+          <End Type="ACMSModel.TypesPayments" Role="TypesPayments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ACMSModel.Payments" Role="Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesPayments">
+              <PropertyRef Name="idTypePayment" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="idTypePayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BlackList_Users">
+          <End Type="ACMSModel.Users" Role="Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ACMSModel.BlackList" Role="BlackList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="idUser" />
+            </Principal>
+            <Dependent Role="BlackList">
+              <PropertyRef Name="idUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ACMSModelContainer" CdmEntityContainer="ACMSEntities1">
+          <EntitySetMapping Name="AccessLevels">
+            <EntityTypeMapping TypeName="ACMSModel.AccessLevels">
+              <MappingFragment StoreEntitySet="AccessLevels">
+                <ScalarProperty Name="idAccessLevel" ColumnName="idAccessLevel" />
+                <ScalarProperty Name="TitleLevel" ColumnName="TitleLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccessLevelsDoors">
+            <EntityTypeMapping TypeName="ACMSModel.AccessLevelsDoors">
+              <MappingFragment StoreEntitySet="AccessLevelsDoors">
+                <ScalarProperty Name="idAccessLevelDoor" ColumnName="idAccessLevelDoor" />
+                <ScalarProperty Name="idAccessLevel" ColumnName="idAccessLevel" />
+                <ScalarProperty Name="idDoor" ColumnName="idDoor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlackList">
+            <EntityTypeMapping TypeName="ACMSModel.BlackList">
+              <MappingFragment StoreEntitySet="BlackList">
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="idBlackList" ColumnName="idBlackList" />
+                <ScalarProperty Name="EnterDate" ColumnName="EnterDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentUser">
+            <EntityTypeMapping TypeName="ACMSModel.CurrentUser">
+              <MappingFragment StoreEntitySet="CurrentUser">
+                <ScalarProperty Name="idCurrentUser" ColumnName="idCurrentUser" />
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="SaveOrNo" ColumnName="SaveOrNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="ACMSModel.Departments">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="idDepartment" ColumnName="idDepartment" />
+                <ScalarProperty Name="TitleDepartment" ColumnName="TitleDepartment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoorDirections">
+            <EntityTypeMapping TypeName="ACMSModel.DoorDirections">
+              <MappingFragment StoreEntitySet="DoorDirections">
+                <ScalarProperty Name="idDoorDirection" ColumnName="idDoorDirection" />
+                <ScalarProperty Name="TitleDoorDirection" ColumnName="TitleDoorDirection" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Doors">
+            <EntityTypeMapping TypeName="ACMSModel.Doors">
+              <MappingFragment StoreEntitySet="Doors">
+                <ScalarProperty Name="idDoor" ColumnName="idDoor" />
+                <ScalarProperty Name="TitleDoor" ColumnName="TitleDoor" />
+                <ScalarProperty Name="idDoorDirection" ColumnName="idDoorDirection" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoorsEmployees">
+            <EntityTypeMapping TypeName="ACMSModel.DoorsEmployees">
+              <MappingFragment StoreEntitySet="DoorsEmployees">
+                <ScalarProperty Name="idDoorEmployee" ColumnName="idDoorEmployee" />
+                <ScalarProperty Name="idDoor" ColumnName="idDoor" />
+                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
+                <ScalarProperty Name="EnterDateTime" ColumnName="EnterDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="ACMSModel.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Secondname" ColumnName="Secondname" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="idDepartment" ColumnName="idDepartment" />
+                <ScalarProperty Name="idOrganization" ColumnName="idOrganization" />
+                <ScalarProperty Name="idPost" ColumnName="idPost" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keys">
+            <EntityTypeMapping TypeName="ACMSModel.Keys">
+              <MappingFragment StoreEntitySet="Keys">
+                <ScalarProperty Name="idKey" ColumnName="idKey" />
+                <ScalarProperty Name="idEmployee" ColumnName="idEmployee" />
+                <ScalarProperty Name="KeyCard" ColumnName="KeyCard" />
+                <ScalarProperty Name="idAccessLevel" ColumnName="idAccessLevel" />
+                <ScalarProperty Name="idWorkSchedule" ColumnName="idWorkSchedule" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="ACMSModel.Organizations">
+              <MappingFragment StoreEntitySet="Organizations">
+                <ScalarProperty Name="idOrganization" ColumnName="idOrganization" />
+                <ScalarProperty Name="OrgName" ColumnName="OrgName" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="ACMSModel.Payments">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="idPayment" ColumnName="idPayment" />
+                <ScalarProperty Name="idTypePayment" ColumnName="idTypePayment" />
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="ACMSModel.Permissions">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="idPermission" ColumnName="idPermission" />
+                <ScalarProperty Name="TitlePersmission" ColumnName="TitlePersmission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="ACMSModel.Posts">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="idPost" ColumnName="idPost" />
+                <ScalarProperty Name="TitlePost" ColumnName="TitlePost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ACMSModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="idProduct" ColumnName="idProduct" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ACMSModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypesPayments">
+            <EntityTypeMapping TypeName="ACMSModel.TypesPayments">
+              <MappingFragment StoreEntitySet="TypesPayments">
+                <ScalarProperty Name="idTypePayment" ColumnName="idTypePayment" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ACMSModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="idUser" ColumnName="idUser" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="idPermission" ColumnName="idPermission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkSchedules">
+            <EntityTypeMapping TypeName="ACMSModel.WorkSchedules">
+              <MappingFragment StoreEntitySet="WorkSchedules">
+                <ScalarProperty Name="idWorkSchedule" ColumnName="idWorkSchedule" />
+                <ScalarProperty Name="TitleSchedule" ColumnName="TitleSchedule" />
+                <ScalarProperty Name="StartDay" ColumnName="StartDay" />
+                <ScalarProperty Name="EndDay" ColumnName="EndDay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

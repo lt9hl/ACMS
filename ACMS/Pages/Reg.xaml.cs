@@ -27,12 +27,9 @@ namespace ACMS.Pages
         public Reg()
         {
             InitializeComponent();
+            
         }
 
-        private void toReg_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void toLogin_Click(object sender, RoutedEventArgs e)
         {
@@ -45,25 +42,40 @@ namespace ACMS.Pages
             {
                 string inpPass = Pass.Password;
                 string inpRepPass = RepPass.Password;
-                string inpLogin = Login.Text.Trim();
+                string inpLogin = LoginI.Text.Trim();
                 string inpEmail = Email.Text.Trim();
 
                 var user = AppConnect.modelOdb.Users.FirstOrDefault(x => x.Login == inpLogin);
 
                 Pass.Background = Brushes.Transparent;
                 RepPass.Background = Brushes.Transparent;
-                Login.Background = Brushes.Transparent;
+                LoginI.Background = Brushes.Transparent;
                 Email.Background = Brushes.Transparent;
 
                 if (user != null)
                 {
-                    Login.Background = new SolidColorBrush(Color.FromRgb(99, 32, 36));
+                    LoginI.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
                     MessageBox.Show("Имя пользователя занято", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
+                else if (inpLogin.Length == 0)
+                {
+                    LoginI.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
+                    MessageBox.Show("Заполните имя пользователя", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (inpEmail.Length != 0)
+                {
+                    if (!inpEmail.Contains("@") || !inpEmail.Contains("."))
+                {
+                        MessageBox.Show("Почта заполнена неправильно", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        Email.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
+                    }
+                }
+                
                 else if (inpPass.Length < 8 || inpRepPass.Length < 8)
                 {
-                    Pass.Background = new SolidColorBrush(Color.FromRgb(99, 32, 36));
-                    RepPass.Background = new SolidColorBrush(Color.FromRgb(99, 32, 36));
+                    Pass.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
+                    RepPass.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
 
                     MessageBox.Show("Длинна пароля меньше 8 символов", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -73,42 +85,56 @@ namespace ACMS.Pages
                     {
                         Login = inpLogin,
                         Password = inpPass,
-                        email = inpEmail
+                        email = inpEmail,
+                        idPermission = 2
                     };
+
                     AppConnect.modelOdb.Users.Add(userOdb);
                     AppConnect.modelOdb.SaveChanges();
-                    MessageBox.Show($"Пользователь {inpLogin} добавлен","Уведомление", MessageBoxButton.OK,MessageBoxImage.Information);
+
+                    MessageBox.Show($"Пользователь {inpLogin} добавлен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                     NavigationService.GoBack();
                 }
-            }catch(Exception ex)
+            } catch (Exception ex)
             {
-                MessageBox.Show($"Критическая ошибка в работе приложения\n{ex.Message}","Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Критическая ошибка в работе приложения\n{ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
-            
+
+
         }
 
         private void RepPass_PasswordChanged(object sender, RoutedEventArgs e)
         {
             checkPass();
         }
-           
+
         void checkPass()
         {
-            if (RepPass.Password != Pass.Password)
-                RegistrDone.IsEnabled = false;
-            else
+            if (RepPass.Password == Pass.Password && RepPass.Password != "" && LoginI.Text != "" && Email.Text != "")
                 RegistrDone.IsEnabled = true;
+            else
+                RegistrDone.IsEnabled = false;
         }
 
         private void Pass_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            checkPass();
+            
         }
 
-        private void toLogin_MouseEnter(object sender, MouseEventArgs e)
-        {
 
+        private void LoginI_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        private void Email_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           
+        }
+
+        private void RepPass_PasswordChanged_1(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
