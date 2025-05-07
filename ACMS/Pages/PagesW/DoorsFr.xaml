@@ -51,17 +51,7 @@
                     <Label Content="Двери" Foreground="#d2c2b7" FontSize="25" Margin="10 10 0 0"/>
 
                     <WrapPanel>
-                        <Button x:Name="addButt" Style="{StaticResource ButtCom}"  Template="{DynamicResource ButtonTemplateAuth}">
-                            <Image Source="\Images\workIcons\add.png"/>
-                        </Button>
-
-                        <Button x:Name="editButt" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
-                            <Image Source="\Images\workIcons\edit.png"/>
-                        </Button>
-
-                        <Button x:Name="delButt" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
-                            <Image Source="\Images\workIcons\trash.png"/>
-                        </Button>
+                        
                     </WrapPanel>
                 </StackPanel>
 

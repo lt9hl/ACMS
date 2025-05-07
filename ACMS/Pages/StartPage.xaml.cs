@@ -30,8 +30,6 @@ namespace ACMS.Pages
             InitializeComponent();
             AppFrame.FWork = FrStart;
 
-
-
             if (currentUser.Users.Permissions.TitlePersmission == "Гость")
             {
                 ButtUsers.IsEnabled = false;

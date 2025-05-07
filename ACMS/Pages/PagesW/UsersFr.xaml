@@ -94,8 +94,6 @@
                             <Image x:Name="ImageLockUnlock" Source="\Images\workIcons\lock.png"/>
                         </Button>
 
-                        <TextBox BorderBrush="#6d8228" FontSize="12" Foreground="#d2c2b7" BorderThickness="0 0 0 1" x:Name="searchBox"  Margin="400 0 0 0" Width="150" Height="20" Template="{DynamicResource ButtonTemplateBox}"  Style="{StaticResource textBoxSearch}" TextChanged="searchBox_TextChanged"/>
-                    
                     </StackPanel>
                 </StackPanel>
 

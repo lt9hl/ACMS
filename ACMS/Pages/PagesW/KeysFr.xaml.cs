@@ -1,5 +1,7 @@
 ﻿using ACMS.ApplicationData;
 using ACMS.Pages.PagesW.AddEdit;
+using Aspose.BarCode.Generation;
+using iTextSharp.text;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,12 @@ namespace ACMS.Pages.PagesW
             InitializeComponent();
 
             listAllKeys.ItemsSource = AppConnect.modelOdb.Keys.ToList();
+
+            sortSelect.Items.Add("Сортировка");
+            sortSelect.SelectedIndex = 0;
+
+            sortSelect.Items.Add("По имени");
+            sortSelect.Items.Add("По фамилии");
 
         }
 
@@ -72,17 +80,71 @@ namespace ACMS.Pages.PagesW
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            listAllKeys.ItemsSource = keysList();
         }
 
-        private void sortSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
 
-        }
-
+        int count = 0;
         private void SortButtClick(object sender, RoutedEventArgs e)
         {
-
+            count++;
+            listAllKeys.ItemsSource = keysList();
         }
+        private void sortSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            listAllKeys.ItemsSource = keysList();
+        }
+        Keys[] keysList()
+        {
+            try
+            {
+
+                var allKeysList = AppConnect.modelOdb.Keys.ToList();
+
+                if (searchBox.Text.Length > 0)
+                {
+                    allKeysList = allKeysList.Where(x => x.Employees.Firstname.ToLower().Contains(searchBox.Text.ToLower()) || x.Employees.Secondname.ToLower().Contains(searchBox.Text.ToLower()) || x.KeyCard.ToLower().Contains(searchBox.Text.ToLower())).ToList();
+                }
+
+                if (sortSelect.SelectedIndex > 0)
+                {
+                    switch (sortSelect.SelectedIndex)
+                    {
+                        case 1:
+                            allKeysList = allKeysList.OrderBy(x => x.Employees.Firstname).ToList();
+                            break;
+                        case 2:
+                            allKeysList = allKeysList.OrderBy(x => x.Employees.Secondname).ToList();
+                            break;
+
+                    }
+                }
+
+
+                if (count % 2 == 1)
+                {
+                    switch (sortSelect.SelectedIndex)
+                    {
+                        case 1:
+                            allKeysList = allKeysList.OrderByDescending(x => x.Employees.Firstname).ToList();
+                            break;
+                        case 2:
+                            allKeysList = allKeysList.OrderByDescending(x => x.Employees.Secondname).ToList();
+                            break;
+                    }
+
+                }
+
+                return allKeysList.ToArray();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при работе приложения {ex}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+
     }
 }

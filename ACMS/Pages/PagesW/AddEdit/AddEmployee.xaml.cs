@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using ACMS.ApplicationData;
+using iTextSharp.text;
 using Microsoft.Win32;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -67,7 +68,8 @@ namespace ACMS.Pages.PagesW.AddEdit
                 PostName.SelectedItem = currEmployee.Posts.TitlePost;
                 DepName.SelectedItem = currEmployee.Departments.TitleDepartment;
                 OrgName.SelectedItem = currEmployee.Organizations.OrgName;
-                l
+  
+               
             }
         }
 
@@ -127,26 +129,17 @@ namespace ACMS.Pages.PagesW.AddEdit
         public string fullPathToFile;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFileDialog();
+            var openFileDialog = new OpenFileDialog();
+            
+                openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
 
-            dialog.Title = "Выберите фото";
-            bool? result = dialog.ShowDialog();
-
-            if (result == true)
-            {
-                
-                fullPathToFile = dialog.FileName;
-
-                employeePhotoSelect.Source = new BitmapImage(new Uri(fullPathToFile));
-                PathPhotoTextBox.Text = fullPathToFile;
-
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                
-                //FileInfo selectedFile = new FileInfo(dialog); 
-
-                //fullPathToFile.CopyTo(@"C:\SomeDir\hta.txt",true);
-
-            }
+                if(openFileDialog.ShowDialog() == true )
+                {
+                    employeePhotoSelect.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                    PathPhotoTextBox.Text = openFileDialog.FileName;
+                }
+            
         }
     }
 }

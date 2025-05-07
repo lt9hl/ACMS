@@ -62,6 +62,11 @@
                         <Button x:Name="SavePdf" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}" Click="SavePdf_Click">
                             <Image Source="\Images\workIcons\download.png"/>
                         </Button>
+                        
+                        <Button x:Name="qrButton" Click="qrForSelected" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
+                            <Image x:Name="qrImage" Source="\Images\workIcons\qrcode.png"/>
+                        </Button>
+
 
                     </WrapPanel>
                 </StackPanel>

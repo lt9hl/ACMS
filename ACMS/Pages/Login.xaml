@@ -170,7 +170,7 @@
                 </WrapPanel>
 
                 <StackPanel Margin="50 20 0 0" Background="Transparent">
-                    <Label Content="Авторизация" Style="{StaticResource AuthText}" Foreground="#d2c2b7" />
+                    <Label Content="Авторизация" Style="{StaticResource AuthText}" Foreground="#d2c2b7" Opacity="1" />
                     <Label Content="Войдите, чтобы продолжить" Style="{StaticResource labelSt}" />
                 </StackPanel>
 

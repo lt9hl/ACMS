@@ -62,12 +62,17 @@ namespace ACMS.Pages
                     var whiteList = AppConnect.modelOdb.BlackList.FirstOrDefault(x => x.idUser == inputUser.idUser);
                     if (whiteList == null)
                     {
-                        var newCurrentUser = new CurrentUser()
+                        var newCurrentUser = new CurrentUser();
+                        if (CheckRememMe.IsChecked == false)
                         {
-                            idUser = inputUser.idUser,
-                            SaveOrNo = 0
-                        };
+                            newCurrentUser = new CurrentUser()
+                            {
+                                idUser = inputUser.idUser,
+                                SaveOrNo = 0
+                            };
+                            AppConnect.modelOdb.CurrentUser.Add(newCurrentUser);
 
+                        }
                         if (CheckRememMe.IsChecked == true)
                         {
                             newCurrentUser = new CurrentUser
@@ -75,10 +80,10 @@ namespace ACMS.Pages
                                 idUser = inputUser.idUser,
                                 SaveOrNo = 1
                             };
+                            AppConnect.modelOdb.CurrentUser.Add(newCurrentUser);
 
                         }
 
-                        AppConnect.modelOdb.CurrentUser.Add(newCurrentUser);
                         AppConnect.modelOdb.SaveChanges();
 
                         NavigationService.Navigate(new StartPage());

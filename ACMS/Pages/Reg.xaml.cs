@@ -27,7 +27,7 @@ namespace ACMS.Pages
         public Reg()
         {
             InitializeComponent();
-            RegistrDone.IsEnabled = false;
+            
         }
 
 
@@ -57,18 +57,27 @@ namespace ACMS.Pages
                     LoginI.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
                     MessageBox.Show("Имя пользователя занято", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
+                else if (inpLogin.Length == 0)
+                {
+                    LoginI.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
+                    MessageBox.Show("Заполните имя пользователя", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (inpEmail.Length != 0)
+                {
+                    if (!inpEmail.Contains("@") || !inpEmail.Contains("."))
+                {
+                        MessageBox.Show("Почта заполнена неправильно", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        Email.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
+                    }
+                }
+                
                 else if (inpPass.Length < 8 || inpRepPass.Length < 8)
                 {
-                    Pass.Background = Brushes.DarkRed;
-                    RepPass.Background = Brushes.DarkRed;
+                    Pass.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
+                    RepPass.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
 
                     MessageBox.Show("Длинна пароля меньше 8 символов", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else if (!inpEmail.Contains("@") || !inpEmail.Contains("."))
-                {
-                    MessageBox.Show("Почта заполнена неправильно", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    Email.Background = Brushes.DarkRed;
                 }
                 else
                 {
@@ -109,23 +118,23 @@ namespace ACMS.Pages
 
         private void Pass_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            checkPass();
+            
         }
 
 
         private void LoginI_TextChanged(object sender, TextChangedEventArgs e)
         {
-            checkPass();
+            
         }
 
         private void Email_TextChanged(object sender, TextChangedEventArgs e)
         {
-            checkPass();
+           
         }
 
         private void RepPass_PasswordChanged_1(object sender, RoutedEventArgs e)
         {
-            checkPass();
+            
         }
     }
 }

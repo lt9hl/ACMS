@@ -106,15 +106,13 @@
                             <Image x:Name="ImDel" Source="\Images\workIcons\trash.png"/>
                         </Button>
 
-                        <ComboBox x:Name="sortSelect" Template="{DynamicResource ComboBoxTemplateAdd}" Width="110" Style="{StaticResource comboStyle}" Margin="20 0 0 0 " SelectionChanged="sortSelect_SelectionChanged"/>
-
-                        <ComboBox x:Name="postSelect" Template="{DynamicResource ComboBoxTemplateAdd}" Width="100" Style="{StaticResource comboStyle}" Margin="20 0 0 0 " SelectionChanged="sortSelect_SelectionChanged"/>
+                        <ComboBox x:Name="sortSelect"  Template="{DynamicResource ComboBoxTemplateAdd}" Width="110" Style="{StaticResource comboStyle}" Margin="20 0 0 0 " SelectionChanged="sortSelect_SelectionChanged"/>
 
                         <Button x:Name="SortButt" Click="SortButtClick" Style="{StaticResource ButtCom}" Template="{DynamicResource ButtonTemplateAuth}">
                             <Image x:Name="ImSort" Source="\Images\icons\sort.png"/>
                         </Button>
 
-                        <TextBox BorderBrush="#6d8228" FontSize="12" Foreground="#d2c2b7" BorderThickness="0 0 0 1" x:Name="searchBox"  Margin="40 0 0 0" Width="150" Height="20" Template="{DynamicResource ButtonTemplateBox}"  Style="{StaticResource textBoxSearch}" TextChanged="searchBox_TextChanged"/>
+                        <TextBox BorderBrush="#6d8228" FontSize="12" Foreground="#d2c2b7" BorderThickness="0 0 0 1" x:Name="searchBox"  Margin="190 0 0 0" Width="150" Height="20" Template="{DynamicResource ButtonTemplateBox}"  Style="{StaticResource textBoxSearch}" TextChanged="searchBox_TextChanged"/>
                     </StackPanel>
                 </StackPanel>
 

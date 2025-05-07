@@ -129,10 +129,10 @@
                             
                                 <StackPanel>
                                 <WrapPanel>
-                                    <Image x:Name="employeePhotoSelect" Width="80" Height="80" Margin="15 15 0 0" />
+                                    <Image x:Name="employeePhotoSelect" Source="{Binding photo}" Width="80" Height="80" Margin="15 15 0 0" />
                                     <WrapPanel Margin="0 5 0 0">
-                                        <TextBox x:Name="PathPhotoTextBox" Width="150" BorderBrush="Transparent" Height="25" Style="{StaticResource TextBoxLog}" Template="{DynamicResource TextBoxTemplateTB}"/>
-                                        <Button Style="{StaticResource ButtAuth}" Content="Обзор.." Width="70" Height="25" Margin="5 0 0 0 " Click="Button_Click"/>
+                                        <TextBox x:Name="PathPhotoTextBox" Width="150" BorderBrush="Transparent" Height="25" Style="{StaticResource TextBoxLog}" Template="{DynamicResource TextBoxTemplateTB}" IsEnabled="False"/>
+                                        <Button Style="{StaticResource ButtAuth}" Template="{DynamicResource ButtonTemplateAuth}" Content="Обзор.." Width="70" Height="25" Margin="5 0 0 0 " Click="Button_Click"/>
                                     </WrapPanel>
                                 </WrapPanel>
                                 

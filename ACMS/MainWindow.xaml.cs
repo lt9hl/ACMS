@@ -21,6 +21,7 @@ using System.Data.Sql;
 using ACMS.Pages;
 
 using ACMS.ApplicationData;
+using System.Reflection;
 
 namespace ACMS
 {
@@ -35,6 +36,8 @@ namespace ACMS
         public MainWindow()
         {
             InitializeComponent();
+            
+
             AppConnect.modelOdb = new ACMSEntities1();
             AppFrame.PMain = frMain;
 

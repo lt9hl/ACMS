@@ -65,31 +65,7 @@ namespace ACMS.Pages.PagesW
             }
             
         }
-        private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            listUsers.ItemsSource = findEmpl();  
-        }
-        Employees[] findEmpl()
-        {
-            try
-            {
-                var empAll = AppConnect.modelOdb.Employees.ToList();
-                if (searchBox.Text.Length > 0)
-                {
-                    empAll = empAll.Where(x => x.Firstname.ToLower().Contains(searchBox.Text.ToLower()) || x.Secondname.ToLower().Contains(searchBox.Text.ToLower()) ||
-                    x.Patronymic.ToLower().Contains(searchBox.Text.ToLower()) || x.Posts.TitlePost.ToLower().Contains(searchBox.Text.ToLower()) ||
-                    x.Organizations.OrgName.ToLower().Contains(searchBox.Text.ToLower())).ToList();
-
-                }
-                return empAll.ToArray();
-
-            }
-            catch
-            {
-                MessageBox.Show("Ошибка при работе приложения", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
-            }
-        }
+        
 
         private void unlockLockSelected(object sender, RoutedEventArgs e)
         {

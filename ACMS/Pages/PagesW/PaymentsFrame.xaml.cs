@@ -22,6 +22,8 @@ using Image = iTextSharp.text.Image;
 using System.Windows.Markup;
 using Paragraph = iTextSharp.text.Paragraph;
 using Microsoft.Win32;
+using Aspose.BarCode.Generation;
+
 
 namespace ACMS.Pages.PagesW
 {
@@ -51,9 +53,9 @@ namespace ACMS.Pages.PagesW
             }
             else
             {
-                MessageBox.Show("Выберите чек","Предупреждение",MessageBoxButton.OK,MessageBoxImage.Information);
+                MessageBox.Show("Выберите чек", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            
+
         }
         private void CreatePDF(Payments pay)
         {
@@ -61,22 +63,22 @@ namespace ACMS.Pages.PagesW
 
             try
             {
-                
+
 
                 PdfWriter.GetInstance(doc, new FileStream("D:\\output.pdf", FileMode.Create));
 
                 doc.Open();
-                BaseFont basefont = BaseFont.CreateFont("C:\\Windows\\Fonts\\Arial.ttf",BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+                BaseFont basefont = BaseFont.CreateFont("C:\\Windows\\Fonts\\Arial.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
 
-                Font font = new Font(basefont,12);
-                Font fontImportant = new Font(basefont,12,1,BaseColor.RED);
+                Font font = new Font(basefont, 12);
+                Font fontImportant = new Font(basefont, 12, 1, BaseColor.RED);
                 Font fontBig = new Font(basefont, 25, 3, BaseColor.BLACK);
                 Paragraph paragraphMain = new Paragraph("Список товаров", fontBig);
                 paragraphMain.Alignment = Element.ALIGN_CENTER;
                 doc.Add(paragraphMain);
                 decimal sum = 0;
 
-                doc.Add(new Paragraph("Номер чека: " + pay.idPayment.ToString(),fontImportant));
+                doc.Add(new Paragraph("Номер чека: " + pay.idPayment.ToString(), fontImportant));
                 doc.Add(new Paragraph("Тип оплаты: " + pay.TypesPayments.Title.ToString(), font));
                 doc.Add(new Paragraph("Название: " + pay.Products.Title.ToString(), font));
                 doc.Add(new Paragraph("Стоимость: " + pay.Products.Cost, font));
@@ -86,13 +88,13 @@ namespace ACMS.Pages.PagesW
                 paragraph.Alignment = Element.ALIGN_RIGHT;
                 doc.Add(paragraph);
 
-                MessageBox.Show("Документ сохранен","Уведомление",MessageBoxButton.OK,MessageBoxImage.None);
+                MessageBox.Show("Документ сохранен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.None);
             }
-            catch( DocumentException de)
+            catch (DocumentException de)
             {
                 MessageBox.Show(de.Message);
             }
-            catch(IOException ioe)
+            catch (IOException ioe)
             {
                 MessageBox.Show(ioe.Message);
             }
@@ -125,6 +127,41 @@ namespace ACMS.Pages.PagesW
                     MessageBox.Show("Произошла ошибка при удалении", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
+        }
+        int a = 1;
+
+
+        private void qrForSelected(object sender, RoutedEventArgs e)
+        {
+            var ObjForRemoving = listPayment.SelectedItems.Cast<Payments>().ToList();
+            if(ObjForRemoving.Count > 1)
+            {
+                MessageBox.Show("Необходимо выбрать только один чек", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (ObjForRemoving.Count == 0)
+            {
+                MessageBox.Show("Необходимо выбрать чек", "Внимание", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                BitmapImage bitmap = new BitmapImage();
+                BarcodeGenerator gen = new BarcodeGenerator(EncodeTypes.QR, "https://cs15.pikabu.ru/post_img/big/2024/10/30/9/1730297297188366746.png");
+                gen.Parameters.Barcode.XDimension.Pixels = 34;
+
+                string dataDir = @"D:\";
+                gen.Save(dataDir + a.ToString() + "1.png", BarCodeImageFormat.Png);
+
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(dataDir + a.ToString() + "1.png");
+
+                bitmap.EndInit();
+
+                a++;
+
+                MessageBox.Show("Документ сохранен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.None);
+            }
+            
+
         }
     }
 }
