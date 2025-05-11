@@ -47,39 +47,38 @@ namespace ACMS.Pages
 
                 var user = AppConnect.modelOdb.Users.FirstOrDefault(x => x.Login == inpLogin);
 
-                Pass.Background = Brushes.Transparent;
-                RepPass.Background = Brushes.Transparent;
-                LoginI.Background = Brushes.Transparent;
-                Email.Background = Brushes.Transparent;
+                Pass.BorderBrush = Brushes.Transparent;
+                RepPass.BorderBrush = Brushes.Transparent;
+                LoginI.BorderBrush = Brushes.Transparent;
+                Email.BorderBrush = Brushes.Transparent;
 
                 if (user != null)
                 {
-                    LoginI.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
+                    LoginI.BorderBrush = new SolidColorBrush(Color.FromRgb(202, 63, 40));
                     MessageBox.Show("Имя пользователя занято", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                else if (inpLogin.Length == 0)
+                if (inpLogin.Length == 0)
                 {
-                    LoginI.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
-                    MessageBox.Show("Заполните имя пользователя", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    LoginI.BorderBrush = new SolidColorBrush(Color.FromRgb(202, 63, 40));
                 }
-                else if (inpEmail.Length != 0)
+                if (inpEmail.Length != 0)
                 {
                     if (!inpEmail.Contains("@") || !inpEmail.Contains("."))
                 {
                         MessageBox.Show("Почта заполнена неправильно", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        Email.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
+                        Email.BorderBrush = new SolidColorBrush(Color.FromRgb(202, 63, 40));
                     }
                 }
                 
-                else if (inpPass.Length < 8 || inpRepPass.Length < 8)
+                if (inpPass.Length < 8 || inpRepPass.Length < 8)
                 {
-                    Pass.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
-                    RepPass.Background = new SolidColorBrush(Color.FromRgb(202, 63, 40));
+                    Pass.BorderBrush = new SolidColorBrush(Color.FromRgb(202, 63, 40));
+                    RepPass.BorderBrush = new SolidColorBrush(Color.FromRgb(202, 63, 40));
 
                     MessageBox.Show("Длинна пароля меньше 8 символов", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                else
+                if(inpPass.Length > 8 && inpRepPass.Length > 8 && inpPass == inpRepPass && inpLogin.Length != 0 && user == null)
                 {
                     Users userOdb = new Users()
                     {

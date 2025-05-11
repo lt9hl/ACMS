@@ -120,7 +120,7 @@
     <Grid>
         <WrapPanel>
             <StackPanel Margin="10 10 0 0">
-                <ComboBox x:Name="employeesName" Margin="20 0 0 15" Width="127"/>
+                <ComboBox x:Name="employeesName" Margin="20 0 0 15" Width="127" Foreground="#d2c2b7" Template="{DynamicResource ComboBoxTemplateAdd}"/>
                 <Button VerticalAlignment="Bottom" x:Name="SelectReport" Style="{StaticResource ButtAuth}" Template="{DynamicResource ButtonTemplateAuth}" Content="Сформировать отчет" Width="127" Click="SelectReport_Click"/>
             </StackPanel>
 
