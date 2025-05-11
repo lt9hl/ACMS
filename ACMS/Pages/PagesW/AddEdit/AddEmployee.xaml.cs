@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,9 +28,9 @@ namespace ACMS.Pages.PagesW.AddEdit
     /// </summary>
     public partial class AddEmployee : Page
     {
-        public Employees currEmployee;
+        public Employees currentEmployee;
 
-        public AddEmployee(Employees selecteEmployee)
+        public AddEmployee(Employees selectedEmployee)
         {
             InitializeComponent();
 
@@ -52,35 +53,34 @@ namespace ACMS.Pages.PagesW.AddEdit
                 OrgName.Items.Add(i.OrgName);
             }
 
-            if (selecteEmployee == null)
+            if (selectedEmployee == null)
             {
                 labelEmpl.Content = "Создание";
                 addNewEmplButt.Content = "Создать";
             }
-            else if (selecteEmployee != null)
+            else if (selectedEmployee != null)
             {
-                currEmployee = selecteEmployee;
+                currentEmployee = selectedEmployee;
                 labelEmpl.Content = "Изменение";
                 addNewEmplButt.Content = "Изменить";
-                secondNInp.Text = currEmployee.Secondname;
-                NameInp.Text = currEmployee.Firstname;
-                PatronymicInp.Text = currEmployee.Patronymic;
-                PostName.SelectedItem = currEmployee.Posts.TitlePost;
-                DepName.SelectedItem = currEmployee.Departments.TitleDepartment;
-                OrgName.SelectedItem = currEmployee.Organizations.OrgName;
-  
-               
+                secondNInp.Text = currentEmployee.Secondname;
+                NameInp.Text = currentEmployee.Firstname;
+                PatronymicInp.Text = currentEmployee.Patronymic;
+                PostName.SelectedItem = currentEmployee.Posts.TitlePost;
+                DepName.SelectedItem = currentEmployee.Departments.TitleDepartment;
+                OrgName.SelectedItem = currentEmployee.Organizations.OrgName;
+                
+
             }
         }
-
+        Employees employeeAddEdit = new Employees();
         private void addNewEmpl(object sender, RoutedEventArgs e)
         {
             try
             {
-                Employees employeeAddEdit = new Employees();
 
-                if (currEmployee != null)
-                    employeeAddEdit = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.idEmployee == currEmployee.idEmployee);
+                if (currentEmployee != null)
+                    employeeAddEdit = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.idEmployee == currentEmployee.idEmployee);
 
                 employeeAddEdit.Firstname = NameInp.Text;
                 employeeAddEdit.Secondname = secondNInp.Text;
@@ -89,7 +89,7 @@ namespace ACMS.Pages.PagesW.AddEdit
                 employeeAddEdit.idOrganization = AppConnect.modelOdb.Organizations.FirstOrDefault(x => x.OrgName == OrgName.Text).idOrganization;
                 employeeAddEdit.idDepartment = AppConnect.modelOdb.Departments.FirstOrDefault(x => x.TitleDepartment == DepName.Text).idDepartment;
 
-                if (currEmployee != null)
+                if (currentEmployee != null)
                     MessageBox.Show($"Данные пользователя изменены", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 else
                 {
@@ -129,17 +129,34 @@ namespace ACMS.Pages.PagesW.AddEdit
         public string fullPathToFile;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var openFileDialog = new OpenFileDialog();
-            
-                openFileDialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
-                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            OpenFileDialog dialog = new OpenFileDialog();
 
-                if(openFileDialog.ShowDialog() == true )
-                {
-                    employeePhotoSelect.Source = new BitmapImage(new Uri(openFileDialog.FileName));
-                    PathPhotoTextBox.Text = openFileDialog.FileName;
-                }
-            
+            dialog.ShowDialog();
+
+            string directory;
+            directory = dialog.FileName.Substring(dialog.FileName.LastIndexOf('\\'), dialog.FileName.Length - dialog.FileName.Substring(0, dialog.FileName.LastIndexOf('\\')).Length);
+
+            if (File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\EmployeesPhoto\\Standart\\" + directory))
+            {
+                File.Delete(System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\EmployeesPhoto\\Standart\\" + directory);
+            }
+
+            File.Copy(dialog.FileName, System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\EmployeesPhoto\\Standart\\" + directory);
+
+            employeeAddEdit = AppConnect.modelOdb.Employees.FirstOrDefault(x => x.idEmployee == currentEmployee.idEmployee);
+
+            employeeAddEdit.photo = System.AppDomain.CurrentDomain.BaseDirectory + "..\\..\\Images\\EmployeesPhoto\\Standart\\" + directory;
+            AppConnect.modelOdb.SaveChanges();
+
+            if (employeeAddEdit != null)
+            {
+                DataContext = null;
+                DataContext = employeeAddEdit;
+            }
+            var namePicture = employeeAddEdit.photo;
+            employeePhotoSelect.Source = new BitmapImage(new Uri(namePicture));
+
+
         }
     }
 }

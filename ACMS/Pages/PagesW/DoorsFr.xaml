@@ -55,7 +55,7 @@
                     </WrapPanel>
                 </StackPanel>
 
-                <ListView BorderBrush="#292919"  x:Name="listDoors" Height="390" Margin="10 0" Style="{StaticResource ListSt}">
+                <ListView BorderBrush="#292919"  x:Name="listDoors" Height="390" Margin="10 10 0 0" Style="{StaticResource ListSt}">
 
                     <ListView.ItemTemplate>
 
@@ -77,7 +77,7 @@
 
                                 <StackPanel Height="20" Grid.Column="1" Width="auto" Orientation="Vertical" HorizontalAlignment="Left">
                                     <TextBlock Width="auto" TextWrapping="Wrap" Height="auto">
-                                             <Run Text="{Binding DoorDirections.TitleDD}"/>
+                                             <Run Text="{Binding DoorDirections.TitleDoorDirection}"/>
                                     </TextBlock>
                                 </StackPanel>
 
